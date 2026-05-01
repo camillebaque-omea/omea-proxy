@@ -13,7 +13,7 @@ export default async function handler(req, res) {
   const response = await fetch(decodeURIComponent(url), {
     method: req.method,
     headers: {
-      'Authorization': 'Bearer patuF2mAnMjZOlGud.d10916dff91993663a472d845ab8c4b4422fe772b2d588a56a2f5d9b6de2d87a',
+      'Authorization': 'Bearer ' + process.env.AIRTABLE_TOKEN,
       'Content-Type': 'application/json'
     },
     body: req.method !== 'GET' && req.method !== 'OPTIONS' ? JSON.stringify(req.body) : undefined
