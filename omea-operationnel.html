@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ômea — Checklist opérationnelle</title>
+<title>Ômea — Checklist Opérationnelle</title>
 <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@300;400;500;800&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -121,9 +121,7 @@ nav{background:var(--ink);padding:0 1.5rem;display:flex;align-items:center;justi
 
 <div class="content">
 
-<!-- ══════════════════════════════════════════
-     01 — DÉMARRAGE
-══════════════════════════════════════════ -->
+<!-- PHASE 01 : DÉMARRAGE -->
 <div class="phase">
   <div class="ph-head" onclick="togglePhase('p1')">
     <span class="ph-num">01</span>
@@ -158,230 +156,125 @@ nav{background:var(--ink);padding:0 1.5rem;display:flex;align-items:center;justi
       <div class="task" id="t-p1-wa"><label class="tw"><input type="checkbox" data-phase="p1" onchange="updateAll();toggleDone('t-p1-wa',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Groupe WhatsApp terrain créé</label><div class="th">Nom : Team Terrain · [Logement] · [Ville]</div><div class="dt">✓</div></div></div>
       <div class="task" id="t-p1-fiche"><label class="tw"><input type="checkbox" data-phase="p1" onchange="updateAll();toggleDone('t-p1-fiche',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Fiche logement réalisée</label>
         <div class="sub">
-          <div class="sub-item"><label class="sl">Accès expliqué (immeuble, boîte à clés, codes)</label></div>
-          <div class="sub-item"><label class="sl">Places de parking indiquées</label></div>
-          <div class="sub-item"><label class="sl">Accès poubelles indiqué</label></div>
-          <div class="sub-item"><label class="sl">Espace de stockage montré</label></div>
-          <div class="sub-item"><label class="sl">Accès Beds24 transmis et testés</label></div>
+          <div class="sub-item" id="si-p1-g"><label class="tw"><input type="checkbox" onchange="toggleSub('si-p1-g',this)"><div class="scb"></div></label><label class="sl">Accès expliqué (immeuble, boîte à clés, codes)</label></div>
+          <div class="sub-item" id="si-p1-h"><label class="tw"><input type="checkbox" onchange="toggleSub('si-p1-h',this)"><div class="scb"></div></label><label class="sl">Places de parking indiquées</label></div>
+          <div class="sub-item" id="si-p1-i"><label class="tw"><input type="checkbox" onchange="toggleSub('si-p1-i',this)"><div class="scb"></div></label><label class="sl">Accès poubelles indiqué</label></div>
+          <div class="sub-item" id="si-p1-j"><label class="tw"><input type="checkbox" onchange="toggleSub('si-p1-j',this)"><div class="scb"></div></label><label class="sl">Espace de stockage montré</label></div>
+          <div class="sub-item" id="si-p1-k"><label class="tw"><input type="checkbox" onchange="toggleSub('si-p1-k',this)"><div class="scb"></div></label><label class="sl">Accès Beds24 transmis et testés</label></div>
         </div>
       <div class="dt">✓</div></div></div>
     </div>
-    <div class="sec-label">Achats à prévoir</div>
+    <div class="sec-label">Achats & Programmation</div>
     <div class="tasks">
       <div class="task" id="t-p1-7"><label class="tw"><input type="checkbox" data-phase="p1" onchange="updateAll();toggleDone('t-p1-7',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Boîte à clés TTLock achetée</label><div class="dt">✓</div></div></div>
       <div class="task" id="t-p1-8"><label class="tw"><input type="checkbox" data-phase="p1" onchange="updateAll();toggleDone('t-p1-8',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Boîte à clés de secours achetée</label><div class="dt">✓</div></div></div>
       <div class="task" id="t-p1-9"><label class="tw"><input type="checkbox" data-phase="p1" onchange="updateAll();toggleDone('t-p1-9',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Bridge TTLock acheté</label><div class="dt">✓</div></div></div>
-      <div class="task" id="t-p1-10"><label class="tw"><input type="checkbox" data-phase="p1" onchange="updateAll();toggleDone('t-p1-10',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Piles AAA longue durée achetées — Energizer+200 ou équivalent</label><div class="th">Stock boîte à clés + stock logement</div><div class="dt">✓</div></div></div>
-      <div class="task" id="t-p1-11"><label class="tw"><input type="checkbox" data-phase="p1" onchange="updateAll();toggleDone('t-p1-11',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Ampoules de rechange achetées</label><div class="dt">✓</div></div></div>
-    </div>
-    <div class="sec-label">Démarches administratives</div>
-    <div class="tasks">
-      <div class="task" id="t-p1-12"><label class="tw"><input type="checkbox" data-phase="p1" onchange="updateAll();toggleDone('t-p1-12',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Inscription Topizy — réalisée et confirmée</label><div class="dt">✓</div></div></div>
-      <div class="task" id="t-p1-13"><label class="tw"><input type="checkbox" data-phase="p1" onchange="updateAll();toggleDone('t-p1-13',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Assurance Cover — formulaire client signé</label><div class="dt">✓</div></div></div>
-      <div class="task" id="t-p1-14"><label class="tw"><input type="checkbox" data-phase="p1" onchange="updateAll();toggleDone('t-p1-14',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Assurance Cover — souscription réalisée sur PassPass</label><div class="dt">✓</div></div></div>
-      <div class="task" id="t-p1-15"><label class="tw"><input type="checkbox" data-phase="p1" onchange="updateAll();toggleDone('t-p1-15',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Assurance Cover — souscription confirmée</label><div class="dt">✓</div></div></div>
-    </div>
-    <div class="sec-label">Programmation Boîte à clés</div>
-    <div class="tasks">
-      <div class="task" id="t-p1-16"><label class="tw"><input type="checkbox" data-phase="p1" onchange="updateAll();toggleDone('t-p1-16',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Boîte à clés ajoutée TTLock</label><div class="dt">✓</div></div></div>
-      <div class="task" id="t-p1-17"><label class="tw"><input type="checkbox" data-phase="p1" onchange="updateAll();toggleDone('t-p1-17',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Heure synchronisée</label><div class="dt">✓</div></div></div>
-      <div class="task" id="t-p1-18"><label class="tw"><input type="checkbox" data-phase="p1" onchange="updateAll();toggleDone('t-p1-18',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Codes créés (Proprio/Ménage/Conciergerie)</label><div class="dt">✓</div></div></div>
-      <div class="task" id="t-p1-19"><label class="tw"><input type="checkbox" data-phase="p1" onchange="updateAll();toggleDone('t-p1-19',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Piles AAA installées</label><div class="dt">✓</div></div></div>
-      <div class="task" id="t-p1-20"><label class="tw"><input type="checkbox" data-phase="p1" onchange="updateAll();toggleDone('t-p1-20',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Piles AAA de secours stockées</label><div class="dt">✓</div></div></div>
+      <div class="task" id="t-p1-12"><label class="tw"><input type="checkbox" data-phase="p1" onchange="updateAll();toggleDone('t-p1-12',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Inscription Topizy & Assurance Cover signée/souscrite</label><div class="dt">✓</div></div></div>
+      <div class="task" id="t-p1-16"><label class="tw"><input type="checkbox" data-phase="p1" onchange="updateAll();toggleDone('t-p1-16',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Boîte à clés synchronisée TTLock (Codes & Piles OK)</label><div class="dt">✓</div></div></div>
     </div>
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════
-     02 — AIRBNB
-══════════════════════════════════════════ -->
+<!-- PHASE 02 : AIRBNB -->
 <div class="phase">
   <div class="ph-head" onclick="togglePhase('p2')">
     <span class="ph-num">02</span>
-    <span class="ph-name">Airbnb</span>
-    <span class="ph-badge b-e" id="st-p2">0 / 29</span>
+    <span class="ph-name">Airbnb — Paramétrage complet</span>
+    <span class="ph-badge b-e" id="st-p2">0 / 11</span>
     <span class="ph-arr" id="arr-p2">▾</span>
   </div>
   <div class="ph-body" id="body-p2">
-    <div class="sec-label">Compte propriétaire</div>
+    <div class="sec-label">Configuration Compte Co-hôte</div>
     <div class="tasks">
-      <div class="task" id="t-p2-2"><label class="tw"><input type="checkbox" data-phase="p2" onchange="updateAll();toggleDone('t-p2-2',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Numéro de téléphone vérifié</label><div class="dt">✓</div></div></div>
-      <div class="task" id="t-p2-3"><label class="tw"><input type="checkbox" data-phase="p2" onchange="updateAll();toggleDone('t-p2-3',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Photo de profil ajoutée</label><div class="dt">✓</div></div></div>
-      <div class="task" id="t-p2-4"><label class="tw"><input type="checkbox" data-phase="p2" onchange="updateAll();toggleDone('t-p2-4',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Informations fiscales renseignées</label><div class="path">Paramètres → Impôts et informations fiscales</div><div class="dt">✓</div></div></div>
-      <div class="task" id="t-p2-5"><label class="tw"><input type="checkbox" data-phase="p2" onchange="updateAll();toggleDone('t-p2-5',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Coordonnées bancaires renseignées (RIB propriétaire)</label><div class="path">Paramètres → Paiements et versements → Ajouter un mode de versement</div><div class="dt">✓</div></div></div>
-      <div class="task" id="t-p2-6"><label class="tw"><input type="checkbox" data-phase="p2" onchange="updateAll();toggleDone('t-p2-6',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Outils professionnels activés</label><div class="path">Paramètres → Outils pour professionnels de l'hébergement → Activer</div><div class="dt">✓</div></div></div>
-      <div class="task" id="t-p2-7"><label class="tw"><input type="checkbox" data-phase="p2" onchange="updateAll();toggleDone('t-p2-7',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Frais de service uniques activés</label><div class="path">Paramètres → Paiements → Frais de service → Frais uniques</div><div class="dt">✓</div></div></div>
-      <div class="task" id="t-p2-27"><label class="tw"><input type="checkbox" data-phase="p2" onchange="updateAll();toggleDone('t-p2-27',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Co-hôte Ômea ajouté — accès intégral</label><div class="path">Annonce → Co-hôtes → Inviter → Email Ômea → Accès intégral</div><div class="dt">✓</div></div></div>
-      <div class="task" id="t-p2-28"><label class="tw"><input type="checkbox" data-phase="p2" onchange="updateAll();toggleDone('t-p2-28',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Invitation co-hôte acceptée depuis Ômea</label><div class="dt">✓</div></div></div>
-      <div class="task" id="t-p2-num"><label class="tw"><input type="checkbox" data-phase="p2" onchange="updateAll();toggleDone('t-p2-num',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Ajouter le numéro Ômea dans la sécurité</label><div class="path">Compte → Sécurité → Ajouter le numéro</div><div class="dt">✓</div></div></div>
-    </div>
-
-    <div class="sec-label">Compte co-hôte — Mon logement (liste non exhaustive, vérifier tous les champs)</div>
-    <div class="tasks">
-      <div class="task" id="t-p2-8"><label class="tw"><input type="checkbox" data-phase="p2" onchange="updateAll();toggleDone('t-p2-8',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Photos organisées et importées</label>
+      <div class="task" id="t-p2-8"><label class="tw"><input type="checkbox" data-phase="p2" onchange="updateAll();toggleDone('t-p2-8',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Compte co-hôte — Mon logement (liste non exhaustive, vérifier tous les champs)</label>
         <div class="sub">
-          <div class="sub-item" id="si-p2-a"><label class="tw"><input type="checkbox" onchange="toggleSub('si-p2-a',this)"><div class="scb"></div></label><label class="sl">Photos d'extérieur et points d'intérêt incluses</label></div>
-          <div class="sub-item" id="si-p2-b"><label class="tw"><input type="checkbox" onchange="toggleSub('si-p2-b',this)"><div class="scb"></div></label><label class="sl">Description sur chaque photo + visuelle</label></div>
-          <div class="sub-item" id="si-p2-c"><label class="tw"><input type="checkbox" onchange="toggleSub('si-p2-c',this)"><div class="scb"></div></label><label class="sl">Équipement pièce ajouté</label></div>
-          <div class="sub-item" id="si-p2-c2"><label class="tw"><input type="checkbox" onchange="toggleSub('si-p2-c2',this)"><div class="scb"></div></label><label class="sl">Photo couverture sélectionnée</label></div>
+          <div class="sub-item" id="si-p2-a"><label class="tw"><input type="checkbox" onchange="toggleSub('si-p2-a',this)"><div class="scb"></div></label><label class="sl">Photos importées, organisées et tagguées avec descriptions</label></div>
+          <div class="sub-item" id="si-p2-b"><label class="tw"><input type="checkbox" onchange="toggleSub('si-p2-b',this)"><div class="scb"></div></label><label class="sl">Titre et descriptions rédigés (Prompt Claude)</label></div>
+          <div class="sub-item" id="si-p2-c"><label class="tw"><input type="checkbox" onchange="toggleSub('si-p2-c',this)"><div class="scb"></div></label><label class="sl">Règlement intérieur et sécurité paramétrés</label></div>
         </div>
       <div class="dt">✓</div></div></div>
-      <div class="task" id="t-p2-11"><label class="tw"><input type="checkbox" data-phase="p2" onchange="updateAll();toggleDone('t-p2-11',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Titre rédigé</label><div class="dt">✓</div></div></div>
-      <div class="task" id="t-p2-12"><label class="tw"><input type="checkbox" data-phase="p2" onchange="updateAll();toggleDone('t-p2-12',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Type de logement / voyageurs renseignés</label><div class="dt">✓</div></div></div>
-      <div class="task" id="t-p2-13"><label class="tw"><input type="checkbox" data-phase="p2" onchange="updateAll();toggleDone('t-p2-13',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Description rédigée (basée sur le prompt Claude dédié)</label><div class="dt">✓</div></div></div>
-      <div class="task" id="t-p2-15"><label class="tw"><input type="checkbox" data-phase="p2" onchange="updateAll();toggleDone('t-p2-15',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Équipements cochés</label><div class="dt">✓</div></div></div>
-      <div class="task" id="t-p2-14"><label class="tw"><input type="checkbox" data-phase="p2" onchange="updateAll();toggleDone('t-p2-14',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Description du quartier rédigée (basée sur le prompt Claude dédié)</label><div class="dt">✓</div></div></div>
-      <div class="task" id="t-p2-17"><label class="tw"><input type="checkbox" data-phase="p2" onchange="updateAll();toggleDone('t-p2-17',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Emplacement précis affiché</label><div class="dt">✓</div></div></div>
-      <div class="task" id="t-p2-29"><label class="tw"><input type="checkbox" data-phase="p2" onchange="updateAll();toggleDone('t-p2-29',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Réservation instantanée activée</label><div class="dt">✓</div></div></div>
-      <div class="task" id="t-p2-19i"><label class="tw"><input type="checkbox" data-phase="p2" onchange="updateAll();toggleDone('t-p2-19i',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Règlement intérieur paramétré</label>
-        <div class="th">Animaux non acceptés (sauf accord propriétaire) · Événements non autorisés · Non-fumeur · Calme 22h–8h · Photos commerciales autorisées · Arrivée 16h–23h / Départ avant 11h · Nombre de voyageurs renseigné</div><div class="dt">✓</div></div></div>
-      <div class="task" id="t-p2-20"><label class="tw"><input type="checkbox" data-phase="p2" onchange="updateAll();toggleDone('t-p2-20',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Sécurité voyageurs complétée</label>
-        <div class="sub">
-          <div class="sub-item"><label class="sl">Consignes de sécurité renseignées</label></div>
-          <div class="sub-item"><label class="sl">Dispositifs de sécurité renseignés</label></div>
-          <div class="sub-item"><label class="sl">Informations sur le logement complétées</label></div>
-        </div>
-      <div class="dt">✓</div></div></div>
-      <div class="task" id="t-p2-21"><label class="tw"><input type="checkbox" data-phase="p2" onchange="updateAll();toggleDone('t-p2-21',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Conditions d'annulation paramétrées</label>
-        <div class="th">Démarrage → flexible. Logement mature avec peu d'annulations → limité.</div><div class="dt">✓</div></div></div>
-      <div class="task" id="t-p2-32"><label class="tw"><input type="checkbox" data-phase="p2" onchange="updateAll();toggleDone('t-p2-32',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Lien personnalisé créé</label><div class="dt">✓</div></div></div>
+      <div class="task" id="t-p2-26"><label class="tw"><input type="checkbox" data-phase="p2" onchange="updateAll();toggleDone('t-p2-26',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Guide d'arrivée complété (s'inspirer des annonces existantes — compléter tous les champs)</label><div class="dt">✓</div></div></div>
     </div>
-
-    <div class="sec-label">Compte co-hôte — Guide d'arrivée</div>
+    <div class="sec-label">Compte co-hôte — Paramètres de l'annonce</div>
     <div class="tasks">
-      <div class="task" id="t-p2-26"><label class="tw"><input type="checkbox" data-phase="p2" onchange="updateAll();toggleDone('t-p2-26',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Guide d'arrivée complété (s'inspirer des annonces existantes — compléter tous les champs)</label>
-        <div class="sub">
-          <div class="sub-item"><label class="sl">Heure d'arrivée et de départ</label></div>
-          <div class="sub-item"><label class="sl">Itinéraire depuis point de repère</label></div>
-          <div class="sub-item"><label class="sl">Procédure d'arrivée — boîte à clés, code reçu la veille au maximum</label></div>
-          <div class="sub-item"><label class="sl">Informations Wifi</label></div>
-          <div class="sub-item"><label class="sl">Instructions de départ (serviettes, ordures, lumières, verrouillage)</label></div>
-        </div>
-      <div class="dt">✓</div></div></div>
+        <div class="task" id="t-p2-regle"><label class="tw"><input type="checkbox" data-phase="p2" onchange="updateAll();toggleDone('t-p2-regle',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Numéro d'enregistrement mairie renseigné sur l'annonce ⚠ très important</label><div class="path">⚙ roue crantée → Réglementation</div><div class="dt">✓</div></div></div>
+        <div class="task" id="t-p2-moteur"><label class="tw"><input type="checkbox" data-phase="p2" onchange="updateAll();toggleDone('t-p2-moteur',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Annonce affichée dans les moteurs de recherche</label><div class="path">Paramètres → Confidentialité → Annonces</div><div class="dt">✓</div></div></div>
     </div>
-
-    <div class="sec-label">Compte co-hôte — Paramètres de l'annonce — ⚙ roue crantée à droite du guide d'arrivée</div>
-    <div class="tasks">
-      <div class="task" id="t-p2-31"><label class="tw"><input type="checkbox" data-phase="p2" onchange="updateAll();toggleDone('t-p2-31',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Numéro d'enregistrement mairie renseigné sur l'annonce ⚠ très important</label><div class="path">⚙ → Réglementation</div><div class="dt">✓</div></div></div>
-      <div class="task" id="t-p2-search"><label class="tw"><input type="checkbox" data-phase="p2" onchange="updateAll();toggleDone('t-p2-search',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Annonce affichée dans les moteurs de recherche</label><div class="path">Paramètres → Confidentialité → Annonces</div><div class="dt">✓</div></div></div>
-    </div>
-
     <div class="sec-label">Compte co-hôte — Calendrier</div>
     <div class="tasks">
-      <div class="task" id="t-p2-lastmin"><label class="tw"><input type="checkbox" data-phase="p2" onchange="updateAll();toggleDone('t-p2-lastmin',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Délai de réservation de dernière minute fixé</label>
-        <div class="th">Jusqu'à quelle heure le jour même peut-on réserver ? Valider avec prestataire. <br>⚠ Paramétrage à confirmer — procédure non encore définie sur Airbnb, Beds24 et Booking</div><div class="dt">✓</div></div></div>
-      <div class="task" id="t-p2-22"><label class="tw"><input type="checkbox" data-phase="p2" onchange="updateAll();toggleDone('t-p2-22',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Frais de ménage paramétrés</label><div class="path">Annonce → Tarifs → Frais supplémentaires → Frais de ménage</div><div class="dt">✓</div></div></div>
+        <div class="task" id="t-p2-lastmin"><label class="tw"><input type="checkbox" data-phase="p2" onchange="updateAll();toggleDone('t-p2-lastmin',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Délai de réservation de dernière minute fixé</label><div class="th">Jusqu'à quelle heure le jour même peut-on réserver ? Valider avec prestataire.</div><div class="path">⚠ Paramétrage à confirmer — procédure non encore définie sur Airbnb, Beds24 et Booking</div><div class="dt">✓</div></div></div>
+        <div class="task" id="t-p2-menage"><label class="tw"><input type="checkbox" data-phase="p2" onchange="updateAll();toggleDone('t-p2-menage',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Frais de ménage paramétrés</label><div class="path">Annonce → Tarifs → Frais supplémentaires → Frais de ménage</div><div class="dt">✓</div></div></div>
     </div>
-
-    <div class="sec-label">Connexion à faire dans Beds24</div>
+    <div class="sec-label">Liaisons</div>
     <div class="tasks">
-      <div class="task" id="t-p2-34"><label class="tw"><input type="checkbox" data-phase="p2" onchange="updateAll();toggleDone('t-p2-34',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Compte propriétaire connecté à Beds24</label><div class="dt">✓</div></div></div>
-      <div class="task" id="t-p2-35"><label class="tw"><input type="checkbox" data-phase="p2" onchange="updateAll();toggleDone('t-p2-35',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Mapping et synchronisation réalisés</label><div class="dt">✓</div></div></div>
-      <div class="task" id="t-p2-36"><label class="tw"><input type="checkbox" data-phase="p2" onchange="updateAll();toggleDone('t-p2-36',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Frais de ménage paramétrés dans Beds24</label><div class="path">Airbnb → Content → Specific → Custom → Cleaning fee 00.00</div><div class="dt">✓</div></div></div>
+        <div class="task" id="t-p2-34"><label class="tw"><input type="checkbox" data-phase="p2" onchange="updateAll();toggleDone('t-p2-34',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Compte propriétaire connecté à Beds24</label><div class="dt">✓</div></div></div>
+        <div class="task" id="t-p2-35"><label class="tw"><input type="checkbox" data-phase="p2" onchange="updateAll();toggleDone('t-p2-35',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Mapping et synchronisation réalisés</label><div class="dt">✓</div></div></div>
+        <div class="task" id="t-p2-36"><label class="tw"><input type="checkbox" data-phase="p2" onchange="updateAll();toggleDone('t-p2-36',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Frais de ménage paramétrés dans Beds24</label><div class="path">Airbnb → Content → Specific → Custom → Cleaning fee 00.00</div><div class="dt">✓</div></div></div>
     </div>
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════
-     03 — BOOKING
-══════════════════════════════════════════ -->
+<!-- PHASE 03 : BOOKING -->
 <div class="phase">
   <div class="ph-head" onclick="togglePhase('p3')">
     <span class="ph-num">03</span>
-    <span class="ph-name">Booking</span>
-    <span class="ph-badge b-e" id="st-p3">0 / 18</span>
+    <span class="ph-name">Booking — Configuration Interne</span>
+    <span class="ph-badge b-e" id="st-p3">0 / 12</span>
     <span class="ph-arr" id="arr-p3">▾</span>
   </div>
   <div class="ph-body" id="body-p3">
-    <div class="sec-label">Connexion compte propriétaire</div>
+    <div class="sec-label">Annonce — Paramétrage Co-hôte</div>
     <div class="tasks">
-      <div class="task" id="t-p3-1"><label class="tw"><input type="checkbox" data-phase="p3" onchange="updateAll();toggleDone('t-p3-1',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Identifiants propriétaire récupérés — session planifiée</label><div class="dt">✓</div></div></div>
-      <div class="task" id="t-p3-5"><label class="tw"><input type="checkbox" data-phase="p3" onchange="updateAll();toggleDone('t-p3-5',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Annonce créée depuis l'annonce Airbnb de référence</label><div class="dt">✓</div></div></div>
-      <div class="task" id="t-p3-24"><label class="tw"><input type="checkbox" data-phase="p3" onchange="updateAll();toggleDone('t-p3-24',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Promotion de démarrage activée — 15%</label><div class="dt">✓</div></div></div>
-      <div class="task" id="t-p3-3"><label class="tw"><input type="checkbox" data-phase="p3" onchange="updateAll();toggleDone('t-p3-3',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Compte Ômea ajouté en utilisateur</label><div class="path">Compte → Ajouter utilisateurs → Email + identifiant Ômea</div><div class="dt">✓</div></div></div>
-      <div class="task" id="t-p3-2"><label class="tw"><input type="checkbox" data-phase="p3" onchange="updateAll();toggleDone('t-p3-2',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Prix bloqué à 5 000 €/nuit (avant ouverture)</label><div class="dt">✓</div></div></div>
-      <div class="task" id="t-p3-4"><label class="tw"><input type="checkbox" data-phase="p3" onchange="updateAll();toggleDone('t-p3-4',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Formulaires KYC 1 et 2 complétés</label><div class="dt">✓</div></div></div>
-      <div class="task" id="t-p3-3b"><label class="tw"><input type="checkbox" data-phase="p3" onchange="updateAll();toggleDone('t-p3-3b',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Compte -> Sécurité -> Ajouter le numéro Ômea</label><div class="dt">✓</div></div></div>
-    </div>
-
-    <div class="sec-label">Annonce — Paramétrage depuis compte co-hôte (liste non exhaustive, vérifier tous les champs de la partie Etablissement)</div>
-    <div class="tasks">
-      <div class="task" id="t-p3-n1"><label class="tw"><input type="checkbox" data-phase="p3" onchange="updateAll();toggleDone('t-p3-n1',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Infos et status de l'établissement</label><div class="dt">✓</div></div></div>
-      <div class="task" id="t-p3-n2"><label class="tw"><input type="checkbox" data-phase="p3" onchange="updateAll();toggleDone('t-p3-n2',this)"><div class="cb"></div></label><div class="ti"><label class="tl">TVA, taxes et frais (répondre "Non" à tout)</label><div class="dt">✓</div></div></div>
-      <div class="task" id="t-p3-n3"><label class="tw"><input type="checkbox" data-phase="p3" onchange="updateAll();toggleDone('t-p3-n3',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Photos importées et tagguées</label><div class="dt">✓</div></div></div>
-      <div class="task" id="t-p3-n4"><label class="tw"><input type="checkbox" data-phase="p3" onchange="updateAll();toggleDone('t-p3-n4',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Conditions de l'établissement</label>
+      <div class="task" id="t-p3-full"><label class="tw"><input type="checkbox" data-phase="p3" onchange="updateAll();toggleDone('t-p3-full',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Vérifier tous les champs de la partie Etablissement (liste non exhaustive)</label>
         <div class="sub">
-          <div class="sub-item"><label class="sl">Frais de ménage par séjour (non compris)</label></div>
-          <div class="sub-item"><label class="sl">Dépôt de garantie (mettre le max possible généralement 300€)</label></div>
-          <div class="sub-item"><label class="sl">Remise des clés : Boîtier TTLock · marque renseignée · photos chargées · instructions complètes</label></div>
+          <div class="sub-item" id="si-p3-a"><label class="tw"><input type="checkbox" onchange="toggleSub('si-p3-a',this)"><div class="scb"></div></label><label class="sl">Infos et status / TVA (Répondre "Non" à tout)</label></div>
+          <div class="sub-item" id="si-p3-b"><label class="tw"><input type="checkbox" onchange="toggleSub('si-p3-b',this)"><div class="scb"></div></label><label class="sl">Photos importées et tagguées</label></div>
+          <div class="sub-item" id="si-p3-c"><label class="tw"><input type="checkbox" onchange="toggleSub('si-p3-c',this)"><div class="scb"></div></label><label class="sl">Équipements et détails lits renseignés</label></div>
+          <div class="sub-item" id="si-p3-d"><label class="tw"><input type="checkbox" onchange="toggleSub('si-p3-d',this)"><div class="scb"></div></label><label class="sl">Votre profil : Descriptions rédigées (FR)</label></div>
         </div>
       <div class="dt">✓</div></div></div>
-      <div class="task" id="t-p3-n5"><label class="tw"><input type="checkbox" data-phase="p3" onchange="updateAll();toggleDone('t-p3-n5',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Conditions d'annulation paramétrées</label>
+      <div class="task" id="t-p3-cond"><label class="tw"><input type="checkbox" data-phase="p3" onchange="updateAll();toggleDone('t-p3-cond',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Conditions de l'établissement paramétrées</label>
         <div class="sub">
-          <div class="sub-item"><label class="sl">Démarrage → flexible. Logement mature → limité. Option non-remboursable uniquement si beaucoup d'annulations constatées.</label></div>
+          <div class="sub-item" id="si-p3-e"><label class="tw"><input type="checkbox" onchange="toggleSub('si-p3-e',this)"><div class="scb"></div></label><label class="sl">Frais de ménage par séjour (non compris)</label></div>
+          <div class="sub-item" id="si-p3-f"><label class="tw"><input type="checkbox" onchange="toggleSub('si-p3-f',this)"><div class="scb"></div></label><label class="sl">Dépôt de garantie (max possible généralement 300€)</label></div>
+          <div class="sub-item" id="si-p3-g"><label class="tw"><input type="checkbox" onchange="toggleSub('si-p3-g',this)"><div class="scb"></div></label><label class="sl">Remise clés : TTLock + photos + instructions complètes</label></div>
+          <div class="sub-item" id="si-p3-h"><label class="tw"><input type="checkbox" onchange="toggleSub('si-p3-h',this)"><div class="scb"></div></label><label class="sl">Annulation : Flexible (début) ou Limité (mature)</label></div>
         </div>
       <div class="dt">✓</div></div></div>
-      <div class="task" id="t-p3-n6"><label class="tw"><input type="checkbox" data-phase="p3" onchange="updateAll();toggleDone('t-p3-n6',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Équipements et services cochés</label><div class="dt">✓</div></div></div>
-      <div class="task" id="t-p3-n7"><label class="tw"><input type="checkbox" data-phase="p3" onchange="updateAll();toggleDone('t-p3-n7',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Hébergements : Numéro de déclaration ⚠ prioritaire</label><div class="dt">✓</div></div></div>
-      <div class="task" id="t-p3-n8"><label class="tw"><input type="checkbox" data-phase="p3" onchange="updateAll();toggleDone('t-p3-n8',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Détail des hébergements et lits</label><div class="dt">✓</div></div></div>
-      <div class="task" id="t-p3-n9"><label class="tw"><input type="checkbox" data-phase="p3" onchange="updateAll();toggleDone('t-p3-n9',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Votre profil : Descriptions rédigées (FR)</label><div class="dt">✓</div></div></div>
+      <div class="task" id="t-p3-mrie"><label class="tw"><input type="checkbox" data-phase="p3" onchange="updateAll();toggleDone('t-p3-mrie',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Hébergements : Numéro de déclaration ⚠ prioritaire</label><div class="dt">✓</div></div></div>
     </div>
-
     <div class="sec-label">Calendrier et Connexion</div>
     <div class="tasks">
-      <div class="task" id="t-p3-cal"><label class="tw"><input type="checkbox" data-phase="p3" onchange="updateAll();toggleDone('t-p3-cal',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Délai de réservation de dernière minute fixé</label><div class="dt">✓</div></div></div>
-      <div class="task" id="t-p3-promo"><label class="tw"><input type="checkbox" data-phase="p3" onchange="updateAll();toggleDone('t-p3-promo',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Promotions automatiques Booking vérifiées — celles qui cassent le prix plancher désactivées</label><div class="dt">✓</div></div></div>
-    </div>
-
-    <div class="sec-label">Objectif final</div>
-    <div class="tasks">
-      <div class="task" id="t-p3-score"><label class="tw"><input type="checkbox" data-phase="p3" onchange="updateAll();toggleDone('t-p3-score',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Établissement — Score 100%</label><div class="dt">✓</div></div></div>
+      <div class="task" id="t-p3-last"><label class="tw"><input type="checkbox" data-phase="p3" onchange="updateAll();toggleDone('t-p3-last',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Délai de réservation de dernière minute fixé</label><div class="dt">✓</div></div></div>
+      <div class="task" id="t-p3-promo"><label class="tw"><input type="checkbox" data-phase="p3" onchange="updateAll();toggleDone('t-p3-promo',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Promotions Booking vérifiées (Désactiver si cassage prix plancher)</label><div class="dt">✓</div></div></div>
+      <div class="task" id="t-p3-score"><label class="tw"><input type="checkbox" data-phase="p3" onchange="updateAll();toggleDone('t-p3-score',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Objectif final : Établissement — Score 100%</label><div class="dt">✓</div></div></div>
     </div>
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════
-     04 — BEDS24
-══════════════════════════════════════════ -->
+<!-- PHASE 04 : BEDS24 -->
 <div class="phase">
   <div class="ph-head" onclick="togglePhase('p4')">
     <span class="ph-num">04</span>
-    <span class="ph-name">Beds24 — Channel manager</span>
-    <span class="ph-badge b-e" id="st-p4">0 / 8</span>
+    <span class="ph-name">Beds24 — Automatisations</span>
+    <span class="ph-badge b-e" id="st-p4">0 / 5</span>
     <span class="ph-arr" id="arr-p4">▾</span>
   </div>
   <div class="ph-body" id="body-p4">
-    
-    <div class="sec-label">Connexion Beds24</div>
     <div class="tasks">
-      <div class="task" id="t-p4-conn1"><label class="tw"><input type="checkbox" data-phase="p4" onchange="updateAll();toggleDone('t-p4-conn1',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Compte propriétaire connecté à Beds24</label><div class="path">Channel manager → Airbnb → Accounts → Connect with Airbnb → Import as new property</div><div class="dt">✓</div></div></div>
-      <div class="task" id="t-p4-conn2"><label class="tw"><input type="checkbox" data-phase="p4" onchange="updateAll();toggleDone('t-p4-conn2',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Annonce Airbnb importée dans Beds24</label><div class="path">Airbnb → Mapping → Room Mapping → Connect → Save · price strategy: per day pricing · sync type: limited</div><div class="dt">✓</div></div></div>
-      <div class="task" id="t-p4-conn3"><label class="tw"><input type="checkbox" data-phase="p4" onchange="updateAll();toggleDone('t-p4-conn3',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Annonce Booking connectée à Beds24</label><div class="path">Récupérer ID annonce Booking (en haut à gauche dans Booking) Pius Booking Mapping → Get codes → Enabled → Save → Activate connection</div><div class="dt">✓</div></div></div>
-    </div>
-
-    <div class="sec-label">Automatisations et paramètres</div>
-    <div class="tasks">
-      <div class="task" id="t-p4-1"><label class="tw"><input type="checkbox" data-phase="p4" onchange="updateAll();toggleDone('t-p4-1',this)"><div class="cb"></div></label><div class="ti"><label class="tl">7 auto-actions configurées et délais vérifiés</label>
-        <div class="sub">
-          <div class="sub-item"><label class="sl">Confirmation de réservation</label></div>
-          <div class="sub-item"><label class="sl">Instructions d'arrivée (code boîte à clés)</label></div>
-          <div class="sub-item"><label class="sl">Instructions de départ</label></div>
-          <div class="sub-item"><label class="sl">Demande de notation</label></div>
-          <div class="sub-item"><label class="sl">SMS prestation ×3</label></div>
-        </div>
-        <div class="th">bien faire les templates associés dans properties description s'inspirer des annocnes précédentes</div>
+      <div class="task" id="t-p4-auto"><label class="tw"><input type="checkbox" data-phase="p4" onchange="updateAll();toggleDone('t-p4-auto',this)"><div class="cb"></div></label><div class="ti"><label class="tl">7 auto-actions configurées et délais vérifiés</label>
+        <div class="th">Confirmation · Instructions (code) · Départ · Notation · SMS prestation ×3</div>
+        <div class="path">Templates basés sur annonces précédentes (Property Description)</div>
       <div class="dt">✓</div></div></div>
-      <div class="task" id="t-p4-2"><label class="tw"><input type="checkbox" data-phase="p4" onchange="updateAll();toggleDone('t-p4-2',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Taxe de séjour paramétrée</label><div class="path">Booking Engine → Upsell Items</div><div class="dt">✓</div></div></div>
-      <div class="task" id="t-p4-3"><label class="tw"><input type="checkbox" data-phase="p4" onchange="updateAll();toggleDone('t-p4-3',this)"><div class="cb"></div></label><div class="ti"><label class="tl">TTLock paramétré</label><div class="path">Marketplace → TTLock → Configurer → Synchronize : Enable</div><div class="dt">✓</div></div></div>
-      <div class="task" id="t-p4-4"><label class="tw"><input type="checkbox" data-phase="p4" onchange="updateAll();toggleDone('t-p4-4',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Compte équipe ménage créé</label><div class="th">Droits limités au planning et aux instructions ménage · identifiants envoyés via WhatsApp terrain</div><div class="dt">✓</div></div></div>
-      <div class="task" id="t-p4-6"><label class="tw"><input type="checkbox" data-phase="p4" onchange="updateAll();toggleDone('t-p4-6',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Beds24 — tarif Booking majoré de 15%</label><div class="th">Mettre une promotion active de 15% dans Beds24 côté Booking (offre de saison ou autre)</div><div class="dt">✓</div></div></div>
+      <div class="task" id="t-p4-taxe"><label class="tw"><input type="checkbox" data-phase="p4" onchange="updateAll();toggleDone('t-p4-taxe',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Taxe de séjour paramétrée</label><div class="path">Booking Engine → Upsell Items</div><div class="dt">✓</div></div></div>
+      <div class="task" id="t-p4-ttl"><label class="tw"><input type="checkbox" data-phase="p4" onchange="updateAll();toggleDone('t-p4-ttl',this)"><div class="cb"></div></label><div class="ti"><label class="tl">TTLock paramétré</label><div class="path">Marketplace → TTLock → Synchronize : Enable</div><div class="dt">✓</div></div></div>
+      <div class="task" id="t-p4-team"><label class="tw"><input type="checkbox" data-phase="p4" onchange="updateAll();toggleDone('t-p4-team',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Compte équipe ménage créé</label><div class="th">Droits limités planning/instructions · Identifiants envoyés via WhatsApp</div><div class="dt">✓</div></div></div>
+      <div class="task" id="t-p4-maj"><label class="tw"><input type="checkbox" data-phase="p4" onchange="updateAll();toggleDone('t-p4-maj',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Beds24 — tarif Booking majoré de 15%</label><div class="path">Mettre une promotion active de 15% dans Beds24 (offre de saison...)</div><div class="dt">✓</div></div></div>
     </div>
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════
-     05 — PRICELABS
-══════════════════════════════════════════ -->
+<!-- PHASE 05 : PRICELABS -->
 <div class="phase">
   <div class="ph-head" onclick="togglePhase('p5')">
     <span class="ph-num">05</span>
@@ -391,53 +284,47 @@ nav{background:var(--ink);padding:0 1.5rem;display:flex;align-items:center;justi
   </div>
   <div class="ph-body" id="body-p5">
     <div class="tasks">
-      <div class="task" id="t-p5-1"><label class="tw"><input type="checkbox" data-phase="p5" onchange="updateAll();toggleDone('t-p5-1',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Annonce ajoutée sur Pricelabs</label><div class="th">Add listing → sélectionner annonce Airbnb ou Beds24</div><div class="dt">✓</div></div></div>
-      <div class="task" id="t-p5-2"><label class="tw"><input type="checkbox" data-phase="p5" onchange="updateAll();toggleDone('t-p5-2',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Clé API Beds24 récupérée, activée et copiée dans Pricelabs</label><div class="path">Beds24 → Paramètres → API → Copier clé → Enable obligatoire avant collage</div><div class="dt">✓</div></div></div>
+      <div class="task" id="t-p5-1"><label class="tw"><input type="checkbox" data-phase="p5" onchange="updateAll();toggleDone('t-p5-1',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Annonce ajoutée sur Pricelabs</label><div class="path">Add listing → sélectionner annonce Airbnb ou Beds24</div><div class="dt">✓</div></div></div>
+      <div class="task" id="t-p5-2"><label class="tw"><input type="checkbox" data-phase="p5" onchange="updateAll();toggleDone('t-p5-2',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Clé API Beds24 récupérée, activée et copiée dans Pricelabs</label><div class="path">Beds24 → Paramètres → API → Enable obligatoire</div><div class="dt">✓</div></div></div>
       <div class="task" id="t-p5-3"><label class="tw"><input type="checkbox" data-phase="p5" onchange="updateAll();toggleDone('t-p5-3',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Logement inscrit sur l'analyseur de marché</label><div class="path">Market Dashboard → Add property → adresse exacte</div><div class="dt">✓</div></div></div>
       <div class="task" id="t-p5-4"><label class="tw"><input type="checkbox" data-phase="p5" onchange="updateAll();toggleDone('t-p5-4',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Stratégie tarifaire paramétrée</label><div class="th">Prix de base, min/max, saisonnalité, last minute, séjours longs</div><div class="dt">✓</div></div></div>
     </div>
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════
-     06 — TT LOCK
-══════════════════════════════════════════ -->
+<!-- PHASE 06 : SUR PLACE -->
 <div class="phase">
   <div class="ph-head" onclick="togglePhase('p6')">
     <span class="ph-num">06</span>
-    <span class="ph-name">TTLock — Installation sur place</span>
-    <span class="ph-badge b-e" id="st-p6">0 / 6</span>
+    <span class="ph-name">Sur Place — Matériel</span>
+    <span class="ph-badge b-e" id="st-p6">0 / 4</span>
     <span class="ph-arr" id="arr-p6">▾</span>
   </div>
   <div class="ph-body" id="body-p6">
     <div class="tasks">
-      <div class="task" id="t-p6-1"><label class="tw"><input type="checkbox" data-phase="p6" onchange="updateAll();toggleDone('t-p6-1',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Boîte à clés installée</label><div class="dt">✓</div></div></div>
-      <div class="task" id="t-p6-2"><label class="tw"><input type="checkbox" data-phase="p6" onchange="updateAll();toggleDone('t-p6-2',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Boîte à clés de secours installée</label><div class="dt">✓</div></div></div>
-      <div class="task" id="t-p6-3"><label class="tw"><input type="checkbox" data-phase="p6" onchange="updateAll();toggleDone('t-p6-3',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Clés organisées</label><div class="dt">✓</div></div></div>
+      <div class="task" id="t-p6-1"><label class="tw"><input type="checkbox" data-phase="p6" onchange="updateAll();toggleDone('t-p6-1',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Boîte à clés principale et secours installées</label><div class="dt">✓</div></div></div>
       <div class="task" id="t-p6-4"><label class="tw"><input type="checkbox" data-phase="p6" onchange="updateAll();toggleDone('t-p6-4',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Bridge installé et connecté</label><div class="dt">✓</div></div></div>
-      <div class="task" id="t-p6-5"><label class="tw"><input type="checkbox" data-phase="p6" onchange="updateAll();toggleDone('t-p6-5',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Ouverture à distance testée (4G)</label><div class="dt">✓</div></div></div>
-      <div class="task" id="t-p6-6"><label class="tw"><input type="checkbox" data-phase="p6" onchange="updateAll();toggleDone('t-p6-6',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Étiquettes posées</label><div class="dt">✓</div></div></div>
+      <div class="task" id="t-p6-5"><label class="tw"><input type="checkbox" data-phase="p6" onchange="updateAll();toggleDone('t-p6-5',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Ouverture à distance réussie (4G)</label><div class="dt">✓</div></div></div>
+      <div class="task" id="t-p6-6"><label class="tw"><input type="checkbox" data-phase="p6" onchange="updateAll();toggleDone('t-p6-6',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Etiquettes posées (préciser sur la boîte à clé)</label><div class="dt">✓</div></div></div>
     </div>
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════
-     07 — SUR PLACE
-══════════════════════════════════════════ -->
+<!-- PHASE 07 : VÉRIFICATIONS -->
 <div class="phase">
   <div class="ph-head" onclick="togglePhase('p7')">
     <span class="ph-num">07</span>
-    <span class="ph-name">Sur place — Préparation</span>
-    <span class="ph-badge b-e" id="st-p7">0 / 11</span>
+    <span class="ph-name">Sur Place — Vérifications</span>
+    <span class="ph-badge b-e" id="st-p7">0 / 9</span>
     <span class="ph-arr" id="arr-p7">▾</span>
   </div>
   <div class="ph-body" id="body-p7">
-    <div class="sec-label">Vérifications</div>
+    <div class="sec-label">Vérifications techniques</div>
     <div class="tasks">
       <div class="task" id="t-p7-1"><label class="tw"><input type="checkbox" data-phase="p7" onchange="updateAll();toggleDone('t-p7-1',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Eau froide et chaude vérifiées</label><div class="dt">✓</div></div></div>
       <div class="task" id="t-p7-2"><label class="tw"><input type="checkbox" data-phase="p7" onchange="updateAll();toggleDone('t-p7-2',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Électricité / électroménager vérifiés</label><div class="dt">✓</div></div></div>
       <div class="task" id="t-p7-3"><label class="tw"><input type="checkbox" data-phase="p7" onchange="updateAll();toggleDone('t-p7-3',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Inventaire validé</label><div class="dt">✓</div></div></div>
-      <div class="task" id="t-p7-15"><label class="tw"><input type="checkbox" data-phase="p7" onchange="updateAll();toggleDone('t-p7-15',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Emplacement vérifié via mobile ⚠ Vérifier à chaque lancement — erreur fréquente</label><div class="dt">✓</div></div></div>
+      <div class="task" id="t-p7-15"><label class="tw"><input type="checkbox" data-phase="p7" onchange="updateAll();toggleDone('t-p7-15',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Emplacement vérifié via mobile ⚠ Erreur fréquente</label><div class="dt">✓</div></div></div>
       <div class="task" id="t-p7-16"><label class="tw"><input type="checkbox" data-phase="p7" onchange="updateAll();toggleDone('t-p7-16',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Test de débit internet réalisé via mobile — résultat enregistré</label><div class="dt">✓</div></div></div>
     </div>
     <div class="sec-label">Ménage et passation</div>
@@ -450,59 +337,72 @@ nav{background:var(--ink);padding:0 1.5rem;display:flex;align-items:center;justi
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════
-     08 — RÉGLEMENTAIRE
-══════════════════════════════════════════ -->
+<!-- PHASE 08 : FINAL -->
 <div class="phase">
   <div class="ph-head" onclick="togglePhase('p8')">
     <span class="ph-num">08</span>
-    <span class="ph-name">Réglementaire & Finalisation</span>
+    <span class="ph-name">Réglementaire & Final</span>
     <span class="ph-badge b-e" id="st-p8">0 / 1</span>
     <span class="ph-arr" id="arr-p8">▾</span>
   </div>
   <div class="ph-body" id="body-p8">
     <div class="tasks">
-      <div class="task" id="t-p8-4"><label class="tw"><input type="checkbox" data-phase="p8" onchange="updateAll();toggleDone('t-p8-4',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Partenariat office du tourisme lancé</label><div class="dt">✓</div></div></div>
+      <div class="task" id="t-p8-4"><label class="tw"><input type="checkbox" data-phase="p8" onchange="updateAll();toggleDone('t-p8-4',this)"><div class="cb"></div></label><div class="ti"><label class="tl">Partenariat Office du Tourisme lancé</label><div class="dt">✓</div></div></div>
     </div>
   </div>
 </div>
 
-  <div class="cta">
-    <div class="cta-t">
-      <h3>Logement prêt à ouvrir.</h3>
-      <p>Toutes les étapes complétées — calendrier ouvert.</p>
-    </div>
-    <div>
-      <button class="cta-btn" id="cta-btn" disabled onclick="submitForm()">Marquer comme ouvert</button>
-      <div class="cta-ok" id="cta-ok">✓ Logement ouvert</div>
-    </div>
+<div class="cta">
+  <div class="cta-t">
+    <h3>Logement prêt à ouvrir.</h3>
+    <p>Toutes les étapes opérationnelles complétées.</p>
   </div>
+  <div>
+    <button class="cta-btn" id="cta-btn" disabled onclick="submitForm()">Marquer comme ouvert</button>
+    <div class="cta-ok" id="cta-ok">✓ Logement ouvert</div>
+  </div>
+</div>
 
 </div>
 
 <script>
 const AT_BASE='appOjWwbA3vSCTnRI';
-const AT_TABLE='Logements';
+const AT_TABLE='Dossiers';
 
 const PHASES={
-  p1:{total:22},
-  p2:{total:29},
-  p3:{total:18},
-  p4:{total:8},
-  p5:{total:4},
-  p6:{total:6},
-  p7:{total:11},
-  p8:{total:1}
+  p1:{total:22}, p2:{total:11}, p3:{total:12}, p4:{total:5},
+  p5:{total:4}, p6:{total:4}, p7:{total:9}, p8:{total:1}
 };
 const TOTAL=Object.values(PHASES).reduce((a,p)=>a+p.total,0);
 
 let atRecordId=null;
 let saveTimer=null;
-let logementId='';
+let clientId=''; 
+
+const params=new URLSearchParams(window.location.search);
+clientId=params.get('client') || 'test';
+document.getElementById('logement-name').textContent = clientId;
+document.getElementById('hero-logement').textContent = clientId;
 
 function getChecked(ph){return document.querySelectorAll('[data-phase="'+ph+'"]:checked').length;}
 function getDone(){return Object.keys(PHASES).reduce((a,p)=>a+getChecked(p),0);}
 function bc(d,t){if(d===0)return 'b-e';if(d===t)return 'b-d';return 'b-p';}
+
+function updateAll(){
+  var done=getDone(), pct=Math.round(done/TOTAL*100);
+  document.getElementById('prog-fill').style.width=pct+'%';
+  document.getElementById('prog-pct').textContent=pct+' %';
+  document.getElementById('prog-lbl').textContent=done+' / '+TOTAL+' complétés';
+  
+  Object.keys(PHASES).forEach(function(ph){
+    var d=getChecked(ph), t=PHASES[ph].total, cls=bc(d,t);
+    var st=document.getElementById('st-'+ph);
+    if(st){st.textContent=d+' / '+t; st.className='ph-badge '+cls;}
+  });
+  
+  document.getElementById('cta-btn').disabled=(pct<100);
+  scheduleSave();
+}
 
 function toggleDone(id,cb){
   var el=document.getElementById(id);
@@ -518,104 +418,94 @@ function toggleSub(id,cb){
   if(lbl)lbl.classList.toggle('done',cb.checked);
 }
 
-function updateAll(){
-  var done=getDone(),pct=Math.round(done/TOTAL*100);
-  document.getElementById('prog-fill').style.width=pct+'%';
-  document.getElementById('prog-pct').textContent=pct+' %';
-  document.getElementById('prog-lbl').textContent=done+' / '+TOTAL+' complétés';
-  Object.keys(PHASES).forEach(function(ph){
-    var d=getChecked(ph),t=PHASES[ph].total,cls=bc(d,t);
-    var st=document.getElementById('st-'+ph);
-    if(st){st.textContent=d+' / '+t;st.className='ph-badge '+cls;}
-  });
-  document.getElementById('cta-btn').disabled=(pct<100);
-  scheduleSave();
-}
-
 function togglePhase(id){
   var b=document.getElementById('body-'+id);
   var a=document.getElementById('arr-'+id);
-  b.classList.toggle('open');
-  a.classList.toggle('open');
+  if(b) b.classList.toggle('open');
+  if(a) a.classList.toggle('open');
 }
 
-function scheduleSave(){clearTimeout(saveTimer);saveTimer=setTimeout(saveToAirtable,2000);}
+function scheduleSave(){clearTimeout(saveTimer); saveTimer=setTimeout(saveToAirtable,2000);}
 
 function buildRecord(){
   var checks={};
   Object.keys(PHASES).forEach(function(ph){
-    document.querySelectorAll('[data-phase="'+ph+'"]').forEach(function(cb,i){
-      checks[ph+'_'+(i+1)]=cb.checked;
+    document.querySelectorAll('[data-phase="'+ph+'"]').forEach(function(cb){
+      var taskId = cb.closest('.task').id; 
+      checks[taskId]=cb.checked;
     });
   });
-  var done=getDone(),pct=Math.round(done/TOTAL*100);
+  document.querySelectorAll('.sub-item').forEach(function(item){
+      var cb = item.querySelector('input');
+      if(item.id && cb) checks[item.id] = cb.checked;
+  });
+
+  var done=getDone();
   return {
-    'Logement ID':logementId,
-    'Logement':document.getElementById('hero-logement').textContent,
-    'Progression %':pct,
-    'Tâches complétées':done,
-    'Statut':pct===100?'Ouvert':'En cours',
-    'Checks':JSON.stringify(checks),
-    'Dernière mise à jour':new Date().toISOString()
+    'Client ID': clientId,
+    'Checks interne': JSON.stringify(checks),
+    'Progression interne': (done/TOTAL),
+    'Mise à jour Interne': new Date().toISOString()
   };
 }
 
 async function saveToAirtable(){
+  if(!atRecordId) return;
   document.getElementById('save-status').textContent='Sauvegarde...';
   try{
-    var atUrl='https://api.airtable.com/v0/'+AT_BASE+'/'+encodeURIComponent(AT_TABLE)+(atRecordId?'/'+atRecordId:'');
-    var r=await fetch('https://omea-proxy.vercel.app/api/airtable?url='+encodeURIComponent(atUrl),{method:atRecordId?'PATCH':'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({fields:buildRecord()})});
-    var data=await r.json();
-    if(data.id&&!atRecordId)atRecordId=data.id;
+    var atUrl='https://api.airtable.com/v0/'+AT_BASE+'/'+encodeURIComponent(AT_TABLE)+'/'+atRecordId;
+    await fetch('https://omea-proxy.vercel.app/api/airtable?url='+encodeURIComponent(atUrl),{
+        method:'PATCH',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({fields:buildRecord()})
+    });
     document.getElementById('save-status').textContent='Sauvegardé';
-  }catch(e){document.getElementById('save-status').textContent='Erreur';console.warn(e);}
+  }catch(e){
+      document.getElementById('save-status').textContent='Erreur sync';
+  }
 }
 
 async function loadFromAirtable(){
   document.getElementById('save-status').textContent='Chargement...';
   try{
-    var r=await fetch('https://omea-proxy.vercel.app/api/airtable?url='+encodeURIComponent('https://api.airtable.com/v0/'+AT_BASE+'/'+encodeURIComponent(AT_TABLE)+'?filterByFormula='+encodeURIComponent('{Logement ID}="'+logementId+'"')));
+    var filter = encodeURIComponent('{Client ID}="'+clientId+'"');
+    var r=await fetch('https://omea-proxy.vercel.app/api/airtable?url='+encodeURIComponent('https://api.airtable.com/v0/'+AT_BASE+'/'+encodeURIComponent(AT_TABLE)+'?filterByFormula='+filter));
     var data=await r.json();
-    if(data.records&&data.records.length>0){
+    
+    if(data.records && data.records.length>0){
       var rec=data.records[0];
       atRecordId=rec.id;
-      if(rec.fields.Checks){
-        var ch=JSON.parse(rec.fields.Checks);
-        Object.keys(ch).forEach(function(k){
-          var parts=k.split('_'),ph=parts[0],idx=parseInt(parts[1])-1;
-          var boxes=document.querySelectorAll('[data-phase="'+ph+'"]');
-          if(boxes[idx]){
-            boxes[idx].checked=ch[k];
-            if(ch[k]){
-              var wrap=boxes[idx].closest('.task');
-              if(wrap){wrap.classList.add('is-done');var lbl=wrap.querySelector('.tl');if(lbl)lbl.classList.add('done');}
-            }
+      
+      if(rec.fields['Checks interne']){
+        var ch=JSON.parse(rec.fields['Checks interne']);
+        Object.keys(ch).forEach(function(id){
+          var taskEl = document.getElementById(id);
+          if(taskEl){
+              var cb = taskEl.querySelector('input');
+              if(cb){
+                  cb.checked = ch[id];
+                  if(taskEl.classList.contains('task')) toggleDone(id, cb);
+                  if(taskEl.classList.contains('sub-item')) toggleSub(id, cb);
+              }
           }
         });
       }
-      document.getElementById('save-status').textContent='Chargé';
-      updateAll();
-    }else{
-      document.getElementById('save-status').textContent='Nouveau dossier';
+      document.getElementById('save-status').textContent='Prêt';
+    } else {
+      document.getElementById('save-status').textContent='Logement inconnu';
     }
-  }catch(e){document.getElementById('save-status').textContent='Erreur chargement';console.warn(e);}
+    updateAll();
+  }catch(e){
+      document.getElementById('save-status').textContent='Erreur réseau';
+  }
 }
 
 async function submitForm(){
-  document.getElementById('cta-btn').disabled=true;
+  if(!confirm("Valider l'ouverture du logement ?")) return;
   await saveToAirtable();
   document.getElementById('cta-ok').style.display='block';
 }
 
-var params=new URLSearchParams(window.location.search);
-var logement=params.get('logement')||'Nouveau logement';
-var ville=params.get('ville')||'';
-logementId=(logement+'-'+ville).toLowerCase().replace(/\s+/g,'-');
-document.getElementById('hero-logement').textContent=logement+(ville?' — '+ville:'');
-document.getElementById('logement-name').textContent=logement+(ville?' · '+ville:'');
-document.getElementById('hero-title').innerHTML='Lancement — <em id="hero-logement">'+logement+(ville?' — '+ville:'')+'</em>';
-
-updateAll();
 loadFromAirtable();
 </script>
 </body>
