@@ -110,6 +110,7 @@ nav{background:var(--ink);padding:0 1.5rem;display:flex;align-items:center;justi
 
 <div class="hero">
   <div class="hero-tag">Checklist interne</div>
+  <!-- L'id="hero-logement" est indispensable pour que le script injecte le nom -->
   <h1 id="hero-title">Lancement — <em id="hero-logement">Nouveau logement</em></h1>
 </div>
 
@@ -379,8 +380,13 @@ let atRecordId=null;
 let saveTimer=null;
 let clientId=''; 
 
-const params=new URLSearchParams(window.location.search);
-clientId=params.get('client') || 'test';
+const params = new URLSearchParams(window.location.search);
+const nomLogement = params.get('logement') || 'Nouveau logement';
+const villeLogement = params.get('ville') || '';
+
+// Reconstruit l'ID identique à ta base Airtable (ex: "L'Escale - Ecully")
+clientId = villeLogement ? `${nomLogement} - ${villeLogement}` : nomLogement;
+
 document.getElementById('logement-name').textContent = clientId;
 document.getElementById('hero-logement').textContent = clientId;
 
@@ -468,7 +474,10 @@ async function saveToAirtable(){
 async function loadFromAirtable(){
   document.getElementById('save-status').textContent='Chargement...';
   try{
-    var filter = encodeURIComponent('{Client ID}="'+clientId+'"');
+    // Sécurise les noms avec apostrophes pour que la formule Airtable ne plante pas
+    const escapedId = clientId.replace(/'/g, "\\'");
+    var filter = encodeURIComponent('{Client ID}="'+escapedId+'"');
+    
     var r=await fetch('https://omea-proxy.vercel.app/api/airtable?url='+encodeURIComponent('https://api.airtable.com/v0/'+AT_BASE+'/'+encodeURIComponent(AT_TABLE)+'?filterByFormula='+filter));
     var data=await r.json();
     
@@ -492,11 +501,13 @@ async function loadFromAirtable(){
       }
       document.getElementById('save-status').textContent='Prêt';
     } else {
-      document.getElementById('save-status').textContent='Logement inconnu';
+      // En cas d'échec, on affiche le nom exact qui a été cherché
+      document.getElementById('save-status').textContent='Inconnu: ' + clientId;
     }
     updateAll();
   }catch(e){
       document.getElementById('save-status').textContent='Erreur réseau';
+      console.error("Erreur de chargement:", e);
   }
 }
 
