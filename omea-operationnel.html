@@ -108,10 +108,24 @@ nav{background:var(--ink);padding:0 1.5rem;display:flex;align-items:center;justi
   </div>
 </nav>
 
+<!-- ZONE DE NOTE LIBRE -->
+<div style="padding: 0 1.25rem; margin-top: 15px; max-width: 740px; margin-left: auto; margin-right: auto;">
+  <textarea id="note-libre" placeholder="Notes libres (ex: Codes, contacts, particularités...)" 
+    style="width:100%; min-height:80px; padding:12px; border:1px solid var(--bd); border-radius:5px; font-family:'Libre Franklin',sans-serif; font-size:13px; background:var(--white); resize:vertical; outline:none;" 
+    oninput="save()"></textarea>
+</div>
+
 <div class="hero">
+  <div class="hero">
   <div class="hero-tag">Checklist interne</div>
-  <!-- L'id="hero-logement" est indispensable pour que le script injecte le nom -->
   <h1 id="hero-title">Lancement — <em id="hero-logement">Nouveau logement</em></h1>
+</div>
+
+<!-- AJOUT ZONE DE NOTE -->
+<div style="padding: 0 1.25rem; margin-top: 15px; max-width: 740px; margin-left: auto; margin-right: auto;">
+  <textarea id="note-libre" placeholder="Notes libres (ex: Codes, contacts, particularités...)" 
+    style="width:100%; min-height:80px; padding:12px; border:1px solid var(--bd); border-radius:5px; font-family:'Libre Franklin',sans-serif; font-size:13px; background:var(--white); resize:vertical; outline:none;" 
+    oninput="save()"></textarea>
 </div>
 
 <div class="prog-bar">
@@ -459,12 +473,29 @@ async function saveToAirtable(){
   if(!atRecordId) return;
   document.getElementById('save-status').textContent='Sauvegarde...';
   try{
-    var atUrl='https://api.airtable.com/v0/'+AT_BASE+'/'+encodeURIComponent(AT_TABLE)+'/'+atRecordId;
-    await fetch('https://omea-proxy.vercel.app/api/airtable?url='+encodeURIComponent(atUrl),{
-        method:'PATCH',
-        headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({fields:buildRecord()})
-    });
+   // On prépare l'état des cases cochées
+const state = {};
+document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+    const parent = cb.closest('.task, .sub-item');
+    if(parent) state[parent.id] = cb.checked;
+});
+
+var atUrl = 'https://api.airtable.com/v0/'+AT_BASE+'/'+encodeURIComponent(AT_TABLE)+'/'+atRecordId;
+
+await fetch('https://omea-proxy.vercel.app/api/airtable', {
+    method: 'POST', // Utilisation du proxy en mode POST pour envoyer le corps complexe
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({
+        url: atUrl,
+        method: 'PATCH',
+        body: { 
+            fields: { 
+                'Checks interne': JSON.stringify(state),
+                'Note': document.getElementById('note-libre').value // Envoie la note à Airtable
+            } 
+        }
+    })
+});
     document.getElementById('save-status').textContent='Sauvegardé';
   }catch(e){
       document.getElementById('save-status').textContent='Erreur sync';
@@ -485,32 +516,10 @@ async function loadFromAirtable(){
       var rec=data.records[0];
       atRecordId=rec.id;
       
-      if(rec.fields['Checks interne']){
-        var ch=JSON.parse(rec.fields['Checks interne']);
-        Object.keys(ch).forEach(function(id){
-          var taskEl = document.getElementById(id);
-          if(taskEl){
-              var cb = taskEl.querySelector('input');
-              if(cb){
-                  cb.checked = ch[id];
-                  if(taskEl.classList.contains('task')) toggleDone(id, cb);
-                  if(taskEl.classList.contains('sub-item')) toggleSub(id, cb);
-              }
-          }
-        });
+// AJOUT : Charge le texte de la note s'il existe
+      if(rec.fields['Note Interne']) {
+        document.getElementById('note-libre').value = rec.fields['Note Interne'];
       }
-      document.getElementById('save-status').textContent='Prêt';
-    } else {
-      // En cas d'échec, on affiche le nom exact qui a été cherché
-      document.getElementById('save-status').textContent='Inconnu: ' + clientId;
-    }
-    updateAll();
-  }catch(e){
-      document.getElementById('save-status').textContent='Erreur réseau';
-      console.error("Erreur de chargement:", e);
-  }
-}
-
 async function submitForm(){
   if(!confirm("Valider l'ouverture du logement ?")) return;
   await saveToAirtable();
