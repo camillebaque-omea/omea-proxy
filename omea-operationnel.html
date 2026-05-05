@@ -671,7 +671,7 @@ async function submitForm() {
   // Lire l'URL : ?client=prenom
   var params = new URLSearchParams(window.location.search);
   var client = params.get('client') || 'logement';
-  clientId = client.toLowerCase().trim();
+  clientId = client.toLowerCase().trim() + '-checklist'; // ex: laetitia-checklist
   var displayName = client.charAt(0).toUpperCase() + client.slice(1).toLowerCase();
 
   document.getElementById('hero-logement').textContent = displayName;
