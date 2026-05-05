@@ -527,27 +527,48 @@ function scheduleNoteSave() {
   noteTimer = setTimeout(saveNote, 1500);
 }
 
-function saveNote() {
+async function saveNote() {
   var val = (document.getElementById('note-area') || {}).value || '';
-  // localStorage
+  var el = document.getElementById('note-saved');
+  // 1. Toujours sauvegarder en localStorage d'abord
   try { localStorage.setItem(lsKey() + '-note', val); } catch(e) {}
-  // Airtable
-  if (!isFileProtocol() && atRecordId) {
+  if (isFileProtocol()) {
+    if (el) el.textContent = '✓ Sauvegardé en local';
+    return;
+  }
+  // 2. S'assurer qu'on a un atRecordId (créer la ligne si besoin)
+  if (!atRecordId) {
+    var found = await findRecord();
+    if (found) {
+      atRecordId = found;
+    } else {
+      // Créer une ligne vide pour ce client
+      try {
+        var postUrl = 'https://api.airtable.com/v0/' + AT_BASE + '/' + encodeURIComponent(AT_TABLE);
+        var r = await fetch(PROXY + '?url=' + encodeURIComponent(postUrl), {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ fields: { 'Client ID': clientId, 'Mise à jour Interne': new Date().toISOString() } })
+        });
+        var data = await r.json();
+        if (data.id) atRecordId = data.id;
+      } catch(e) {
+        if (el) el.textContent = '✓ Local uniquement';
+        return;
+      }
+    }
+  }
+  // 3. PATCH la note
+  try {
     var atUrl = 'https://api.airtable.com/v0/' + AT_BASE + '/' + encodeURIComponent(AT_TABLE) + '/' + atRecordId;
-    fetch(PROXY + '?url=' + encodeURIComponent(atUrl), {
+    var r = await fetch(PROXY + '?url=' + encodeURIComponent(atUrl), {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ fields: { 'Note interne': val, 'Mise à jour Interne': new Date().toISOString() } })
-    }).then(function(r) {
-      var el = document.getElementById('note-saved');
-      if (el) el.textContent = r.ok ? '✓ Note sauvegardée' : '⚠ Erreur sauvegarde note';
-    }).catch(function() {
-      var el = document.getElementById('note-saved');
-      if (el) el.textContent = '✓ Local uniquement';
     });
-  } else {
-    var el = document.getElementById('note-saved');
-    if (el) el.textContent = '✓ Sauvegardé en local';
+    if (el) el.textContent = r.ok ? '✓ Note sauvegardée' : '⚠ Erreur sauvegarde note';
+  } catch(e) {
+    if (el) el.textContent = '✓ Local uniquement';
   }
 }
 
