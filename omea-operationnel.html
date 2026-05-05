@@ -96,6 +96,14 @@ nav{background:var(--ink);padding:0 1.5rem;display:flex;align-items:center;justi
 .cta-btn:hover{background:var(--yd)}
 .cta-btn:disabled{opacity:0.25;cursor:not-allowed}
 .cta-ok{font-size:11px;color:var(--y);font-weight:500;display:none;margin-top:6px}
+
+/* BANNIÈRE ERREUR AIRTABLE */
+.at-error{display:none;position:fixed;top:52px;left:0;right:0;z-index:200;background:#C0392B;color:#fff;padding:10px 1.5rem;font-size:12px;font-weight:500;align-items:center;gap:12px;box-shadow:0 2px 8px rgba(0,0,0,0.2)}
+.at-error.show{display:flex}
+.at-error-msg{flex:1}
+.at-retry{background:rgba(255,255,255,0.2);border:1px solid rgba(255,255,255,0.4);color:#fff;padding:5px 12px;border-radius:3px;font-family:'Libre Franklin',sans-serif;font-size:11px;font-weight:800;cursor:pointer;letter-spacing:0.06em;text-transform:uppercase}
+.at-retry:hover{background:rgba(255,255,255,0.35)}
+.at-close{background:none;border:none;color:rgba(255,255,255,0.6);font-size:16px;cursor:pointer;padding:0 4px;line-height:1}
 </style>
 </head>
 <body>
@@ -108,6 +116,12 @@ nav{background:var(--ink);padding:0 1.5rem;display:flex;align-items:center;justi
   </div>
 </nav>
 
+
+<div class="at-error" id="at-error">
+  <span class="at-error-msg" id="at-error-msg">⚠ Erreur de sauvegarde Airtable — données sauvegardées en local uniquement.</span>
+  <button class="at-retry" onclick="retrySave()">Réessayer</button>
+  <button class="at-close" onclick="hideError()" title="Fermer">✕</button>
+</div>
 <div class="hero">
   <div class="hero-tag">Checklist interne</div>
   <h1 id="hero-title">Lancement — <em id="hero-logement">Nouveau logement</em></h1>
@@ -481,6 +495,23 @@ nav{background:var(--ink);padding:0 1.5rem;display:flex;align-items:center;justi
 </div>
 
 <script>
+
+// ─── BANNIÈRE ERREUR ──────────────────────────────────────
+function showAtError(msg) {
+  var el = document.getElementById('at-error');
+  var ml = document.getElementById('at-error-msg');
+  if (el) el.classList.add('show');
+  if (ml) ml.textContent = '⚠ ' + (msg || 'Erreur de sauvegarde Airtable — données sauvegardées en local uniquement.');
+}
+function hideError() {
+  var el = document.getElementById('at-error');
+  if (el) el.classList.remove('show');
+}
+function retrySave() {
+  hideError();
+  saveToAirtable();
+}
+
 // ─── CONFIG ───────────────────────────────────────────────
 var AT_BASE = 'appOjWwbA3vSCTnRI';
 var AT_TABLE = 'Dossiers';
@@ -490,13 +521,12 @@ var PROXY = 'https://omea-proxy.vercel.app/api/airtable';
 var atRecordId = null;
 var saveTimer = null;
 var clientId = '';
+var isSaving = false;
 
-// ─── TOTAUX CALCULÉS DYNAMIQUEMENT AU CHARGEMENT ──────────
-// → plus jamais de décalage quand tu modifies la checklist
+// ─── TOTAUX CALCULÉS DYNAMIQUEMENT ────────────────────────
 var PHASES = {};
 function buildPhaseTotals() {
-  var all = document.querySelectorAll('[data-phase]');
-  all.forEach(function(cb) {
+  document.querySelectorAll('[data-phase]').forEach(function(cb) {
     var ph = cb.getAttribute('data-phase');
     if (!PHASES[ph]) { PHASES[ph] = { total: 0 }; }
     PHASES[ph].total++;
@@ -508,6 +538,7 @@ function getTotal() {
 
 // ─── HELPERS ──────────────────────────────────────────────
 function isFileProtocol() { return window.location.protocol === 'file:'; }
+function lsKey() { return 'omea-checklist-' + clientId; }
 
 function getChecked(ph) {
   return document.querySelectorAll('[data-phase="' + ph + '"]:checked').length;
@@ -519,6 +550,37 @@ function bc(d, t) {
   if (d === 0) return 'b-e';
   if (d === t) return 'b-d';
   return 'b-p';
+}
+
+// ─── SÉRIALISATION DES CHECKS ─────────────────────────────
+function serializeChecks() {
+  var checks = {};
+  Object.keys(PHASES).forEach(function(ph) {
+    document.querySelectorAll('[data-phase="' + ph + '"]').forEach(function(cb, i) {
+      checks[ph + '_' + (i + 1)] = cb.checked;
+    });
+  });
+  return checks;
+}
+
+function restoreChecks(ch) {
+  Object.keys(ch).forEach(function(k) {
+    var parts = k.split('_');
+    var ph = parts[0];
+    var idx = parseInt(parts[1]) - 1;
+    var boxes = document.querySelectorAll('[data-phase="' + ph + '"]');
+    if (boxes[idx]) {
+      boxes[idx].checked = ch[k];
+      if (ch[k]) {
+        var wrap = boxes[idx].closest('.task');
+        if (wrap) {
+          wrap.classList.add('is-done');
+          var lbl = wrap.querySelector('.tl');
+          if (lbl) lbl.classList.add('done');
+        }
+      }
+    }
+  });
 }
 
 // ─── UI ───────────────────────────────────────────────────
@@ -545,6 +607,11 @@ function togglePhase(id) {
   a.classList.toggle('open');
 }
 
+function setSaveStatus(msg) {
+  var el = document.getElementById('save-status');
+  if (el) el.textContent = msg;
+}
+
 function updateAll() {
   var TOTAL = getTotal();
   var done = getDone();
@@ -563,23 +630,33 @@ function updateAll() {
   scheduleSave();
 }
 
+// ─── LOCALSTORAGE ─────────────────────────────────────────
+function saveToLocalStorage(checks) {
+  try {
+    localStorage.setItem(lsKey(), JSON.stringify({
+      checks: checks,
+      savedAt: new Date().toISOString()
+    }));
+  } catch(e) { console.warn('localStorage save failed:', e); }
+}
+
+function loadFromLocalStorage() {
+  try {
+    var raw = localStorage.getItem(lsKey());
+    if (!raw) return null;
+    var data = JSON.parse(raw);
+    return data.checks || null;
+  } catch(e) { return null; }
+}
+
 // ─── SAUVEGARDE AIRTABLE ──────────────────────────────────
 function scheduleSave() {
-  if (isFileProtocol()) return; // pas de fetch en file://
+  if (isFileProtocol()) return;
   clearTimeout(saveTimer);
   saveTimer = setTimeout(saveToAirtable, 2000);
 }
 
-function buildRecord() {
-  var checks = {};
-  Object.keys(PHASES).forEach(function(ph) {
-    document.querySelectorAll('[data-phase="' + ph + '"]').forEach(function(cb, i) {
-      checks[ph + '_' + (i + 1)] = cb.checked;
-    });
-  });
-  var TOTAL = getTotal();
-  var done = getDone();
-  var pct = TOTAL > 0 ? Math.round(done / TOTAL * 100) : 0;
+function buildRecord(checks, pct) {
   return {
     'Client ID': clientId,
     'Checks interne': JSON.stringify(checks),
@@ -588,31 +665,62 @@ function buildRecord() {
   };
 }
 
-function setSaveStatus(msg) {
-  var el = document.getElementById('save-status');
-  if (el) el.textContent = msg;
-}
-
 async function saveToAirtable() {
+  if (isSaving) return; // évite les sauvegardes concurrentes
+  isSaving = true;
   setSaveStatus('Sauvegarde...');
+
+  var checks = serializeChecks();
+  var TOTAL = getTotal();
+  var done = getDone();
+  var pct = TOTAL > 0 ? Math.round(done / TOTAL * 100) : 0;
+
+  // 1. Toujours sauvegarder en localStorage d'abord
+  saveToLocalStorage(checks);
+
+  // 2. Sauvegarder dans Airtable
   try {
+    // Si on n'a pas de recordId, chercher d'abord si la ligne existe déjà
+    // → évite de créer des doublons
+    if (!atRecordId) {
+      var found = await findRecord();
+      if (found) atRecordId = found;
+    }
+
     var atUrl = 'https://api.airtable.com/v0/' + AT_BASE + '/' + encodeURIComponent(AT_TABLE) + (atRecordId ? '/' + atRecordId : '');
     var method = atRecordId ? 'PATCH' : 'POST';
     var r = await fetch(PROXY + '?url=' + encodeURIComponent(atUrl), {
       method: method,
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ fields: buildRecord() })
+      body: JSON.stringify({ fields: buildRecord(checks, pct) })
     });
     if (!r.ok) throw new Error('HTTP ' + r.status);
     var data = await r.json();
     if (data.id && !atRecordId) atRecordId = data.id;
     setSaveStatus('✓ Sauvegardé');
+    hideError();
   } catch(e) {
-    setSaveStatus('⚠ Erreur sauvegarde');
+    setSaveStatus('✓ Local / ⚠ Airtable');
+    showAtError('Erreur de sauvegarde Airtable — données sauvegardées en local uniquement.');
     console.warn('saveToAirtable:', e);
+  } finally {
+    isSaving = false;
   }
 }
 
+async function findRecord() {
+  try {
+    var filter = encodeURIComponent('{Client ID}="' + clientId + '"');
+    var atUrl = 'https://api.airtable.com/v0/' + AT_BASE + '/' + encodeURIComponent(AT_TABLE) + '?filterByFormula=' + filter;
+    var r = await fetch(PROXY + '?url=' + encodeURIComponent(atUrl));
+    if (!r.ok) return null;
+    var data = await r.json();
+    if (data.records && data.records.length > 0) return data.records[0].id;
+    return null;
+  } catch(e) { return null; }
+}
+
+// ─── CHARGEMENT ───────────────────────────────────────────
 async function loadFromAirtable() {
   if (isFileProtocol()) { setSaveStatus('Mode local'); return; }
   setSaveStatus('Chargement...');
@@ -627,33 +735,34 @@ async function loadFromAirtable() {
       atRecordId = rec.id;
       var checksRaw = rec.fields['Checks interne'];
       if (checksRaw) {
-        var ch = JSON.parse(checksRaw);
-        Object.keys(ch).forEach(function(k) {
-          var parts = k.split('_');
-          var ph = parts[0];
-          var idx = parseInt(parts[1]) - 1;
-          var boxes = document.querySelectorAll('[data-phase="' + ph + '"]');
-          if (boxes[idx]) {
-            boxes[idx].checked = ch[k];
-            if (ch[k]) {
-              var wrap = boxes[idx].closest('.task');
-              if (wrap) {
-                wrap.classList.add('is-done');
-                var lbl = wrap.querySelector('.tl');
-                if (lbl) lbl.classList.add('done');
-              }
-            }
-          }
-        });
+        restoreChecks(JSON.parse(checksRaw));
+        // Mettre à jour aussi le localStorage avec les données Airtable
+        saveToLocalStorage(JSON.parse(checksRaw));
+        setSaveStatus('✓ Chargé');
+        updateAll();
+        return;
       }
-      setSaveStatus('Chargé');
+    }
+    // Airtable vide ou pas de ligne → essayer localStorage
+    var lsChecks = loadFromLocalStorage();
+    if (lsChecks) {
+      restoreChecks(lsChecks);
+      setSaveStatus('✓ Chargé (local)');
       updateAll();
     } else {
       setSaveStatus('Nouveau dossier');
     }
   } catch(e) {
-    setSaveStatus('⚠ Erreur chargement');
+    // Erreur réseau → fallback localStorage
     console.warn('loadFromAirtable:', e);
+    var lsChecks = loadFromLocalStorage();
+    if (lsChecks) {
+      restoreChecks(lsChecks);
+      setSaveStatus('✓ Local (hors ligne)');
+      updateAll();
+    } else {
+      setSaveStatus('⚠ Erreur chargement');
+    }
   }
 }
 
@@ -665,13 +774,12 @@ async function submitForm() {
 
 // ─── INIT ─────────────────────────────────────────────────
 (function init() {
-  // Compter les checkboxes réelles (robuste aux modifications)
   buildPhaseTotals();
 
-  // Lire l'URL : ?client=prenom
   var params = new URLSearchParams(window.location.search);
   var client = params.get('client') || 'logement';
-  clientId = client.toLowerCase().trim() + '-checklist'; // ex: laetitia-checklist
+  var clientClean = client.toLowerCase().trim();
+  clientId = clientClean + '-checklist';
   var displayName = client.charAt(0).toUpperCase() + client.slice(1).toLowerCase();
 
   document.getElementById('hero-logement').textContent = displayName;
