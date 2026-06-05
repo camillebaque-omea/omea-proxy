@@ -779,7 +779,7 @@ function buildRecord() {
   var TOTAL = getTotal();
   var done = getDone();
   var pct = TOTAL > 0 ? Math.round(done / TOTAL * 100) : 0;
-  return { 'Client ID': clientId, 'Prénom': document.getElementById('client-name').textContent, 'Progression %': pct, 'Points complétés': done, 'Statut': pct === 100 ? 'Prêt à ouvrir' : 'En cours', 'Checks': JSON.stringify(checks), 'Réponses': JSON.stringify(fields), 'Fichiers': JSON.stringify(Object.keys(uploads)), 'Dernière mise à jour': new Date().toISOString() };
+  return { 'Client ID': clientId, 'Prénom': document.getElementById('client-name').textContent, 'Progression %': pct, 'Points complétés': done, 'Statut': fields['_transmis'] === '1' ? 'Transmis' : (pct > 0 ? 'En cours' : 'Nouveau'), 'Checks': JSON.stringify(checks), 'Réponses': JSON.stringify(fields), 'Fichiers': JSON.stringify(Object.keys(uploads)), 'Dernière mise à jour': new Date().toISOString() };
 }
 function scheduleSave() {
   if (isFileProtocol()) return;
@@ -846,6 +846,7 @@ async function loadFromAirtable() {
 async function submitForm() {
   document.getElementById('cta-btn').disabled = true;
   document.getElementById('cta-btn').textContent = 'Envoi...';
+  fields['_transmis'] = '1';
   await saveToAirtable();
   document.getElementById('cta-ok').style.display = 'block';
   document.getElementById('cta-btn').textContent = 'Transmis';
