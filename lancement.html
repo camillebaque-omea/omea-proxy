@@ -208,7 +208,7 @@ input[type=file]{display:none}
     <div class="check-item" id="ci-doc-rib"><label class="check-wrap"><input type="checkbox" data-sec="docs" id="doc-rib" onchange="updateAll();toggleDone('ci-doc-rib',this)"><div class="cbox"></div></label><div class="check-info"><label for="doc-rib" class="check-label" style="display:inline">RIB de la société</label><button class="hint-q" onclick="toggleHintQ(this)" aria-label="Aide">?</button><div class="hint-hidden">C'est sur ce compte que vous recevrez directement vos versements Airbnb et Booking.</div><div class="done-tag">✓ Déposé</div></div></div>
     <div class="check-item" id="ci-doc-pno"><label class="check-wrap"><input type="checkbox" data-sec="docs" id="doc-pno" onchange="updateAll();toggleDone('ci-doc-pno',this)"><div class="cbox"></div></label><div class="check-info"><label for="doc-pno" class="check-label">Attestation PNO</label><div class="check-hint">L'assurance Propriétaire Non Occupant est obligatoire pour tout propriétaire bailleur. Transmettez l'attestation en cours de validité.</div><div class="done-tag">✓ Déposé</div></div></div>
     <div class="check-item" id="ci-doc-photo"><label class="check-wrap"><input type="checkbox" data-sec="docs" id="doc-photo" onchange="updateAll();toggleDone('ci-doc-photo',this)"><div class="cbox"></div></label><div class="check-info"><label for="doc-photo" class="check-label" style="display:inline">Photo de profil</label><button class="hint-q" onclick="toggleHintQ(this)" aria-label="Aide">?</button><div class="hint-hidden">Une photo de vous est nécessaire pour paramétrer votre compte Airbnb. Elle rassure les voyageurs et améliore la visibilité de votre annonce.</div><div class="done-tag">✓ Déposé</div></div></div>
-    <div class="check-item" id="ci-doc-copro"><label class="check-wrap"><input type="checkbox" id="doc-copro" onchange="toggleDone('ci-doc-copro',this)"><div class="cbox"></div></label><div class="check-info"><label for="doc-copro" class="check-label" style="display:inline">Règlement de copropriété <span style="font-weight:300;color:var(--ink3)">(si existant)</span></label><button class="hint-q" onclick="toggleHintQ(this)" aria-label="Aide">?</button><div class="hint-hidden">Si votre logement est en copropriété, transmettez le règlement — certaines clauses peuvent encadrer la location courte durée.</div><div class="done-tag">✓ Déposé</div></div></div>
+    <div class="check-item" id="ci-doc-copro"><label class="check-wrap"><input type="checkbox" id="doc-copro" onchange="toggleDone('ci-doc-copro',this);saveField('check_doc_copro',this.checked?'1':'0')"><div class="cbox"></div></label><div class="check-info"><label for="doc-copro" class="check-label" style="display:inline">Règlement de copropriété <span style="font-weight:300;color:var(--ink3)">(si existant)</span></label><button class="hint-q" onclick="toggleHintQ(this)" aria-label="Aide">?</button><div class="hint-hidden">Si votre logement est en copropriété, transmettez le règlement — certaines clauses peuvent encadrer la location courte durée.</div><div class="done-tag">✓ Déposé</div></div></div>
     <div class="field-item"><div class="field-label">Numéro SIRET <span style="font-weight:300;color:var(--ink3)">(obligatoire)</span></div><div class="field-hint">14 chiffres, disponible sur votre Kbis.</div><input type="text" class="field-input" id="f-siret" placeholder="Ex : 12345678900012" maxlength="14" oninput="saveField('siret',this.value);checkSiret()"><input type="checkbox" data-sec="docs" id="uc-siret" style="display:none"></div>
     <div class="field-item"><div class="field-label">NIF <span style="font-weight:300;color:var(--ink3)">(obligatoire — requis par Booking)</span></div><div class="field-hint">Numéro d'Identification Fiscale, disponible sur votre avis d'imposition ou auprès de votre comptable.</div><input type="text" class="field-input" id="f-nif" placeholder="Ex : 1234567890123" oninput="saveField('nif',this.value);checkNif()"><input type="checkbox" data-sec="docs" id="uc-nif" style="display:none"></div>
     <div class="check-item" id="ci-pno-ok"><label class="check-wrap"><input type="checkbox" data-sec="docs" id="pno-ok" onchange="updateAll();toggleDone('ci-pno-ok',this)"><div class="cbox"></div></label><div class="check-info"><label for="pno-ok" class="check-label">La location saisonnière est bien couverte par votre PNO</label><div class="check-hint">Certaines PNO excluent la location courte durée. Vérifiez auprès de votre assureur avant de cocher.</div><div class="done-tag">✓</div></div></div>
@@ -280,6 +280,7 @@ input[type=file]{display:none}
     <div class="check-item" id="ci-menage-dem"><label class="check-wrap"><input type="checkbox" data-sec="acces" id="menage-dem-ok" onchange="updateAll();toggleDone('ci-menage-dem',this)"><div class="cbox"></div></label><div class="check-info"><label for="menage-dem-ok" class="check-label" style="display:inline">J'accepte un ménage de démarrage avant la première réservation</label><button class="hint-q" onclick="toggleHintQ(this)" aria-label="Aide">?</button><div class="hint-hidden">Le ménage de démarrage nous permet de préparer le logement dans les meilleures conditions. Il est facturé une seule fois au lancement.</div><div class="done-tag">✓</div></div></div>
     <div class="field-item"><div class="field-label">Modalités d'ouverture de la porte de l'immeuble</div><div class="field-hint">Si votre logement est dans un immeuble avec une porte d'accès, précisez comment elle s'ouvre.</div><input type="text" class="field-input" id="f-acces_immeuble" placeholder="Ex : digicode — code 1234A / interphone / porte libre" oninput="saveField('acces_immeuble',this.value)"></div>
     <div class="field-item"><div class="field-label">Entretien des parties communes <span style="font-weight:300;color:var(--ink3)">(facultatif)</span></div><div class="field-hint">Précisez les surfaces concernées et la fréquence souhaitée — nous vous ferons un devis.</div><textarea class="field-input" id="f-communs" rows="2" placeholder="Ex : couloir et escaliers — 2 fois par mois" oninput="saveField('communs',this.value)"></textarea></div>
+    <div class="field-item"><div class="field-label">Emplacement de la boîte à clés principale <span style="font-weight:300;color:var(--ink3)">(obligatoire)</span></div><div class="field-hint">Précisez où sera installée la boîte à clés principale — accès voyageurs.</div><textarea class="field-input" id="f-btk_principale" rows="2" placeholder="Ex : à droite de la porte d'entrée / sur le pilier gauche du portail" oninput="saveField('btk_principale',this.value);checkBtkPrincipale()"></textarea><input type="checkbox" data-sec="acces" id="uc-btk-principale" style="display:none"></div>
     <div class="field-item"><div class="field-label">Emplacement de la boîte à clés de secours <span style="font-weight:300;color:var(--ink3)">(obligatoire)</span></div><div class="field-hint">En cas de problème avec la boîte principale, nous devons avoir accès à un jeu de clés de secours dans un endroit discret.</div><textarea class="field-input" id="f-btk_secours" rows="2" placeholder="Ex : boîte aux lettres n°3 / local poubelles au rez-de-chaussée" oninput="saveField('btk_secours',this.value);checkBtkSecours()"></textarea><input type="checkbox" data-sec="acces" id="uc-btk-secours" style="display:none"></div>
     <div class="field-item" id="fi-parking"><div class="field-label">Stationnement</div>
       <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:8px" id="parking-options">
@@ -336,16 +337,16 @@ input[type=file]{display:none}
     <div class="check-item" id="ci-confort"><label class="check-wrap"><input type="checkbox" data-sec="materiel" id="confort-ok" onchange="updateAll();toggleDone('ci-confort',this)"><div class="cbox"></div></label><div class="check-info"><label for="confort-ok" class="check-label" style="display:inline">Les équipements recommandés sont achetés et opérationnels</label><button class="hint-q" onclick="toggleHintQ(this)" aria-label="Aide">?</button><div class="hint-hidden">Machine à café, bouilloire, grille-pain, sèche-cheveux.</div><div class="done-tag">✓</div></div></div>
     <div class="field-item" style="border-top:1px solid var(--bg);padding-top:14px;margin-top:4px"><div class="field-label">Inventaire des équipements présents</div><div class="field-hint">Cochez tout ce qui est disponible dans le logement.</div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:8px">
-        <div class="check-item" id="ci-eq-plaques" style="padding:10px 0"><label class="check-wrap"><input type="checkbox" onchange="toggleDone('ci-eq-plaques',this)"><div class="cbox"></div></label><div class="check-info"><label class="check-label" style="font-size:13px">Plaques de cuisson</label><div class="done-tag">✓</div></div></div>
-        <div class="check-item" id="ci-eq-four" style="padding:10px 0"><label class="check-wrap"><input type="checkbox" onchange="toggleDone('ci-eq-four',this)"><div class="cbox"></div></label><div class="check-info"><label class="check-label" style="font-size:13px">Four</label><div class="done-tag">✓</div></div></div>
-        <div class="check-item" id="ci-eq-micro" style="padding:10px 0"><label class="check-wrap"><input type="checkbox" onchange="toggleDone('ci-eq-micro',this)"><div class="cbox"></div></label><div class="check-info"><label class="check-label" style="font-size:13px">Micro-ondes</label><div class="done-tag">✓</div></div></div>
-        <div class="check-item" id="ci-eq-frigo" style="padding:10px 0"><label class="check-wrap"><input type="checkbox" onchange="toggleDone('ci-eq-frigo',this)"><div class="cbox"></div></label><div class="check-info"><label class="check-label" style="font-size:13px">Réfrigérateur</label><div class="done-tag">✓</div></div></div>
-        <div class="check-item" id="ci-eq-lv" style="padding:10px 0"><label class="check-wrap"><input type="checkbox" onchange="toggleDone('ci-eq-lv',this)"><div class="cbox"></div></label><div class="check-info"><label class="check-label" style="font-size:13px">Lave-vaisselle</label><div class="done-tag">✓</div></div></div>
-        <div class="check-item" id="ci-eq-cafe" style="padding:10px 0"><label class="check-wrap"><input type="checkbox" onchange="toggleDone('ci-eq-cafe',this)"><div class="cbox"></div></label><div class="check-info"><label class="check-label" style="font-size:13px">Machine à café</label><div class="done-tag">✓</div></div></div>
-        <div class="check-item" id="ci-eq-bouilloire" style="padding:10px 0"><label class="check-wrap"><input type="checkbox" onchange="toggleDone('ci-eq-bouilloire',this)"><div class="cbox"></div></label><div class="check-info"><label class="check-label" style="font-size:13px">Bouilloire</label><div class="done-tag">✓</div></div></div>
-        <div class="check-item" id="ci-eq-gp" style="padding:10px 0"><label class="check-wrap"><input type="checkbox" onchange="toggleDone('ci-eq-gp',this)"><div class="cbox"></div></label><div class="check-info"><label class="check-label" style="font-size:13px">Grille-pain</label><div class="done-tag">✓</div></div></div>
-        <div class="check-item" id="ci-eq-sc" style="padding:10px 0"><label class="check-wrap"><input type="checkbox" onchange="toggleDone('ci-eq-sc',this)"><div class="cbox"></div></label><div class="check-info"><label class="check-label" style="font-size:13px">Sèche-cheveux</label><div class="done-tag">✓</div></div></div>
-        <div class="check-item" id="ci-eq-tv" style="padding:10px 0"><label class="check-wrap"><input type="checkbox" onchange="toggleDone('ci-eq-tv',this)"><div class="cbox"></div></label><div class="check-info"><label class="check-label" style="font-size:13px">Télévision</label><div class="done-tag">✓</div></div></div>
+        <div class="check-item" id="ci-eq-plaques" style="padding:10px 0"><label class="check-wrap"><input type="checkbox" id="eq-plaques" onchange="toggleDone('ci-eq-plaques',this);saveField('check_eq-plaques',this.checked?'1':'0')"><div class="cbox"></div></label><div class="check-info"><label class="check-label" style="font-size:13px">Plaques de cuisson</label><div class="done-tag">✓</div></div></div>
+        <div class="check-item" id="ci-eq-four" style="padding:10px 0"><label class="check-wrap"><input type="checkbox" id="eq-four" onchange="toggleDone('ci-eq-four',this);saveField('check_eq-four',this.checked?'1':'0')"><div class="cbox"></div></label><div class="check-info"><label class="check-label" style="font-size:13px">Four</label><div class="done-tag">✓</div></div></div>
+        <div class="check-item" id="ci-eq-micro" style="padding:10px 0"><label class="check-wrap"><input type="checkbox" id="eq-micro" onchange="toggleDone('ci-eq-micro',this);saveField('check_eq-micro',this.checked?'1':'0')"><div class="cbox"></div></label><div class="check-info"><label class="check-label" style="font-size:13px">Micro-ondes</label><div class="done-tag">✓</div></div></div>
+        <div class="check-item" id="ci-eq-frigo" style="padding:10px 0"><label class="check-wrap"><input type="checkbox" id="eq-frigo" onchange="toggleDone('ci-eq-frigo',this);saveField('check_eq-frigo',this.checked?'1':'0')"><div class="cbox"></div></label><div class="check-info"><label class="check-label" style="font-size:13px">Réfrigérateur</label><div class="done-tag">✓</div></div></div>
+        <div class="check-item" id="ci-eq-lv" style="padding:10px 0"><label class="check-wrap"><input type="checkbox" id="eq-lv" onchange="toggleDone('ci-eq-lv',this);saveField('check_eq-lv',this.checked?'1':'0')"><div class="cbox"></div></label><div class="check-info"><label class="check-label" style="font-size:13px">Lave-vaisselle</label><div class="done-tag">✓</div></div></div>
+        <div class="check-item" id="ci-eq-cafe" style="padding:10px 0"><label class="check-wrap"><input type="checkbox" id="eq-cafe" onchange="toggleDone('ci-eq-cafe',this);saveField('check_eq-cafe',this.checked?'1':'0')"><div class="cbox"></div></label><div class="check-info"><label class="check-label" style="font-size:13px">Machine à café</label><div class="done-tag">✓</div></div></div>
+        <div class="check-item" id="ci-eq-bouilloire" style="padding:10px 0"><label class="check-wrap"><input type="checkbox" id="eq-bouilloire" onchange="toggleDone('ci-eq-bouilloire',this);saveField('check_eq-bouilloire',this.checked?'1':'0')"><div class="cbox"></div></label><div class="check-info"><label class="check-label" style="font-size:13px">Bouilloire</label><div class="done-tag">✓</div></div></div>
+        <div class="check-item" id="ci-eq-gp" style="padding:10px 0"><label class="check-wrap"><input type="checkbox" id="eq-gp" onchange="toggleDone('ci-eq-gp',this);saveField('check_eq-gp',this.checked?'1':'0')"><div class="cbox"></div></label><div class="check-info"><label class="check-label" style="font-size:13px">Grille-pain</label><div class="done-tag">✓</div></div></div>
+        <div class="check-item" id="ci-eq-sc" style="padding:10px 0"><label class="check-wrap"><input type="checkbox" id="eq-sc" onchange="toggleDone('ci-eq-sc',this);saveField('check_eq-sc',this.checked?'1':'0')"><div class="cbox"></div></label><div class="check-info"><label class="check-label" style="font-size:13px">Sèche-cheveux</label><div class="done-tag">✓</div></div></div>
+        <div class="check-item" id="ci-eq-tv" style="padding:10px 0"><label class="check-wrap"><input type="checkbox" id="eq-tv" onchange="toggleDone('ci-eq-tv',this);saveField('check_eq-tv',this.checked?'1':'0')"><div class="cbox"></div></label><div class="check-info"><label class="check-label" style="font-size:13px">Télévision</label><div class="done-tag">✓</div></div></div>
       </div>
       <input type="text" class="field-input" id="f-autres_eq" style="margin-top:8px" placeholder="Autres équipements — Ex : congélateur, climatisation…" oninput="saveField('autres_eq',this.value)">
     </div>
@@ -416,7 +417,7 @@ input[type=file]{display:none}
         <input type="checkbox" data-sec="securite" id="uc-extincteur" style="display:none">
       </div>
     </div>
-    <div class="check-item" id="ci-minut"><label class="check-wrap"><input type="checkbox" id="minut-ok" onchange="toggleDone('ci-minut',this)"><div class="cbox"></div></label><div class="check-info"><label for="minut-ok" class="check-label" style="display:inline">Je souhaite l'installation d'un boîtier Minut dans le logement <span style="font-weight:300;color:var(--ink3)">(facultatif)</span></label><button class="hint-q" onclick="toggleHintQ(this)" aria-label="Aide">?</button><div class="hint-hidden">Recommandé pour les maisons. Le capteur détecte les nuisances sonores et envoie une alerte automatique en cas de dépassement du seuil, sans enregistrer ni identifier qui que ce soit. Conforme aux règles Airbnb et Booking.</div><div class="done-tag">✓</div></div></div>
+    <div class="check-item" id="ci-minut"><label class="check-wrap"><input type="checkbox" id="minut-ok" onchange="toggleDone('ci-minut',this);saveField('check_minut',this.checked?'1':'0')"><div class="cbox"></div></label><div class="check-info"><label for="minut-ok" class="check-label" style="display:inline">Je souhaite l'installation d'un boîtier Minut dans le logement <span style="font-weight:300;color:var(--ink3)">(facultatif)</span></label><button class="hint-q" onclick="toggleHintQ(this)" aria-label="Aide">?</button><div class="hint-hidden">Recommandé pour les maisons. Le capteur détecte les nuisances sonores et envoie une alerte automatique en cas de dépassement du seuil, sans enregistrer ni identifier qui que ce soit. Conforme aux règles Airbnb et Booking.</div><div class="done-tag">✓</div></div></div>
     <div class="field-item"><div class="field-label">Surface du logement <span style="font-weight:300;color:var(--ink3)">(obligatoire)</span></div><div class="field-hint">En m², utilisée pour paramétrer vos annonces.</div><input type="text" class="field-input" id="f-surface" placeholder="Ex : 38 m²" oninput="saveField('surface',this.value);checkSurface()"><input type="checkbox" data-sec="securite" id="uc-surface" style="display:none"></div>
   </div>
 </div></div>
@@ -603,7 +604,7 @@ function autoCloseSec(sec) {
         b.classList.remove('open');
         if (a) a.classList.remove('open');
       }
-    }, 2000);
+    }, 4000);
   }
 }
 function toggleHintQ(btn) {
@@ -669,6 +670,11 @@ function checkBtkSecours() {
   var cb = document.getElementById('uc-btk-secours');
   if (cb) { cb.checked = !!(input && input.value.trim().length > 0); updateAll(); }
 }
+function checkBtkPrincipale() {
+  var input = document.getElementById('f-btk_principale');
+  var cb = document.getElementById('uc-btk-principale');
+  if (cb) { cb.checked = !!(input && input.value.trim().length > 0); updateAll(); }
+}
 function checkNif() {
   var input = document.getElementById('f-nif');
   var cb = document.getElementById('uc-nif');
@@ -727,7 +733,7 @@ function copyAdminUrl() {
   navigator.clipboard.writeText(url).then(function() {
     var copied = document.getElementById('admin-copied');
     copied.style.display = 'block';
-    setTimeout(function() { copied.style.display = 'none'; }, 2000);
+    setTimeout(function() { copied.style.display = 'none'; }, 4000);
   });
 }
 function saveToLocalStorage() {
@@ -770,6 +776,47 @@ function restoreState(data) {
       fields[k] = data.fields[k];
       var el = document.getElementById('f-' + k);
       if (el) el.value = data.fields[k];
+      // Restaurer checkboxes équipements et autres sans data-sec
+      if (k.startsWith('check_')) {
+        var cbId = k.replace('check_', '');
+        var cbEl = document.getElementById(cbId);
+        if (cbEl && data.fields[k] === '1') {
+          cbEl.checked = true;
+          var wrap = cbEl.closest('.check-item');
+          if (wrap) { wrap.classList.add('is-done'); var lbl = wrap.querySelector('.check-label'); if (lbl) lbl.classList.add('done'); }
+        }
+      }
+      // Restaurer les boutons Oui/Non
+      if (k.startsWith('yn_')) {
+        var id = k.replace('yn_', '');
+        var val = data.fields[k];
+        // Parking multi-options
+        if (id === 'parking_yn') {
+          var vals = val.split(',').map(function(v){ return v.trim(); });
+          document.querySelectorAll('#parking-options .yn-btn').forEach(function(btn){
+            if (vals.indexOf(btn.textContent.trim()) !== -1) {
+              btn.classList.add('active');
+            }
+          });
+          var detail = document.getElementById('parking-detail');
+          if (detail && vals.length > 0) detail.style.display = 'block';
+        } else {
+          // Boutons Oui/Non standard
+          var container = document.getElementById('uc-' + id);
+          if (container) {
+            var wrap = container.closest('.check-item') || container.parentElement;
+            if (wrap) {
+              wrap.querySelectorAll('.yn-btn').forEach(function(btn){
+                btn.classList.remove('active');
+                if ((val === 'oui' && btn.classList.contains('yn-yes')) ||
+                    (val === 'non' && btn.classList.contains('yn-no'))) {
+                  btn.classList.add('active');
+                }
+              });
+            }
+          }
+        }
+      }
     });
   }
   if (data.uploads) {
