@@ -337,16 +337,16 @@ input[type=file]{display:none}
     <div class="check-item" id="ci-confort"><label class="check-wrap"><input type="checkbox" data-sec="materiel" id="confort-ok" onchange="updateAll();toggleDone('ci-confort',this)"><div class="cbox"></div></label><div class="check-info"><label for="confort-ok" class="check-label" style="display:inline">Les équipements recommandés sont achetés et opérationnels</label><button class="hint-q" onclick="toggleHintQ(this)" aria-label="Aide">?</button><div class="hint-hidden">Machine à café, bouilloire, grille-pain, sèche-cheveux.</div><div class="done-tag">✓</div></div></div>
     <div class="field-item" style="border-top:1px solid var(--bg);padding-top:14px;margin-top:4px"><div class="field-label">Inventaire des équipements présents</div><div class="field-hint">Cochez tout ce qui est disponible dans le logement.</div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:8px">
-        <div class="check-item" id="ci-eq-plaques" style="padding:10px 0"><label class="check-wrap"><input type="checkbox" id="eq-plaques" onchange="toggleDone('ci-eq-plaques',this);saveField('check_eq-plaques',this.checked?'1':'0')"><div class="cbox"></div></label><div class="check-info"><label class="check-label" style="font-size:13px">Plaques de cuisson</label><div class="done-tag">✓</div></div></div>
-        <div class="check-item" id="ci-eq-four" style="padding:10px 0"><label class="check-wrap"><input type="checkbox" id="eq-four" onchange="toggleDone('ci-eq-four',this);saveField('check_eq-four',this.checked?'1':'0')"><div class="cbox"></div></label><div class="check-info"><label class="check-label" style="font-size:13px">Four</label><div class="done-tag">✓</div></div></div>
-        <div class="check-item" id="ci-eq-micro" style="padding:10px 0"><label class="check-wrap"><input type="checkbox" id="eq-micro" onchange="toggleDone('ci-eq-micro',this);saveField('check_eq-micro',this.checked?'1':'0')"><div class="cbox"></div></label><div class="check-info"><label class="check-label" style="font-size:13px">Micro-ondes</label><div class="done-tag">✓</div></div></div>
-        <div class="check-item" id="ci-eq-frigo" style="padding:10px 0"><label class="check-wrap"><input type="checkbox" id="eq-frigo" onchange="toggleDone('ci-eq-frigo',this);saveField('check_eq-frigo',this.checked?'1':'0')"><div class="cbox"></div></label><div class="check-info"><label class="check-label" style="font-size:13px">Réfrigérateur</label><div class="done-tag">✓</div></div></div>
-        <div class="check-item" id="ci-eq-lv" style="padding:10px 0"><label class="check-wrap"><input type="checkbox" id="eq-lv" onchange="toggleDone('ci-eq-lv',this);saveField('check_eq-lv',this.checked?'1':'0')"><div class="cbox"></div></label><div class="check-info"><label class="check-label" style="font-size:13px">Lave-vaisselle</label><div class="done-tag">✓</div></div></div>
-        <div class="check-item" id="ci-eq-cafe" style="padding:10px 0"><label class="check-wrap"><input type="checkbox" id="eq-cafe" onchange="toggleDone('ci-eq-cafe',this);saveField('check_eq-cafe',this.checked?'1':'0')"><div class="cbox"></div></label><div class="check-info"><label class="check-label" style="font-size:13px">Machine à café</label><div class="done-tag">✓</div></div></div>
-        <div class="check-item" id="ci-eq-bouilloire" style="padding:10px 0"><label class="check-wrap"><input type="checkbox" id="eq-bouilloire" onchange="toggleDone('ci-eq-bouilloire',this);saveField('check_eq-bouilloire',this.checked?'1':'0')"><div class="cbox"></div></label><div class="check-info"><label class="check-label" style="font-size:13px">Bouilloire</label><div class="done-tag">✓</div></div></div>
-        <div class="check-item" id="ci-eq-gp" style="padding:10px 0"><label class="check-wrap"><input type="checkbox" id="eq-gp" onchange="toggleDone('ci-eq-gp',this);saveField('check_eq-gp',this.checked?'1':'0')"><div class="cbox"></div></label><div class="check-info"><label class="check-label" style="font-size:13px">Grille-pain</label><div class="done-tag">✓</div></div></div>
-        <div class="check-item" id="ci-eq-sc" style="padding:10px 0"><label class="check-wrap"><input type="checkbox" id="eq-sc" onchange="toggleDone('ci-eq-sc',this);saveField('check_eq-sc',this.checked?'1':'0')"><div class="cbox"></div></label><div class="check-info"><label class="check-label" style="font-size:13px">Sèche-cheveux</label><div class="done-tag">✓</div></div></div>
-        <div class="check-item" id="ci-eq-tv" style="padding:10px 0"><label class="check-wrap"><input type="checkbox" id="eq-tv" onchange="toggleDone('ci-eq-tv',this);saveField('check_eq-tv',this.checked?'1':'0')"><div class="cbox"></div></label><div class="check-info"><label class="check-label" style="font-size:13px">Télévision</label><div class="done-tag">✓</div></div></div>
+        <div class="check-item" id="ci-eq-plaques" style="padding:10px 0"><label class="check-wrap"><input type="checkbox" id="eq-plaques" onchange="toggleDone('ci-eq-plaques',this);saveField('check_eq_plaques',this.checked?'1':'0')"><div class="cbox"></div></label><div class="check-info"><label class="check-label" style="font-size:13px">Plaques de cuisson</label><div class="done-tag">✓</div></div></div>
+        <div class="check-item" id="ci-eq-four" style="padding:10px 0"><label class="check-wrap"><input type="checkbox" id="eq-four" onchange="toggleDone('ci-eq-four',this);saveField('check_eq_four',this.checked?'1':'0')"><div class="cbox"></div></label><div class="check-info"><label class="check-label" style="font-size:13px">Four</label><div class="done-tag">✓</div></div></div>
+        <div class="check-item" id="ci-eq-micro" style="padding:10px 0"><label class="check-wrap"><input type="checkbox" id="eq-micro" onchange="toggleDone('ci-eq-micro',this);saveField('check_eq_micro',this.checked?'1':'0')"><div class="cbox"></div></label><div class="check-info"><label class="check-label" style="font-size:13px">Micro-ondes</label><div class="done-tag">✓</div></div></div>
+        <div class="check-item" id="ci-eq-frigo" style="padding:10px 0"><label class="check-wrap"><input type="checkbox" id="eq-frigo" onchange="toggleDone('ci-eq-frigo',this);saveField('check_eq_frigo',this.checked?'1':'0')"><div class="cbox"></div></label><div class="check-info"><label class="check-label" style="font-size:13px">Réfrigérateur</label><div class="done-tag">✓</div></div></div>
+        <div class="check-item" id="ci-eq-lv" style="padding:10px 0"><label class="check-wrap"><input type="checkbox" id="eq-lv" onchange="toggleDone('ci-eq-lv',this);saveField('check_eq_lv',this.checked?'1':'0')"><div class="cbox"></div></label><div class="check-info"><label class="check-label" style="font-size:13px">Lave-vaisselle</label><div class="done-tag">✓</div></div></div>
+        <div class="check-item" id="ci-eq-cafe" style="padding:10px 0"><label class="check-wrap"><input type="checkbox" id="eq-cafe" onchange="toggleDone('ci-eq-cafe',this);saveField('check_eq_cafe',this.checked?'1':'0')"><div class="cbox"></div></label><div class="check-info"><label class="check-label" style="font-size:13px">Machine à café</label><div class="done-tag">✓</div></div></div>
+        <div class="check-item" id="ci-eq-bouilloire" style="padding:10px 0"><label class="check-wrap"><input type="checkbox" id="eq-bouilloire" onchange="toggleDone('ci-eq-bouilloire',this);saveField('check_eq_bouilloire',this.checked?'1':'0')"><div class="cbox"></div></label><div class="check-info"><label class="check-label" style="font-size:13px">Bouilloire</label><div class="done-tag">✓</div></div></div>
+        <div class="check-item" id="ci-eq-gp" style="padding:10px 0"><label class="check-wrap"><input type="checkbox" id="eq-gp" onchange="toggleDone('ci-eq-gp',this);saveField('check_eq_gp',this.checked?'1':'0')"><div class="cbox"></div></label><div class="check-info"><label class="check-label" style="font-size:13px">Grille-pain</label><div class="done-tag">✓</div></div></div>
+        <div class="check-item" id="ci-eq-sc" style="padding:10px 0"><label class="check-wrap"><input type="checkbox" id="eq-sc" onchange="toggleDone('ci-eq-sc',this);saveField('check_eq_sc',this.checked?'1':'0')"><div class="cbox"></div></label><div class="check-info"><label class="check-label" style="font-size:13px">Sèche-cheveux</label><div class="done-tag">✓</div></div></div>
+        <div class="check-item" id="ci-eq-tv" style="padding:10px 0"><label class="check-wrap"><input type="checkbox" id="eq-tv" onchange="toggleDone('ci-eq-tv',this);saveField('check_eq_tv',this.checked?'1':'0')"><div class="cbox"></div></label><div class="check-info"><label class="check-label" style="font-size:13px">Télévision</label><div class="done-tag">✓</div></div></div>
       </div>
       <input type="text" class="field-input" id="f-autres_eq" style="margin-top:8px" placeholder="Autres équipements — Ex : congélateur, climatisation…" oninput="saveField('autres_eq',this.value)">
     </div>
@@ -601,6 +601,9 @@ function autoCloseSec(sec) {
       var b = document.getElementById('body-' + sec);
       var a = document.getElementById('arr-' + sec);
       if (b && b.classList.contains('open')) {
+        // Ne pas fermer si un input/textarea est actif dans cette section
+        var active = document.activeElement;
+        if (active && b.contains(active) && (active.tagName === 'INPUT' || active.tagName === 'TEXTAREA')) return;
         b.classList.remove('open');
         if (a) a.classList.remove('open');
       }
@@ -778,13 +781,27 @@ function restoreState(data) {
       if (el) el.value = data.fields[k];
       // Restaurer checkboxes équipements et autres sans data-sec
       if (k.startsWith('check_')) {
-        var cbId = k.replace('check_', '');
+        var cbId = k.replace('check_', '').replace(/_/g, '-');
         var cbEl = document.getElementById(cbId);
         if (cbEl && data.fields[k] === '1') {
           cbEl.checked = true;
           var wrap = cbEl.closest('.check-item');
           if (wrap) { wrap.classList.add('is-done'); var lbl = wrap.querySelector('.check-label'); if (lbl) lbl.classList.add('done'); }
         }
+      }
+      // Restaurer le stationnement multi-options
+      if (k === 'parking_yn' && data.fields[k]) {
+        var vals = data.fields[k].split(',').map(function(v){ return v.trim(); });
+        document.querySelectorAll('#parking-options .yn-btn').forEach(function(btn){
+          if (vals.indexOf(btn.textContent.trim()) !== -1) {
+            btn.classList.add('active');
+          }
+        });
+        var anyActive = vals.length > 0;
+        var detail = document.getElementById('parking-detail');
+        if (detail && anyActive) detail.style.display = 'block';
+        var cb = document.getElementById('uc-parking');
+        if (cb) cb.checked = anyActive;
       }
       // Restaurer les boutons Oui/Non
       if (k.startsWith('yn_')) {
@@ -868,8 +885,20 @@ async function saveToAirtable() {
     showAtError('Erreur de sauvegarde Airtable — données conservées en local.');
   } finally { isSaving = false; }
 }
+function closeCompletedSecs() {
+  Object.keys(SECS).forEach(function(sec) {
+    var d = getChecked(sec);
+    var t = SECS[sec] ? SECS[sec].total : 0;
+    if (t > 0 && d === t) {
+      var b = document.getElementById('body-' + sec);
+      var a = document.getElementById('arr-' + sec);
+      if (b) b.classList.remove('open');
+      if (a) a.classList.remove('open');
+    }
+  });
+}
 async function loadFromAirtable() {
-  if (isFileProtocol()) { setSaveStatus('Mode local'); return; }
+  if (isFileProtocol()) { setSaveStatus('Mode local'); closeCompletedSecs(); return; }
   setSaveStatus('Chargement...');
   try {
     var filter = encodeURIComponent('{Client ID}="' + clientId + '"');
@@ -885,14 +914,15 @@ async function loadFromAirtable() {
       saveToLocalStorage();
       setSaveStatus('✓ Chargé');
       updateAll();
+      closeCompletedSecs();
       return;
     }
     var ls = loadFromLocalStorage();
-    if (ls) { restoreState(ls); setSaveStatus('✓ Chargé (local)'); updateAll(); }
+    if (ls) { restoreState(ls); setSaveStatus('✓ Chargé (local)'); updateAll(); closeCompletedSecs(); }
     else { setSaveStatus('Nouveau dossier'); }
   } catch(e) {
     var ls = loadFromLocalStorage();
-    if (ls) { restoreState(ls); setSaveStatus('✓ Local (hors ligne)'); updateAll(); }
+    if (ls) { restoreState(ls); setSaveStatus('✓ Local (hors ligne)'); updateAll(); closeCompletedSecs(); }
     else { setSaveStatus('⚠ Erreur chargement'); }
   }
 }
@@ -923,7 +953,7 @@ async function submitForm() {
   buildSpecifique(params.get('items') || '');
   buildNote(params.get('note') || '');
   updateAll();
-  loadFromAirtable();
+  loadFromAirtable().then(function(){ closeCompletedSecs(); });
 })();
 
 function buildNote(raw) {
