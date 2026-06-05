@@ -251,7 +251,7 @@ async function loadData() {
 
   try {
     var atUrl = 'https://api.airtable.com/v0/' + AT_BASE + '/' + encodeURIComponent(AT_TABLE) +
-      '?sort[0][field]=Derni%C3%A8re+mise+%C3%A0+jour&sort[0][direction]=desc&pageSize=100';
+      '?filterByFormula=' + encodeURIComponent('{Type}="lancement"') + '&sort[0][field]=Derni%C3%A8re+mise+%C3%A0+jour&sort[0][direction]=desc&pageSize=100';
     var r = await fetch(proxyUrl(atUrl));
     if (!r.ok) throw new Error('HTTP ' + r.status);
     var data = await r.json();
