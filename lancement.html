@@ -127,6 +127,7 @@ input[type=file]{display:none}
 .yn-btn:hover{border-color:var(--ink3);color:var(--ink)}
 .yn-btn.yn-yes.active{background:var(--gbg);border-color:var(--gr);color:var(--gr)}
 .yn-btn.yn-no.active{background:#FFF9E0;border-color:#C9A918;color:#8B6914}
+.yn-btn.active{background:#FFF9E0;border-color:var(--y);color:var(--ink)}
 </style>
 </head>
 <body>
@@ -279,7 +280,7 @@ input[type=file]{display:none}
     <div class="check-item" id="ci-menage-dem"><label class="check-wrap"><input type="checkbox" data-sec="acces" id="menage-dem-ok" onchange="updateAll();toggleDone('ci-menage-dem',this)"><div class="cbox"></div></label><div class="check-info"><label for="menage-dem-ok" class="check-label" style="display:inline">J'accepte un ménage de démarrage avant la première réservation</label><button class="hint-q" onclick="toggleHintQ(this)" aria-label="Aide">?</button><div class="hint-hidden">Le ménage de démarrage nous permet de préparer le logement dans les meilleures conditions. Il est facturé une seule fois au lancement.</div><div class="done-tag">✓</div></div></div>
     <div class="field-item"><div class="field-label">Modalités d'ouverture de la porte de l'immeuble</div><div class="field-hint">Si votre logement est dans un immeuble avec une porte d'accès, précisez comment elle s'ouvre.</div><input type="text" class="field-input" id="f-acces_immeuble" placeholder="Ex : digicode — code 1234A / interphone / porte libre" oninput="saveField('acces_immeuble',this.value)"></div>
     <div class="field-item"><div class="field-label">Entretien des parties communes <span style="font-weight:300;color:var(--ink3)">(facultatif)</span></div><div class="field-hint">Précisez les surfaces concernées et la fréquence souhaitée — nous vous ferons un devis.</div><textarea class="field-input" id="f-communs" rows="2" placeholder="Ex : couloir et escaliers — 2 fois par mois" oninput="saveField('communs',this.value)"></textarea></div>
-    <div class="field-item"><div class="field-label">Emplacement de la boîte à clés de secours</div><div class="field-hint">En cas de problème avec la boîte principale, nous devons avoir accès à un jeu de clés de secours dans un endroit discret.</div><textarea class="field-input" id="f-btk_secours" rows="2" placeholder="Ex : boîte aux lettres n°3 / local poubelles au rez-de-chaussée" oninput="saveField('btk_secours',this.value)"></textarea></div>
+    <div class="field-item"><div class="field-label">Emplacement de la boîte à clés de secours <span style="font-weight:300;color:var(--ink3)">(obligatoire)</span></div><div class="field-hint">En cas de problème avec la boîte principale, nous devons avoir accès à un jeu de clés de secours dans un endroit discret.</div><textarea class="field-input" id="f-btk_secours" rows="2" placeholder="Ex : boîte aux lettres n°3 / local poubelles au rez-de-chaussée" oninput="saveField('btk_secours',this.value);checkBtkSecours()"></textarea><input type="checkbox" data-sec="acces" id="uc-btk-secours" style="display:none"></div>
     <div class="field-item" id="fi-parking"><div class="field-label">Stationnement</div>
       <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:8px" id="parking-options">
         <button class="yn-btn" onclick="parkingOption('prive',this)">Place privée (cour, garage, box)</button>
@@ -415,7 +416,7 @@ input[type=file]{display:none}
         <input type="checkbox" data-sec="securite" id="uc-extincteur" style="display:none">
       </div>
     </div>
-    <div class="check-item" id="ci-minut"><label class="check-wrap"><input type="checkbox" data-sec="securite" id="minut-ok" onchange="updateAll();toggleDone('ci-minut',this)"><div class="cbox"></div></label><div class="check-info"><label for="minut-ok" class="check-label">Je souhaite l'installation d'un boîtier Minut dans le logement</label><div class="check-hint">Recommandé pour les maisons. Le capteur détecte les nuisances sonores et envoie une alerte automatique en cas de dépassement du seuil, sans enregistrer ni identifier qui que ce soit. Conforme aux règles Airbnb et Booking.</div><div class="done-tag">✓</div></div></div>
+    <div class="check-item" id="ci-minut"><label class="check-wrap"><input type="checkbox" id="minut-ok" onchange="toggleDone('ci-minut',this)"><div class="cbox"></div></label><div class="check-info"><label for="minut-ok" class="check-label" style="display:inline">Je souhaite l'installation d'un boîtier Minut dans le logement <span style="font-weight:300;color:var(--ink3)">(facultatif)</span></label><button class="hint-q" onclick="toggleHintQ(this)" aria-label="Aide">?</button><div class="hint-hidden">Recommandé pour les maisons. Le capteur détecte les nuisances sonores et envoie une alerte automatique en cas de dépassement du seuil, sans enregistrer ni identifier qui que ce soit. Conforme aux règles Airbnb et Booking.</div><div class="done-tag">✓</div></div></div>
     <div class="field-item"><div class="field-label">Surface du logement <span style="font-weight:300;color:var(--ink3)">(obligatoire)</span></div><div class="field-hint">En m², utilisée pour paramétrer vos annonces.</div><input type="text" class="field-input" id="f-surface" placeholder="Ex : 38 m²" oninput="saveField('surface',this.value);checkSurface()"><input type="checkbox" data-sec="securite" id="uc-surface" style="display:none"></div>
   </div>
 </div></div>
@@ -466,7 +467,7 @@ input[type=file]{display:none}
   </div>
 </div></div>
 
-<div class="sec" id="sec-specifique" style="display:none">
+<div class="sec" id="sec-specifique">
 <div class="sec-head" onclick="toggleSec('specifique')">
   <span class="sec-num">13</span><span class="sec-name">Points spécifiques</span>
   <span class="sec-badge b-e" id="st-specifique">0 / 0</span>
@@ -474,17 +475,17 @@ input[type=file]{display:none}
 </div>
 <div class="sec-body open" id="body-specifique">
   <div class="sec-intro"><div class="sec-intro-bar"></div><p>Ces points sont propres à votre logement ou à votre situation. Merci de les valider avant l'ouverture.</p></div>
-  <div class="items" id="items-specifique"></div>
+  <div class="items" id="items-specifique"><div style="padding:14px 0;font-size:13px;color:var(--ink3);font-weight:300" id="specifique-empty">Votre conciergerie n'a pas encore ajouté de points spécifiques.</div></div>
 </div>
 </div>
 
-<div id="note-conciergerie" style="display:none;margin-bottom:12px;background:var(--w);border:1px solid var(--bd);border-radius:6px;overflow:hidden">
+<div style="margin-bottom:12px;background:var(--w);border:1px solid var(--bd);border-radius:6px;overflow:hidden">
   <div style="padding:16px 20px;border-bottom:1px solid var(--bd);display:flex;align-items:center;gap:10px">
     <span style="font-size:10px;font-weight:800;letter-spacing:.12em;color:var(--y)">✦</span>
     <span style="font-size:14px;font-weight:800;color:var(--ink);letter-spacing:-.01em">Note de votre conciergerie</span>
   </div>
   <div style="padding:14px 20px">
-    <p id="note-conciergerie-text" style="font-size:13px;color:var(--ink2);line-height:1.7;font-weight:300;white-space:pre-wrap"></p>
+    <textarea class="field-input" id="f-note_conciergerie" rows="3" placeholder="Votre conciergerie n'a pas encore ajouté de note." oninput="saveField('note_conciergerie',this.value)" style="resize:vertical"></textarea>
   </div>
 </div>
 
@@ -602,7 +603,7 @@ function autoCloseSec(sec) {
         b.classList.remove('open');
         if (a) a.classList.remove('open');
       }
-    }, 800);
+    }, 2000);
   }
 }
 function toggleHintQ(btn) {
@@ -661,6 +662,11 @@ function autoCheckUpload(key) {
 function checkSurface() {
   var input = document.getElementById('f-surface');
   var cb = document.getElementById('uc-surface');
+  if (cb) { cb.checked = !!(input && input.value.trim().length > 0); updateAll(); }
+}
+function checkBtkSecours() {
+  var input = document.getElementById('f-btk_secours');
+  var cb = document.getElementById('uc-btk-secours');
   if (cb) { cb.checked = !!(input && input.value.trim().length > 0); updateAll(); }
 }
 function checkNif() {
@@ -875,11 +881,8 @@ async function submitForm() {
 
 function buildNote(raw) {
   if (!raw || !raw.trim()) return;
-  var bloc = document.getElementById('note-conciergerie');
-  var txt = document.getElementById('note-conciergerie-text');
-  if (!bloc || !txt) return;
-  txt.textContent = raw.trim();
-  bloc.style.display = 'block';
+  var el = document.getElementById('f-note_conciergerie');
+  if (el && !el.value) { el.value = raw.trim(); saveField('note_conciergerie', raw.trim()); }
 }
 function buildSpecifique(raw) {
   if (!raw) return;
@@ -889,6 +892,8 @@ function buildSpecifique(raw) {
   var container = document.getElementById('items-specifique');
   if (!sec || !container) return;
   sec.style.display = 'block';
+  var emptyMsg = document.getElementById('specifique-empty');
+  if (emptyMsg) emptyMsg.style.display = 'none';
   if (!SECS['specifique']) SECS['specifique'] = { total: 0 };
   lines.forEach(function(line, i) {
     var cbId = 'spec-' + i;
