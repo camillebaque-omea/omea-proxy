@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ômea — Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@300;400;500;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--y:#EAC72D;--yd:#C9A918;--ink:#1A1A1A;--ink2:#555;--ink3:#999;--bg:#F7F6F3;--w:#fff;--bd:#E5E2DA;--gr:#1E7A45;--gbg:#EBF5F0;--gbd:#A8D4BB;--red:#C0392B;--redbg:#FDECEA}
+body{font-family:'Libre Franklin',sans-serif;background:var(--bg);color:var(--ink);min-height:100vh}
+nav{background:var(--w);border-bottom:1px solid var(--bd);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:60px;position:sticky;top:0;z-index:100}
+.logo{font-weight:800;font-size:17px}.logo span{color:var(--y)}
+.nav-right{display:flex;align-items:center;gap:16px}
+.refresh-btn{padding:7px 16px;background:var(--y);color:var(--ink);border:none;border-radius:4px;font-family:'Libre Franklin',sans-serif;font-size:11px;font-weight:800;cursor:pointer;letter-spacing:.06em;text-transform:uppercase;transition:background .15s}
+.refresh-btn:hover{background:var(--yd)}
+.refresh-btn:disabled{opacity:.5;cursor:not-allowed}
+.last-update{font-size:11px;color:var(--ink3);font-weight:300}
+.content{max-width:960px;margin:0 auto;padding:2rem 1.5rem}
+.page-title{font-size:22px;font-weight:800;color:var(--ink);letter-spacing:-.02em;margin-bottom:4px}
+.page-sub{font-size:13px;color:var(--ink3);font-weight:300;margin-bottom:2rem}
+.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:2rem}
+.stat-card{background:var(--w);border:1px solid var(--bd);border-radius:6px;padding:16px 20px}
+.stat-val{font-size:28px;font-weight:800;color:var(--ink);letter-spacing:-.02em;line-height:1}
+.stat-val.yellow{color:var(--y)}
+.stat-val.green{color:var(--gr)}
+.stat-label{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);margin-top:6px}
+.table-wrap{background:var(--w);border:1px solid var(--bd);border-radius:6px;overflow:hidden}
+.table-head{display:grid;grid-template-columns:2fr 1fr 140px 100px 180px;gap:0;padding:10px 20px;background:var(--bg);border-bottom:1px solid var(--bd)}
+.th{font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3)}
+.table-row{display:grid;grid-template-columns:2fr 1fr 140px 100px 180px;gap:0;padding:14px 20px;border-bottom:1px solid var(--bg);align-items:center;transition:background .15s}
+.table-row:last-child{border-bottom:none}
+.table-row:hover{background:var(--bg)}
+.client-name{font-size:14px;font-weight:800;color:var(--ink)}
+.client-id{font-size:11px;color:var(--ink3);font-weight:300;margin-top:2px}
+.prog-wrap{display:flex;align-items:center;gap:10px}
+.prog-mini{flex:1;height:4px;background:var(--bd);border-radius:2px;overflow:hidden}
+.prog-mini-fill{height:4px;border-radius:2px;transition:width .4s ease}
+.prog-num{font-size:12px;font-weight:800;color:var(--ink);min-width:32px;text-align:right}
+.badge{display:inline-block;font-size:10px;font-weight:800;padding:3px 9px;border-radius:2px;letter-spacing:.04em;white-space:nowrap}
+.badge-done{background:var(--gbg);color:var(--gr);border:1px solid var(--gbd)}
+.badge-transmitted{background:#E8F0FE;color:#1A56DB;border:1px solid #B4C6FC}
+.badge-progress{background:#FFF9E0;color:#8B6914;border:1px solid #E8D87A}
+.badge-new{background:var(--bg);color:var(--ink3);border:1px solid var(--bd)}
+.actions{display:flex;gap:8px;align-items:center}
+.action-btn{padding:6px 12px;background:var(--w);border:1.5px solid var(--bd);border-radius:4px;font-family:'Libre Franklin',sans-serif;font-size:11px;font-weight:800;color:var(--ink);cursor:pointer;letter-spacing:.04em;text-decoration:none;white-space:nowrap;transition:border-color .15s;display:inline-block}
+.action-btn:hover{border-color:var(--y)}
+.delete-btn{padding:6px 12px;background:var(--w);border:1.5px solid var(--bd);border-radius:4px;font-family:'Libre Franklin',sans-serif;font-size:11px;font-weight:800;color:var(--ink3);cursor:pointer;letter-spacing:.04em;white-space:nowrap;transition:all .15s}
+.delete-btn:hover{border-color:var(--red);color:var(--red)}
+.empty{padding:3rem 2rem;text-align:center;color:var(--ink3);font-size:13px;font-weight:300}
+.error-bar{background:var(--redbg);border:1px solid #F5C6C2;border-radius:6px;padding:12px 16px;margin-bottom:1.5rem;font-size:13px;color:var(--red);display:none}
+.error-bar.show{display:block}
+.loading{padding:3rem 2rem;text-align:center;color:var(--ink3);font-size:13px;font-weight:300}
+.spinner{display:inline-block;width:16px;height:16px;border:2px solid var(--bd);border-top-color:var(--y);border-radius:50%;animation:spin .6s linear infinite;margin-right:8px;vertical-align:middle}
+@keyframes spin{to{transform:rotate(360deg)}}
+.date{font-size:11px;color:var(--ink3);font-weight:300}
+.confirm-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:200;align-items:center;justify-content:center}
+.confirm-overlay.show{display:flex}
+.confirm-box{background:var(--w);border-radius:8px;padding:2rem;max-width:380px;width:90%;box-shadow:0 8px 32px rgba(0,0,0,.15)}
+.confirm-title{font-size:16px;font-weight:800;color:var(--ink);margin-bottom:8px}
+.confirm-msg{font-size:13px;color:var(--ink2);font-weight:300;line-height:1.6;margin-bottom:1.5rem}
+.confirm-actions{display:flex;gap:10px;justify-content:flex-end}
+.confirm-cancel{padding:9px 20px;background:var(--w);border:1.5px solid var(--bd);border-radius:4px;font-family:'Libre Franklin',sans-serif;font-size:12px;font-weight:800;color:var(--ink);cursor:pointer}
+.confirm-delete{padding:9px 20px;background:var(--red);border:none;border-radius:4px;font-family:'Libre Franklin',sans-serif;font-size:12px;font-weight:800;color:#fff;cursor:pointer}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">Ô<span>M</span>EA</div>
+  <div class="nav-right">
+    <span class="last-update" id="last-update"></span>
+    <button class="refresh-btn" id="refresh-btn" onclick="loadData()">↻ Actualiser</button>
+  </div>
+</nav>
+
+<div class="confirm-overlay" id="confirm-overlay">
+  <div class="confirm-box">
+    <div class="confirm-title">Supprimer ce dossier ?</div>
+    <div class="confirm-msg" id="confirm-msg">Cette action est irréversible.</div>
+    <div class="confirm-actions">
+      <button class="confirm-cancel" onclick="closeConfirm()">Annuler</button>
+      <button class="confirm-delete" id="confirm-delete-btn">Supprimer</button>
+    </div>
+  </div>
+</div>
+
+<div class="content">
+  <div class="page-title">Dashboard lancement</div>
+  <div class="page-sub">Progression en temps réel de vos dossiers clients</div>
+
+  <div class="error-bar" id="error-bar">Erreur de chargement — vérifiez votre connexion.</div>
+
+  <div class="stats-row">
+    <div class="stat-card"><div class="stat-val yellow" id="stat-total">—</div><div class="stat-label">Dossiers actifs</div></div>
+    
+    <div class="stat-card"><div class="stat-val" id="stat-progress">—</div><div class="stat-label">En cours</div></div>
+    <div class="stat-card"><div class="stat-val" id="stat-transmitted">—</div><div class="stat-label">Transmis</div></div>
+  </div>
+
+  <div class="table-wrap">
+    <div class="table-head">
+      <div class="th">Client</div>
+      <div class="th">Statut</div>
+      <div class="th">Progression</div>
+      <div class="th">Mis à jour</div>
+      <div class="th">Actions</div>
+    </div>
+    <div id="table-body">
+      <div class="loading"><span class="spinner"></span>Chargement...</div>
+    </div>
+  </div>
+</div>
+
+<script>
+var AT_BASE = 'appOjWwbA3vSCTnRI';
+var AT_TABLE = 'Dossiers';
+var PROXY = 'https://omea-proxy.vercel.app/api/airtable';
+var BASE_URL = 'https://omea-proxy.vercel.app/lancement.html';
+var pendingDeleteId = null;
+var pendingDeleteName = null;
+
+function proxyUrl(atUrl) {
+  return PROXY + '?url=' + encodeURIComponent(atUrl);
+}
+
+function formatDate(iso) {
+  if (!iso) return '—';
+  var d = new Date(iso);
+  var now = new Date();
+  var diff = Math.floor((now - d) / 1000);
+  if (diff < 60) return 'À l\'instant';
+  if (diff < 3600) return Math.floor(diff / 60) + ' min';
+  if (diff < 86400) return Math.floor(diff / 3600) + 'h';
+  return d.toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' });
+}
+
+function openConfirm(recordId, prenom) {
+  pendingDeleteId = recordId;
+  pendingDeleteName = prenom;
+  document.getElementById('confirm-msg').textContent = 'Supprimer le dossier de ' + prenom + ' ? Cette action est irréversible.';
+  document.getElementById('confirm-overlay').classList.add('show');
+}
+
+function closeConfirm() {
+  pendingDeleteId = null;
+  pendingDeleteName = null;
+  document.getElementById('confirm-overlay').classList.remove('show');
+}
+
+document.getElementById('confirm-delete-btn').onclick = async function() {
+  if (!pendingDeleteId) return;
+  var btn = this;
+  btn.textContent = 'Suppression...';
+  btn.disabled = true;
+  try {
+    var atUrl = 'https://api.airtable.com/v0/' + AT_BASE + '/' + encodeURIComponent(AT_TABLE) + '/' + pendingDeleteId;
+    var r = await fetch(proxyUrl(atUrl), { method: 'DELETE' });
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    closeConfirm();
+    loadData();
+  } catch(e) {
+    btn.textContent = 'Erreur';
+    setTimeout(function(){ btn.textContent = 'Supprimer'; btn.disabled = false; }, 2000);
+  }
+};
+
+async function loadData() {
+  var btn = document.getElementById('refresh-btn');
+  var body = document.getElementById('table-body');
+  btn.disabled = true;
+  btn.textContent = '↻ Chargement...';
+  body.innerHTML = '<div class="loading"><span class="spinner"></span>Chargement...</div>';
+  document.getElementById('error-bar').classList.remove('show');
+
+  try {
+    var atUrl = 'https://api.airtable.com/v0/' + AT_BASE + '/' + encodeURIComponent(AT_TABLE) +
+      '?sort[0][field]=Derni%C3%A8re+mise+%C3%A0+jour&sort[0][direction]=desc&pageSize=100';
+    var r = await fetch(proxyUrl(atUrl));
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    var data = await r.json();
+    var records = data.records || [];
+
+    var total = records.length;
+    
+    var inProgress = records.filter(function(rec){ return rec.fields['Statut'] === 'En cours' && (rec.fields['Progression %'] || 0) > 0; }).length;
+    var transmitted = records.filter(function(rec){ return rec.fields['Statut'] === 'Transmis'; }).length;
+
+    document.getElementById('stat-total').textContent = total;
+    
+    document.getElementById('stat-progress').textContent = inProgress;
+    document.getElementById('stat-transmitted').textContent = transmitted;
+
+    if (records.length === 0) {
+      body.innerHTML = '<div class="empty">Aucun dossier pour l\'instant.</div>';
+    } else {
+      body.innerHTML = records.map(function(rec) {
+        var f = rec.fields;
+        var prenom = f['Prénom'] || f['Client ID'] || '—';
+        var clientId = f['Client ID'] || '';
+        var pct = f['Progression %'] || 0;
+        var statut = f['Statut'] || 'Nouveau';
+        var maj = formatDate(f['Dernière mise à jour']);
+        var badgeCls, badgeTxt;
+        if (statut === 'Transmis') { badgeCls = 'badge-transmitted'; badgeTxt = '✓ Transmis'; }
+        else if (pct > 0) { badgeCls = 'badge-progress'; badgeTxt = 'En cours'; }
+        else { badgeCls = 'badge-new'; badgeTxt = 'Nouveau'; }
+        var progColor = pct === 100 ? '#1E7A45' : (pct >= 50 ? '#EAC72D' : '#C9A918');
+        var lienClient = BASE_URL + '?client=' + encodeURIComponent(clientId);
+        var recordId = rec.id;
+
+        return '<div class="table-row">' +
+          '<div><div class="client-name">' + prenom + '</div><div class="client-id">' + clientId + '</div></div>' +
+          '<div><span class="badge ' + badgeCls + '">' + badgeTxt + '</span></div>' +
+          '<div class="prog-wrap"><div class="prog-mini"><div class="prog-mini-fill" style="width:' + pct + '%;background:' + progColor + '"></div></div><span class="prog-num">' + pct + ' %</span></div>' +
+          '<div class="date">' + maj + '</div>' +
+          '<div class="actions">' +
+            '<a class="action-btn" href="' + lienClient + '" target="_blank">Voir</a>' +
+            '<button class="delete-btn" onclick="openConfirm(\'' + recordId + '\',\'' + prenom + '\')">Supprimer</button>' +
+          '</div>' +
+        '</div>';
+      }).join('');
+    }
+
+    document.getElementById('last-update').textContent = 'Mis à jour ' + new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+
+  } catch(e) {
+    document.getElementById('error-bar').classList.add('show');
+    body.innerHTML = '<div class="empty">Impossible de charger les données.</div>';
+  } finally {
+    btn.disabled = false;
+    btn.textContent = '↻ Actualiser';
+  }
+}
+
+loadData();
+setInterval(loadData, 60000);
+</script>
+</body>
+</html>
