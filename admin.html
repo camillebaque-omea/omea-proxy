@@ -101,12 +101,12 @@ nav{background:var(--w);border-bottom:1px solid var(--bd);padding:0 2rem;display
 </nav>
 
 <div class="tabs">
-  <div class="tab active" onclick="switchTab('generateur',this)">Générateur de lien</div>
-  <div class="tab" onclick="switchTab('dashboard',this)">Dashboard</div>
+  <div class="tab active" onclick="switchTab('dashboard',this)">Dashboard</div>
+  <div class="tab" onclick="switchTab('generateur',this)">Générateur de lien</div>
 </div>
 
 <!-- GÉNÉRATEUR -->
-<div class="tab-content active" id="tab-generateur">
+<div class="tab-content" id="tab-generateur">
 <div class="content">
   <div class="gen-box">
     <div class="gen-title">Générateur de lien client</div>
@@ -119,10 +119,7 @@ nav{background:var(--w);border-bottom:1px solid var(--bd);padding:0 2rem;display
       <label class="admin-label">Lien Google Drive</label>
       <input class="admin-input" id="admin-drive" type="text" placeholder="https://drive.google.com/drive/folders/..." oninput="generateAdminUrl()">
     </div>
-    <div class="admin-row">
-      <label class="admin-label">Points spécifiques <span style="font-weight:300;text-transform:none;letter-spacing:0">— un item par ligne</span></label>
-      <textarea class="admin-input" id="admin-items" rows="4" placeholder="Ex : Fournir le règlement intérieur&#10;Confirmer le nombre de voyageurs maximum&#10;Transmettre les codes de la climatisation" oninput="generateAdminUrl()" style="resize:vertical;line-height:1.6"></textarea>
-    </div>
+
     <div class="admin-row">
       <label class="admin-label">Note de la conciergerie <span style="font-weight:300;text-transform:none;letter-spacing:0">— recommandations & points importants</span></label>
       <textarea class="admin-input" id="admin-note" rows="4" placeholder="Ex : Pensez à vérifier l'état du chauffe-eau avant la mise en ligne. Prévoir un lot de bienvenue pour la première réservation." oninput="generateAdminUrl()" style="resize:vertical;line-height:1.6"></textarea>
@@ -138,7 +135,7 @@ nav{background:var(--w);border-bottom:1px solid var(--bd);padding:0 2rem;display
 </div>
 
 <!-- DASHBOARD -->
-<div class="tab-content" id="tab-dashboard">
+<div class="tab-content active" id="tab-dashboard">
 <div class="content-wide">
   <div class="page-title">Dashboard lancement</div>
   <div class="page-sub">Progression en temps réel de vos dossiers clients</div>
@@ -178,8 +175,8 @@ nav{background:var(--w);border-bottom:1px solid var(--bd);padding:0 2rem;display
 <script>
 var AT_BASE = 'appOjWwbA3vSCTnRI';
 var AT_TABLE = 'Dossiers';
-var PROXY = 'https://omea-proxy.vercel.app/api/airtable';
-var BASE_URL = 'https://omea-proxy.vercel.app/lancement.html';
+var PROXY = 'https://lancement.conciergerie-omea.fr/api/airtable';
+var BASE_URL = 'https://lancement.conciergerie-omea.fr/lancement.html';
 var pendingDeleteId = null;
 var dashboardLoaded = false;
 var refreshTimer = null;
@@ -234,6 +231,8 @@ document.getElementById('confirm-delete-btn').onclick = async function() {
     var r = await fetch(proxyUrl(atUrl), { method: 'DELETE' });
     if (!r.ok) throw new Error('HTTP ' + r.status);
     closeConfirm();
+    btn.textContent = 'Supprimer';
+    btn.disabled = false;
     loadData();
   } catch(e) {
     btn.textContent = 'Erreur';
@@ -251,7 +250,7 @@ async function loadData() {
 
   try {
     var atUrl = 'https://api.airtable.com/v0/' + AT_BASE + '/' + encodeURIComponent(AT_TABLE) +
-      '?filterByFormula=%7BType%7D%3D%22lancement%22&sort[0][field]=Derni%C3%A8re+mise+%C3%A0+jour&sort[0][direction]=desc&pageSize=100';
+      '?filterByFormula=TRIM(%7BType%7D)%3D%22lancement%22&sort[0][field]=Derni%C3%A8re+mise+%C3%A0+jour&sort[0][direction]=desc&pageSize=100';
     var r = await fetch(proxyUrl(atUrl));
     if (!r.ok) throw new Error('HTTP ' + r.status);
     var data = await r.json();
@@ -320,8 +319,6 @@ async function generateAdminUrl() {
     var token = data.token || '';
     var url = BASE_URL + '?client=' + encodeURIComponent(prenom.toLowerCase().trim()) + '&token=' + token;
     if (drive) url += '&drive=' + encodeURIComponent(drive);
-    var items = document.getElementById('admin-items').value.trim();
-    if (items) url += '&items=' + encodeURIComponent(items);
     var note = document.getElementById('admin-note').value.trim();
     if (note) url += '&note=' + encodeURIComponent(note);
     urlEl.textContent = url;
@@ -341,6 +338,10 @@ function copyAdminUrl() {
     setTimeout(function() { copied.style.display = 'none'; }, 2000);
   });
 }
+
+// Charger le dashboard au démarrage
+document.getElementById('refresh-btn').style.display = 'block';
+loadData();
 
 // Auto-refresh dashboard toutes les 60s si actif
 setInterval(function(){
