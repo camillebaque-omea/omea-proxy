@@ -581,7 +581,7 @@ function checkWifi() {
 function autoCheckPhotoOrNote(key) {
   var hasUpload = !!(uploads[key]);
   var noteEl = document.getElementById('f-note_' + key);
-  var hasNote = noteEl && noteEl.value.trim().length > 2;
+  var hasNote = noteEl && noteEl.value.trim().length > 0;
   var cb = document.getElementById('uc-' + key);
   if (cb) { cb.checked = hasUpload || hasNote; updateAll(); }
 }
@@ -677,7 +677,8 @@ function checkNif() {
 }
 function checkSiret() {
   var input = document.getElementById('f-siret');
-  var hasText = input && input.value.length >= 14;
+  var raw = input ? input.value.replace(/[\s\-]/g, '') : '';
+  var hasText = raw.length >= 14;
   var cb = document.getElementById('uc-siret');
   if (cb) { cb.checked = !!hasText; updateAll(); }
 }
@@ -713,6 +714,8 @@ async function generateAdminUrl() {
     if (drive) url += '&drive=' + encodeURIComponent(drive);
     var note = document.getElementById('admin-note').value.trim();
     if (note) url += '&note=' + encodeURIComponent(note);
+    var items = document.getElementById('admin-items').value.trim();
+    if (items) url += '&items=' + encodeURIComponent(items);
     urlEl.textContent = url;
     result.classList.add('show');
     document.getElementById('admin-copied').style.display = 'none';
@@ -723,11 +726,20 @@ async function generateAdminUrl() {
 }
 function copyAdminUrl() {
   var url = document.getElementById('admin-url').textContent;
-  navigator.clipboard.writeText(url).then(function() {
-    var copied = document.getElementById('admin-copied');
-    copied.style.display = 'block';
-    setTimeout(function() { copied.style.display = 'none'; }, 4000);
-  });
+  var copied = document.getElementById('admin-copied');
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(url).then(function() {
+      copied.style.display = 'block';
+      setTimeout(function() { copied.style.display = 'none'; }, 4000);
+    }).catch(function() { fallbackCopy(url, copied); });
+  } else { fallbackCopy(url, copied); }
+}
+function fallbackCopy(text, indicator) {
+  var ta = document.createElement('textarea');
+  ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+  document.body.appendChild(ta); ta.focus(); ta.select();
+  try { document.execCommand('copy'); if (indicator) { indicator.style.display = 'block'; setTimeout(function(){ indicator.style.display='none'; }, 4000); } } catch(e) {}
+  document.body.removeChild(ta);
 }
 function saveToLocalStorage() {
   try {
@@ -795,28 +807,18 @@ function restoreState(data) {
       }
       // Restaurer les boutons Oui/Non
       if (k.startsWith('yn_')) {
-        var id = k.replace('yn_', '');
-        var val = data.fields[k];
-        // Parking multi-options
-        if (id === 'parking_yn') {
-          var vals = val.split(',').map(function(v){ return v.trim(); });
-          document.querySelectorAll('#parking-options .yn-btn').forEach(function(btn){
-            if (vals.indexOf(btn.textContent.trim()) !== -1) {
-              btn.classList.add('active');
-            }
-          });
-          var detail = document.getElementById('parking-detail');
-          if (detail && vals.length > 0) detail.style.display = 'block';
-        } else {
-          // Boutons Oui/Non standard
-          var container = document.getElementById('uc-' + id);
+        var ynId = k.replace('yn_', '');
+        var ynVal = data.fields[k];
+        // Boutons Oui/Non standard (parking_yn géré séparément via parking_yn clé directe)
+        if (ynId !== 'parking_yn') {
+          var container = document.getElementById('uc-' + ynId);
           if (container) {
-            var wrap = container.closest('.check-item') || container.parentElement;
-            if (wrap) {
-              wrap.querySelectorAll('.yn-btn').forEach(function(btn){
+            var ynWrap = container.closest('.check-item') || container.parentElement;
+            if (ynWrap) {
+              ynWrap.querySelectorAll('.yn-btn').forEach(function(btn){
                 btn.classList.remove('active');
-                if ((val === 'oui' && btn.classList.contains('yn-yes')) ||
-                    (val === 'non' && btn.classList.contains('yn-no'))) {
+                if ((ynVal === 'oui' && btn.classList.contains('yn-yes')) ||
+                    (ynVal === 'non' && btn.classList.contains('yn-no'))) {
                   btn.classList.add('active');
                 }
               });
@@ -839,7 +841,7 @@ function buildRecord() {
   var TOTAL = getTotal();
   var done = getDone();
   var pct = TOTAL > 0 ? Math.round(done / TOTAL * 100) : 0;
-  return { 'Client ID': clientId, 'Prénom': document.getElementById('client-name').textContent, 'Type': 'lancement', 'Progression %': pct, 'Points complétés': done, 'Statut': fields['_transmis'] === '1' ? 'Transmis' : (pct > 0 ? 'En cours' : 'Nouveau'), 'Checks': JSON.stringify(checks), 'Réponses': JSON.stringify(fields), 'Fichiers': JSON.stringify(Object.keys(uploads)), 'Dernière mise à jour': new Date().toISOString() };
+  return { 'Client ID': clientId, 'Prénom': document.getElementById('client-name').textContent, 'Type': 'lancement', 'Drive': driveUrl, 'Progression %': pct, 'Points complétés': done, 'Statut': fields['_transmis'] === '1' ? 'Transmis' : (pct > 0 ? 'En cours' : 'Nouveau'), 'Checks': JSON.stringify(checks), 'Réponses': JSON.stringify(fields), 'Fichiers': JSON.stringify(Object.keys(uploads)), 'Dernière mise à jour': new Date().toISOString() };
 }
 function scheduleSave() {
   if (isFileProtocol()) return;
@@ -887,8 +889,15 @@ function closeCompletedSecs() {
     }
   });
 }
-async function loadFromAirtable() {
-  if (isFileProtocol()) { setSaveStatus('Mode local'); closeCompletedSecs(); return; }
+async function loadFromAirtable(noteFromUrl) {
+  noteFromUrl = noteFromUrl || '';
+  if (isFileProtocol()) {
+    buildNote(noteFromUrl);
+    updateAll();
+    setSaveStatus('Mode local');
+    closeCompletedSecs();
+    return;
+  }
   setSaveStatus('Chargement...');
   try {
     var filter = encodeURIComponent('{Client ID}="' + clientId + '"');
@@ -899,8 +908,12 @@ async function loadFromAirtable() {
     if (data.records && data.records.length > 0) {
       var rec = data.records[0];
       atRecordId = rec.id;
+      if (rec.fields['Drive'] && !driveUrl) { driveUrl = rec.fields['Drive']; initDriveLinks(); }
+      // Note : priorité Airtable sur l'URL si une note existe en base
+      var noteConciergerie = rec.fields['Note conciergerie'] || noteFromUrl;
       var payload = { checks: rec.fields['Checks'] ? JSON.parse(rec.fields['Checks']) : null, fields: rec.fields['Réponses'] ? JSON.parse(rec.fields['Réponses']) : null, uploads: rec.fields['Fichiers'] ? JSON.parse(rec.fields['Fichiers']).reduce(function(a, f) { a[f] = f; return a; }, {}) : null };
       restoreState(payload);
+      buildNote(noteConciergerie);
       saveToLocalStorage();
       setSaveStatus('✓ Chargé');
       updateAll();
@@ -908,21 +921,28 @@ async function loadFromAirtable() {
       return;
     }
     var ls = loadFromLocalStorage();
-    if (ls) { restoreState(ls); setSaveStatus('✓ Chargé (local)'); updateAll(); closeCompletedSecs(); }
-    else { setSaveStatus('Nouveau dossier'); }
+    if (ls) { restoreState(ls); buildNote(noteFromUrl); setSaveStatus('✓ Chargé (local)'); updateAll(); closeCompletedSecs(); }
+    else { buildNote(noteFromUrl); updateAll(); setSaveStatus('Nouveau dossier'); closeCompletedSecs(); }
   } catch(e) {
     var ls = loadFromLocalStorage();
-    if (ls) { restoreState(ls); setSaveStatus('✓ Local (hors ligne)'); updateAll(); closeCompletedSecs(); }
-    else { setSaveStatus('⚠ Erreur chargement'); }
+    if (ls) { restoreState(ls); buildNote(noteFromUrl); setSaveStatus('✓ Local (hors ligne)'); updateAll(); closeCompletedSecs(); }
+    else { buildNote(noteFromUrl); updateAll(); setSaveStatus('⚠ Erreur chargement'); }
   }
 }
 async function submitForm() {
-  document.getElementById('cta-btn').disabled = true;
-  document.getElementById('cta-btn').textContent = 'Envoi...';
+  var btn = document.getElementById('cta-btn');
+  btn.disabled = true;
+  btn.textContent = 'Envoi...';
   fields['_transmis'] = '1';
+  // Annuler tout save planifié
+  clearTimeout(saveTimer);
+  // Attendre la fin d'un éventuel save en cours avant de lancer le save final
+  var waitCount = 0;
+  while (isSaving && waitCount < 20) { await new Promise(function(r){ setTimeout(r, 150); }); waitCount++; }
+  isSaving = false;
   await saveToAirtable();
   document.getElementById('cta-ok').style.display = 'block';
-  document.getElementById('cta-btn').textContent = 'Transmis';
+  btn.textContent = 'Transmis';
 }
 (function init() {
   var params = new URLSearchParams(window.location.search);
@@ -939,10 +959,10 @@ async function submitForm() {
   clientId = cn ? cn.toLowerCase().trim() : 'proprietaire';
   driveUrl = params.get('drive') || '';
   clientToken = params.get('token') || '';
+  var noteFromUrl = params.get('note') || '';
   initDriveLinks();
-  buildNote(params.get('note') || '');
-  updateAll();
-  loadFromAirtable().then(function(){ closeCompletedSecs(); });
+  // updateAll() et buildNote() appelés APRES loadFromAirtable pour ne pas écraser les données distantes
+  loadFromAirtable(noteFromUrl).then(function(){ closeCompletedSecs(); });
 })();
 
 function buildNote(raw) {
