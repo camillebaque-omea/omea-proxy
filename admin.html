@@ -267,6 +267,7 @@ async function loadData() {
     if (records.length === 0) {
       body.innerHTML = '<div class="empty">Aucun dossier pour l\'instant.</div>';
     } else {
+      function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
       body.innerHTML = records.map(function(rec) {
         var f = rec.fields;
         var prenom = f['Prénom'] || f['Client ID'] || '—';
@@ -281,18 +282,23 @@ async function loadData() {
         var progColor = pct === 100 ? '#1E7A45' : (pct >= 50 ? '#EAC72D' : '#C9A918');
         var lienClient = BASE_URL + '?client=' + encodeURIComponent(clientId);
         var recordId = rec.id;
-        var prenomSafe = prenom.replace(/'/g, "\\'");
         return '<div class="table-row">' +
-          '<div><div class="client-name">' + prenom + '</div><div class="client-id">' + clientId + '</div></div>' +
-          '<div><span class="badge ' + badgeCls + '">' + badgeTxt + '</span></div>' +
-          '<div class="prog-wrap"><div class="prog-mini"><div class="prog-mini-fill" style="width:' + pct + '%;background:' + progColor + '"></div></div><span class="prog-num">' + pct + ' %</span></div>' +
-          '<div class="date">' + maj + '</div>' +
+          '<div><div class="client-name">' + esc(prenom) + '</div><div class="client-id">' + esc(clientId) + '</div></div>' +
+          '<div><span class="badge ' + esc(badgeCls) + '">' + esc(badgeTxt) + '</span></div>' +
+          '<div class="prog-wrap"><div class="prog-mini"><div class="prog-mini-fill" style="width:' + pct + '%;background:' + esc(progColor) + '"></div></div><span class="prog-num">' + pct + ' %</span></div>' +
+          '<div class="date">' + esc(maj) + '</div>' +
           '<div class="actions">' +
-            '<a class="action-btn" href="' + lienClient + '" target="_blank">Voir</a>' +
-            '<button class="delete-btn" onclick="openConfirm(\'' + recordId + '\',\'' + prenomSafe + '\')">Supprimer</button>' +
+            '<a class="action-btn" href="' + esc(lienClient) + '" target="_blank">Voir</a>' +
+            '<button class="delete-btn" data-id="' + esc(recordId) + '" data-prenom="' + esc(prenom) + '">Supprimer</button>' +
           '</div>' +
         '</div>';
       }).join('');
+      // Délégation d'événements pour les boutons Supprimer (évite les injections onclick)
+      body.querySelectorAll('.delete-btn').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          openConfirm(btn.getAttribute('data-id'), btn.getAttribute('data-prenom'));
+        });
+      });
     }
 
     document.getElementById('last-update').textContent = 'Mis à jour ' + new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
@@ -310,17 +316,40 @@ async function loadData() {
 async function generateAdminUrl() {
   var prenom = document.getElementById('admin-prenom').value.trim();
   var drive = document.getElementById('admin-drive').value.trim();
+  var note = document.getElementById('admin-note').value.trim();
   var result = document.getElementById('admin-result');
   var urlEl = document.getElementById('admin-url');
   if (!prenom) { result.classList.remove('show'); return; }
   try {
-    var r = await fetch('https://omea-proxy.vercel.app/api/token?client=' + encodeURIComponent(prenom.toLowerCase().trim()));
+    var r = await fetch('https://lancement.conciergerie-omea.fr/api/token?client=' + encodeURIComponent(prenom.toLowerCase().trim()));
     var data = await r.json();
     var token = data.token || '';
-    var url = BASE_URL + '?client=' + encodeURIComponent(prenom.toLowerCase().trim()) + '&token=' + token;
-    if (drive) url += '&drive=' + encodeURIComponent(drive);
-    var note = document.getElementById('admin-note').value.trim();
-    if (note) url += '&note=' + encodeURIComponent(note);
+    var clientId = prenom.toLowerCase().trim();
+
+    // Sauvegarder Drive + Note dans Airtable directement
+    if (drive || note) {
+      // Chercher si le dossier existe déjà
+      var filter = encodeURIComponent('{Client ID}="' + clientId + '"');
+      var searchUrl = 'https://api.airtable.com/v0/' + AT_BASE + '/' + encodeURIComponent(AT_TABLE) + '?filterByFormula=' + filter;
+      var sr = await fetch(PROXY + '?url=' + encodeURIComponent(searchUrl));
+      var sd = await sr.json();
+      var recordFields = { 'Client ID': clientId, 'Prénom': prenom.charAt(0).toUpperCase() + prenom.slice(1), 'Type': 'lancement' };
+      if (drive) recordFields['Drive'] = drive;
+      if (note) recordFields['Note conciergerie'] = note;
+      if (sd.records && sd.records.length > 0) {
+        // Mettre à jour
+        var recId = sd.records[0].id;
+        var atUrl = 'https://api.airtable.com/v0/' + AT_BASE + '/' + encodeURIComponent(AT_TABLE) + '/' + recId;
+        await fetch(PROXY + '?url=' + encodeURIComponent(atUrl), { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ fields: recordFields }) });
+      } else {
+        // Créer
+        var atUrlCreate = 'https://api.airtable.com/v0/' + AT_BASE + '/' + encodeURIComponent(AT_TABLE);
+        await fetch(PROXY + '?url=' + encodeURIComponent(atUrlCreate), { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ fields: recordFields }) });
+      }
+    }
+
+    // Lien court sans drive ni note
+    var url = BASE_URL + '?client=' + encodeURIComponent(clientId) + '&token=' + token;
     urlEl.textContent = url;
     result.classList.add('show');
     document.getElementById('admin-copied').style.display = 'none';
@@ -332,11 +361,20 @@ async function generateAdminUrl() {
 
 function copyAdminUrl() {
   var url = document.getElementById('admin-url').textContent;
-  navigator.clipboard.writeText(url).then(function() {
-    var copied = document.getElementById('admin-copied');
-    copied.style.display = 'block';
-    setTimeout(function() { copied.style.display = 'none'; }, 2000);
-  });
+  var copied = document.getElementById('admin-copied');
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(url).then(function() {
+      copied.style.display = 'block';
+      setTimeout(function() { copied.style.display = 'none'; }, 2000);
+    }).catch(function() { fallbackCopy(url, copied); });
+  } else { fallbackCopy(url, copied); }
+}
+function fallbackCopy(text, indicator) {
+  var ta = document.createElement('textarea');
+  ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+  document.body.appendChild(ta); ta.focus(); ta.select();
+  try { document.execCommand('copy'); if (indicator) { indicator.style.display = 'block'; setTimeout(function(){ indicator.style.display='none'; }, 2000); } } catch(e) {}
+  document.body.removeChild(ta);
 }
 
 // Charger le dashboard au démarrage
