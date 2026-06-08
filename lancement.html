@@ -468,15 +468,7 @@ input[type=file]{display:none}
   </div>
 </div></div>
 
-<div class="sec" id="sec-specifique">
-<div class="sec-head" onclick="toggleSec('specifique')">
-  <span class="sec-num">13</span><span class="sec-name">Points spécifiques</span>
-  <span class="sec-badge b-e" id="st-specifique">0 / 0</span>
-  <span class="sec-arr open" id="arr-specifique">▾</span>
-</div>
-<div class="sec-body open" id="body-specifique">
-  <div class="sec-intro"><div class="sec-intro-bar"></div><p>Ces points sont propres à votre logement ou à votre situation. Merci de les valider avant l'ouverture.</p></div>
-  <div class="items" id="items-specifique"><div style="padding:14px 0;font-size:13px;color:var(--ink3);font-weight:300" id="specifique-empty">Votre conciergerie n'a pas encore ajouté de points spécifiques.</div></div>
+
 </div>
 </div>
 
@@ -504,7 +496,7 @@ input[type=file]{display:none}
 <script>
 var AT_BASE = 'appOjWwbA3vSCTnRI';
 var AT_TABLE = 'Dossiers';
-var PROXY = 'https://omea-proxy.vercel.app/api/airtable';
+var PROXY = 'https://lancement.conciergerie-omea.fr/api/airtable';
 var atRecordId = null;
 var saveTimer = null;
 var isSaving = false;
@@ -713,14 +705,12 @@ async function generateAdminUrl() {
   var urlEl = document.getElementById('admin-url');
   if (!prenom) { result.classList.remove('show'); return; }
   try {
-    var r = await fetch('https://omea-proxy.vercel.app/api/token?client=' + encodeURIComponent(prenom.toLowerCase().trim()));
+    var r = await fetch('https://lancement.conciergerie-omea.fr/api/token?client=' + encodeURIComponent(prenom.toLowerCase().trim()));
     var data = await r.json();
     var token = data.token || '';
     var base = window.location.origin + window.location.pathname;
     var url = base + '?client=' + encodeURIComponent(prenom.toLowerCase().trim()) + '&token=' + token;
     if (drive) url += '&drive=' + encodeURIComponent(drive);
-    var items = document.getElementById('admin-items').value.trim();
-    if (items) url += '&items=' + encodeURIComponent(items);
     var note = document.getElementById('admin-note').value.trim();
     if (note) url += '&note=' + encodeURIComponent(note);
     urlEl.textContent = url;
@@ -950,7 +940,6 @@ async function submitForm() {
   driveUrl = params.get('drive') || '';
   clientToken = params.get('token') || '';
   initDriveLinks();
-  buildSpecifique(params.get('items') || '');
   buildNote(params.get('note') || '');
   updateAll();
   loadFromAirtable().then(function(){ closeCompletedSecs(); });
@@ -960,51 +949,6 @@ function buildNote(raw) {
   if (!raw || !raw.trim()) return;
   var el = document.getElementById('f-note_conciergerie');
   if (el && !el.value) { el.value = raw.trim(); saveField('note_conciergerie', raw.trim()); }
-}
-function buildSpecifique(raw) {
-  if (!raw) return;
-  var lines = raw.split('\n').map(function(l){ return l.trim(); }).filter(function(l){ return l.length > 0; });
-  if (lines.length === 0) return;
-  var sec = document.getElementById('sec-specifique');
-  var container = document.getElementById('items-specifique');
-  if (!sec || !container) return;
-  sec.style.display = 'block';
-  var emptyMsg = document.getElementById('specifique-empty');
-  if (emptyMsg) emptyMsg.style.display = 'none';
-  if (!SECS['specifique']) SECS['specifique'] = { total: 0 };
-  lines.forEach(function(line, i) {
-    var cbId = 'spec-' + i;
-    var ciId = 'ci-spec-' + i;
-    var item = document.createElement('div');
-    item.className = 'check-item';
-    item.id = ciId;
-    var lw = document.createElement('label');
-    lw.className = 'check-wrap';
-    var cb = document.createElement('input');
-    cb.type = 'checkbox';
-    cb.setAttribute('data-sec', 'specifique');
-    cb.id = cbId;
-    cb.addEventListener('change', (function(cid, el){ return function(){ updateAll(); toggleDone(cid, el); }; })(ciId, cb));
-    var cbox = document.createElement('div');
-    cbox.className = 'cbox';
-    lw.appendChild(cb);
-    lw.appendChild(cbox);
-    var info = document.createElement('div');
-    info.className = 'check-info';
-    var lbl = document.createElement('label');
-    lbl.setAttribute('for', cbId);
-    lbl.className = 'check-label';
-    lbl.textContent = line;
-    var done = document.createElement('div');
-    done.className = 'done-tag';
-    done.textContent = '✓';
-    info.appendChild(lbl);
-    info.appendChild(done);
-    item.appendChild(lw);
-    item.appendChild(info);
-    container.appendChild(item);
-    SECS['specifique'].total++;
-  });
 }
 </script>
 </body>
