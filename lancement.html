@@ -500,6 +500,7 @@ var PROXY = 'https://lancement.conciergerie-omea.fr/api/airtable';
 var atRecordId = null;
 var saveTimer = null;
 var isSaving = false;
+var isLoading = false;
 var clientId = '';
 var driveUrl = '';
 var clientToken = '';
@@ -541,7 +542,7 @@ function hideAtError() {
   var el = document.getElementById('at-error');
   if (el) el.classList.remove('show');
 }
-function retrySave() { hideAtError(); saveToAirtable(); }
+function retrySave() { hideAtError(); if (!atRecordId) { loadFromAirtable(''); } else { saveToAirtable(); } }
 function setSaveStatus(msg) {
   var el = document.getElementById('save-status');
   if (el) el.textContent = msg;
@@ -845,6 +846,7 @@ function buildRecord() {
 }
 function scheduleSave() {
   if (isFileProtocol()) return;
+  if (isLoading) return;
   clearTimeout(saveTimer);
   saveTimer = setTimeout(saveToAirtable, 2000);
 }
@@ -898,6 +900,7 @@ async function loadFromAirtable(noteFromUrl) {
     closeCompletedSecs();
     return;
   }
+  isLoading = true;
   setSaveStatus('Chargement...');
   try {
     var filter = encodeURIComponent('{Client ID}="' + clientId + '"');
@@ -909,24 +912,31 @@ async function loadFromAirtable(noteFromUrl) {
       var rec = data.records[0];
       atRecordId = rec.id;
       if (rec.fields['Drive'] && !driveUrl) { driveUrl = rec.fields['Drive']; initDriveLinks(); }
-      // Note : priorité Airtable sur l'URL si une note existe en base
       var noteConciergerie = rec.fields['Note conciergerie'] || noteFromUrl;
       var payload = { checks: rec.fields['Checks'] ? JSON.parse(rec.fields['Checks']) : null, fields: rec.fields['Réponses'] ? JSON.parse(rec.fields['Réponses']) : null, uploads: rec.fields['Fichiers'] ? JSON.parse(rec.fields['Fichiers']).reduce(function(a, f) { a[f] = f; return a; }, {}) : null };
       restoreState(payload);
       buildNote(noteConciergerie);
       saveToLocalStorage();
       setSaveStatus('✓ Chargé');
+      isLoading = false;
       updateAll();
       closeCompletedSecs();
       return;
     }
-    var ls = loadFromLocalStorage();
-    if (ls) { restoreState(ls); buildNote(noteFromUrl); setSaveStatus('✓ Chargé (local)'); updateAll(); closeCompletedSecs(); }
-    else { buildNote(noteFromUrl); updateAll(); setSaveStatus('Nouveau dossier'); closeCompletedSecs(); }
+    // Aucun enregistrement Airtable : nouveau dossier
+    buildNote(noteFromUrl);
+    isLoading = false;
+    updateAll();
+    setSaveStatus('Nouveau dossier');
+    closeCompletedSecs();
   } catch(e) {
-    var ls = loadFromLocalStorage();
-    if (ls) { restoreState(ls); buildNote(noteFromUrl); setSaveStatus('✓ Local (hors ligne)'); updateAll(); closeCompletedSecs(); }
-    else { buildNote(noteFromUrl); updateAll(); setSaveStatus('⚠ Erreur chargement'); }
+    // Airtable inaccessible : bloquer l'interface
+    isLoading = false;
+    setSaveStatus('⚠ Connexion requise');
+    showAtError('Connexion à Airtable impossible — veuillez vérifier votre connexion et réessayer.');
+    buildNote(noteFromUrl);
+    updateAll();
+    closeCompletedSecs();
   }
 }
 async function submitForm() {
