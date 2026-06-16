@@ -244,6 +244,7 @@ input[type=file]{display:none}
   <div class="sec-intro"><div class="sec-intro-bar"></div><p>Pour que les voyageurs accèdent à leur logement de façon autonome et que nous puissions intervenir à tout moment, il faut prévoir un jeu de clés complet par interlocuteur dès le départ.</p></div>
   <div class="items">
     <div class="check-item" id="ci-cles"><label class="check-wrap"><input type="checkbox" data-sec="cles" id="cles-ok" onchange="updateAll();toggleDone('ci-cles',this)"><div class="cbox"></div></label><div class="check-info"><label for="cles-ok" class="check-label" style="display:inline">3 jeux de clés complets sont disponibles par logement</label><button class="hint-q" onclick="toggleHintQ(this)" aria-label="Aide">?</button><div class="hint-hidden">Un jeu pour les voyageurs, un jeu de secours, un pour Ômea. Chaque jeu doit inclure toutes les clés nécessaires — clé d'entrée de l'immeuble, clé de la porte de l'appartement, et toute autre clé intermédiaire.</div><div class="done-tag">✓</div></div></div>
+    <div class="field-item"><div class="field-label">Commentaire sur les clés <span style="font-weight:300;color:var(--ink3)">(facultatif)</span></div><div class="field-hint">Une précision à nous transmettre : type de clé, badge ou bip, clé qui coince, jeu incomplet, point à anticiper.</div><textarea class="field-input" id="f-cles_commentaire" rows="2" placeholder="Ex : badge Vigik pour l'entrée de l'immeuble / la clé du bas coince un peu" oninput="saveField('cles_commentaire',this.value)"></textarea></div>
   </div>
 </div></div>
 
