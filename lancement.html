@@ -244,16 +244,6 @@ input[type=file]{display:none}
   <div class="sec-intro"><div class="sec-intro-bar"></div><p>Pour que les voyageurs accèdent à leur logement de façon autonome et que nous puissions intervenir à tout moment, il faut prévoir un jeu de clés complet par interlocuteur dès le départ.</p></div>
   <div class="items">
     <div class="check-item" id="ci-cles"><label class="check-wrap"><input type="checkbox" data-sec="cles" id="cles-ok" onchange="updateAll();toggleDone('ci-cles',this)"><div class="cbox"></div></label><div class="check-info"><label for="cles-ok" class="check-label" style="display:inline">3 jeux de clés complets sont disponibles par logement</label><button class="hint-q" onclick="toggleHintQ(this)" aria-label="Aide">?</button><div class="hint-hidden">Un jeu pour les voyageurs, un jeu de secours, un pour Ômea. Chaque jeu doit inclure toutes les clés nécessaires — clé d'entrée de l'immeuble, clé de la porte de l'appartement, et toute autre clé intermédiaire.</div><div class="done-tag">✓</div></div></div>
-    <div class="check-item" id="ci-cles-doubles" style="padding-left:38px;border-bottom:none">
-      <div class="check-info">
-        <div class="check-label" style="font-size:13px;font-weight:300;color:var(--ink2)">Je souhaite qu'Ômea fasse faire les doubles à ma place <span style="color:var(--ink3)">(facultatif, prestation facturée)</span></div>
-        <div class="yn-wrap">
-          <button class="yn-btn yn-yes" onclick="ynSelect('cles-doubles','oui',this)">Oui</button>
-          <button class="yn-btn yn-no" onclick="ynSelect('cles-doubles','non',this)">Non</button>
-        </div>
-        <input type="checkbox" data-sec="cles" id="uc-cles-doubles" style="display:none">
-      </div>
-    </div>
   </div>
 </div></div>
 
@@ -267,17 +257,6 @@ input[type=file]{display:none}
 <div class="sec-body open" id="body-acces">
   <div class="sec-intro"><div class="sec-intro-bar"></div><p>Pour que les voyageurs arrivent sereinement et que nous puissions intervenir à tout moment, quelques points pratiques sont à valider ensemble dès le départ.</p></div>
   <div class="items">
-    <div class="check-item" id="ci-btk-pose" style="padding-left:38px">
-      <div class="check-info" style="padding:4px 0">
-        <div class="check-label">Je m'occupe de la pose des deux boîtes à clés fournies par Ômea</div><button class="hint-q" onclick="toggleHintQ(this)" aria-label="Aide">?</button>
-        <div class="hint-hidden">Ômea vous prête une boîte principale et une boîte de secours — aucun frais à prévoir. Vous les posez quand vous le souhaitez, avant la première réservation.</div>
-        <div class="yn-wrap">
-          <button class="yn-btn yn-yes" onclick="ynSelect('btk-pose','oui',this)">Oui</button>
-          <button class="yn-btn yn-no" onclick="ynSelect('btk-pose','non',this)">Non</button>
-        </div>
-        <input type="checkbox" data-sec="acces" id="uc-btk-pose" style="display:none">
-      </div>
-    </div>
     <div class="check-item" id="ci-menage-dem"><label class="check-wrap"><input type="checkbox" data-sec="acces" id="menage-dem-ok" onchange="updateAll();toggleDone('ci-menage-dem',this)"><div class="cbox"></div></label><div class="check-info"><label for="menage-dem-ok" class="check-label" style="display:inline">J'accepte un ménage de démarrage avant la première réservation</label><button class="hint-q" onclick="toggleHintQ(this)" aria-label="Aide">?</button><div class="hint-hidden">Le ménage de démarrage nous permet de préparer le logement dans les meilleures conditions. Il est facturé une seule fois au lancement.</div><div class="done-tag">✓</div></div></div>
     <div class="field-item"><div class="field-label">Modalités d'ouverture de la porte de l'immeuble</div><div class="field-hint">Si votre logement est dans un immeuble avec une porte d'accès, précisez comment elle s'ouvre.</div><input type="text" class="field-input" id="f-acces_immeuble" placeholder="Ex : digicode — code 1234A / interphone / porte libre" oninput="saveField('acces_immeuble',this.value)"></div>
     <div class="field-item"><div class="field-label">Entretien des parties communes <span style="font-weight:300;color:var(--ink3)">(facultatif)</span></div><div class="field-hint">Précisez les surfaces concernées et la fréquence souhaitée — nous vous ferons un devis.</div><textarea class="field-input" id="f-communs" rows="2" placeholder="Ex : couloir et escaliers — 2 fois par mois" oninput="saveField('communs',this.value)"></textarea></div>
@@ -777,6 +756,13 @@ function restoreState(data) {
         var parts = k.split('_');
         var idx = parseInt(parts[parts.length - 1]) - 1;
         var sec = parts.slice(0, -1).join('_');
+        // Compat dossiers anciens (format positionnel) : la 1re case de "acces"
+        // (uc-btk-pose) a été retirée, on réaligne pour ne pas décaler le reste.
+        // À supprimer une fois tous les dossiers en cours migrés en clés par id.
+        if (sec === 'acces') {
+          if (idx === 0) return;
+          idx -= 1;
+        }
         box = document.querySelectorAll('[data-sec="' + sec + '"]')[idx];
       }
       if (box && box.hasAttribute('data-sec')) {
