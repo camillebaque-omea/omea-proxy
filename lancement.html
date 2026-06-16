@@ -212,6 +212,7 @@ input[type=file]{display:none}
     <div class="field-item"><div class="field-label">Numéro SIRET <span style="font-weight:300;color:var(--ink3)">(obligatoire)</span></div><div class="field-hint">14 chiffres, disponible sur votre Kbis.</div><input type="text" class="field-input" id="f-siret" placeholder="Ex : 12345678900012" maxlength="14" oninput="saveField('siret',this.value);checkSiret()"><input type="checkbox" data-sec="docs" id="uc-siret" style="display:none"></div>
     <div class="field-item"><div class="field-label">NIF <span style="font-weight:300;color:var(--ink3)">(obligatoire — requis par Booking)</span></div><div class="field-hint">Numéro d'Identification Fiscale, disponible sur votre avis d'imposition ou auprès de votre comptable.</div><input type="text" class="field-input" id="f-nif" placeholder="Ex : 1234567890123" oninput="saveField('nif',this.value);checkNif()"><input type="checkbox" data-sec="docs" id="uc-nif" style="display:none"></div>
     <div class="check-item" id="ci-pno-ok"><label class="check-wrap"><input type="checkbox" data-sec="docs" id="pno-ok" onchange="updateAll();toggleDone('ci-pno-ok',this)"><div class="cbox"></div></label><div class="check-info"><label for="pno-ok" class="check-label">La location saisonnière est bien couverte par votre PNO</label><div class="check-hint">Certaines PNO excluent la location courte durée. Vérifiez auprès de votre assureur avant de cocher.</div><div class="done-tag">✓</div></div></div>
+    <div class="check-item" id="ci-doc-dpe"><label class="check-wrap"><input type="checkbox" data-sec="docs" id="doc-dpe" onchange="updateAll();toggleDone('ci-doc-dpe',this)"><div class="cbox"></div></label><div class="check-info"><label for="doc-dpe" class="check-label" style="display:inline">DPE, Diagnostic de Performance Énergétique</label><button class="hint-q" onclick="toggleHintQ(this)" aria-label="Aide">?</button><div class="hint-hidden">Classé de A à G, réalisé par un diagnostiqueur certifié, valable 10 ans. Avec la loi Le Meur, un DPE classe A à E est exigé pour les nouvelles autorisations en zone de changement d'usage, et tous les meublés de tourisme devront atteindre la classe E minimum d'ici 2034.</div><div class="done-tag">✓ Déposé</div></div></div>
   </div>
 </div></div>
 
@@ -284,11 +285,11 @@ input[type=file]{display:none}
     <div class="field-item"><div class="field-label">Emplacement de la boîte à clés de secours <span style="font-weight:300;color:var(--ink3)">(obligatoire)</span></div><div class="field-hint">En cas de problème avec la boîte principale, nous devons avoir accès à un jeu de clés de secours dans un endroit discret.</div><textarea class="field-input" id="f-btk_secours" rows="2" placeholder="Ex : boîte aux lettres n°3 / local poubelles au rez-de-chaussée" oninput="saveField('btk_secours',this.value);checkBtkSecours()"></textarea><input type="checkbox" data-sec="acces" id="uc-btk-secours" style="display:none"></div>
     <div class="field-item" id="fi-parking"><div class="field-label">Stationnement</div>
       <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:8px" id="parking-options">
-        <button class="yn-btn" onclick="parkingOption('prive',this)">Place privée (cour, garage, box)</button>
-        <button class="yn-btn" onclick="parkingOption('rue-gratuit',this)">Rue gratuite</button>
-        <button class="yn-btn" onclick="parkingOption('rue-payant',this)">Rue payante</button>
-        <button class="yn-btn" onclick="parkingOption('public',this)">Parking public à proximité</button>
-        <button class="yn-btn" onclick="parkingOption('autre',this)">Autre</button>
+        <button class="yn-btn" data-pval="prive" onclick="parkingOption('prive',this)">Place privée (cour, garage, box)</button>
+        <button class="yn-btn" data-pval="rue-gratuit" onclick="parkingOption('rue-gratuit',this)">Rue gratuite</button>
+        <button class="yn-btn" data-pval="rue-payant" onclick="parkingOption('rue-payant',this)">Rue payante</button>
+        <button class="yn-btn" data-pval="public" onclick="parkingOption('public',this)">Parking public à proximité</button>
+        <button class="yn-btn" data-pval="autre" onclick="parkingOption('autre',this)">Autre</button>
       </div>
       <div id="parking-detail" style="display:none;margin-top:10px">
         <div class="field-hint">Complément d'information</div>
@@ -310,12 +311,15 @@ input[type=file]{display:none}
   <div class="sec-intro"><div class="sec-intro-bar"></div><p>Un voyageur qui arrive doit trouver son lit fait, des serviettes propres et tout ce qu'il faut pour démarrer son séjour.</p></div>
   <div class="items">
     <div class="check-item" id="ci-linge"><label class="check-wrap"><input type="checkbox" data-sec="linge" id="linge-ok" onchange="updateAll();toggleDone('ci-linge',this)"><div class="cbox"></div></label><div class="check-info"><label for="linge-ok" class="check-label">Le linge est commandé — 3 jeux par couchage</label><div class="check-hint">Pour chaque couchage : 3 jeux de draps complets, 2 alèses par matelas, 2 protège-oreillers, 3 grandes serviettes de bain par voyageur. Pour chaque salle de bain : 3 tapis de bain. Par cuisine : 3 torchons.</div>
-      <div class="refs"><div class="refs-title">Références recommandées</div>
-        <a class="ref-link" href="https://amzn.eu/d/fHGlDdD" target="_blank"><span class="ref-name">Drap housse</span> — Amazon</a>
-        <a class="ref-link" href="https://amzn.eu/d/1ZzNcT7" target="_blank"><span class="ref-name">Housse de couette & taies</span> — Amazon</a>
-        <a class="ref-link" href="https://amazon.fr/dp/B078C7LD6D" target="_blank"><span class="ref-name">Housse de matelas</span> — Amazon</a>
+      <div class="refs" style="background:#FFFCEF;border-color:#E8D87A">
+        <div class="refs-title" style="color:#8B6914">Partenaire linge — Le Comptoir de l'Hôtellerie</div>
+        <a class="ref-link" href="https://lecomptoirdelhotellerie.com/" target="_blank" style="border-bottom:none;font-weight:500;color:var(--ink)">Commander sur lecomptoirdelhotellerie.com →</a>
+        <div style="margin-top:8px;display:inline-flex;align-items:center;gap:6px;background:var(--y);color:var(--ink);font-weight:800;font-size:12px;letter-spacing:.04em;padding:6px 12px;border-radius:4px">Code de réduction : OMEA26</div>
+        <p style="font-size:11px;color:var(--ink3);font-weight:300;line-height:1.5;margin:8px 0 0">Ômea ne perçoit aucune contrepartie sur cette recommandation.</p>
+      </div>
+      <div class="refs" style="margin-top:8px"><div class="refs-title">Autres références</div>
+        <a class="ref-link" href="https://amazon.fr/dp/B078C7LD6D" target="_blank"><span class="ref-name">Housse de matelas (alèse)</span> — Amazon</a>
         <a class="ref-link" href="https://www.ikea.com/fr/fr/p/sotnaetfjaeril-protege-oreiller-80531316/" target="_blank"><span class="ref-name">Protège-oreiller</span> — Ikea</a>
-        <a class="ref-link" href="https://amzn.eu/d/01Wxc9d" target="_blank"><span class="ref-name">Serviettes de bain</span> — Amazon</a>
       </div><div class="done-tag">✓</div></div></div>
     <div class="check-item" id="ci-stockage"><label class="check-wrap"><input type="checkbox" data-sec="linge" id="stockage-ok" onchange="updateAll();toggleDone('ci-stockage',this)"><div class="cbox"></div></label><div class="check-info"><label for="stockage-ok" class="check-label">L'espace de stockage est en place, monté et fonctionnel</label><div class="check-hint">Un espace fermé à clé dans le ou les logements est nécessaire pour ranger le linge propre, les consommables et le matériel ménage.</div>
       <div class="refs"><div class="refs-title">Référence recommandée</div><a class="ref-link" href="https://www.amazon.fr/dp/B0BSFQ8WZ2" target="_blank"><span class="ref-name">Armoire de stockage sécurisée</span> — Amazon</a></div>
@@ -417,7 +421,7 @@ input[type=file]{display:none}
         <input type="checkbox" data-sec="securite" id="uc-extincteur" style="display:none">
       </div>
     </div>
-    <div class="check-item" id="ci-minut"><label class="check-wrap"><input type="checkbox" id="minut-ok" onchange="toggleDone('ci-minut',this);saveField('check_minut',this.checked?'1':'0')"><div class="cbox"></div></label><div class="check-info"><label for="minut-ok" class="check-label" style="display:inline">Je souhaite l'installation d'un boîtier Minut dans le logement <span style="font-weight:300;color:var(--ink3)">(facultatif)</span></label><button class="hint-q" onclick="toggleHintQ(this)" aria-label="Aide">?</button><div class="hint-hidden">Recommandé pour les maisons. Le capteur détecte les nuisances sonores et envoie une alerte automatique en cas de dépassement du seuil, sans enregistrer ni identifier qui que ce soit. Conforme aux règles Airbnb et Booking.</div><div class="done-tag">✓</div></div></div>
+    <div class="check-item" id="ci-minut"><label class="check-wrap"><input type="checkbox" id="minut-ok" onchange="toggleDone('ci-minut',this);saveField('check_minut_ok',this.checked?'1':'0')"><div class="cbox"></div></label><div class="check-info"><label for="minut-ok" class="check-label" style="display:inline">Je souhaite l'installation d'un boîtier Minut dans le logement <span style="font-weight:300;color:var(--ink3)">(facultatif)</span></label><button class="hint-q" onclick="toggleHintQ(this)" aria-label="Aide">?</button><div class="hint-hidden">Recommandé pour les maisons. Le capteur détecte les nuisances sonores et envoie une alerte automatique en cas de dépassement du seuil, sans enregistrer ni identifier qui que ce soit. Conforme aux règles Airbnb et Booking.</div><div class="done-tag">✓</div></div></div>
     <div class="field-item"><div class="field-label">Surface du logement <span style="font-weight:300;color:var(--ink3)">(obligatoire)</span></div><div class="field-hint">En m², utilisée pour paramétrer vos annonces.</div><input type="text" class="field-input" id="f-surface" placeholder="Ex : 38 m²" oninput="saveField('surface',this.value);checkSurface()"><input type="checkbox" data-sec="securite" id="uc-surface" style="display:none"></div>
   </div>
 </div></div>
@@ -563,7 +567,7 @@ function parkingOption(val, btn) {
   var detail = document.getElementById('parking-detail');
   if (detail) detail.style.display = anyActive ? 'block' : 'none';
   var vals = [];
-  document.querySelectorAll('#parking-options .yn-btn.active').forEach(function(b){ vals.push(b.textContent.trim()); });
+  document.querySelectorAll('#parking-options .yn-btn.active').forEach(function(b){ vals.push(b.getAttribute('data-pval') || b.textContent.trim()); });
   saveField('parking_yn', vals.join(', '));
   var cb = document.getElementById('uc-parking');
   if (cb) { cb.checked = anyActive; updateAll(); }
@@ -753,10 +757,10 @@ function loadFromLocalStorage() {
 }
 function serializeChecks() {
   var checks = {};
-  Object.keys(SECS).forEach(function(sec) {
-    document.querySelectorAll('[data-sec="' + sec + '"]').forEach(function(cb, i) {
-      checks[sec + '_' + (i + 1)] = cb.checked;
-    });
+  // Clés par identifiant d'élément (stable), et non par position : insérer ou
+  // retirer une case ne décale plus les autres, donc plus de corruption des dossiers.
+  document.querySelectorAll('[data-sec]').forEach(function(cb) {
+    if (cb.id) checks[cb.id] = cb.checked;
   });
   return checks;
 }
@@ -764,15 +768,24 @@ function restoreState(data) {
   if (!data) return;
   if (data.checks) {
     Object.keys(data.checks).forEach(function(k) {
-      var parts = k.split('_');
-      var idx = parseInt(parts[parts.length - 1]) - 1;
-      var sec = parts.slice(0, -1).join('_');
-      var boxes = document.querySelectorAll('[data-sec="' + sec + '"]');
-      if (boxes[idx]) {
-        boxes[idx].checked = data.checks[k];
-        if (data.checks[k]) {
-          var wrap = boxes[idx].closest('.check-item');
-          if (wrap) { wrap.classList.add('is-done'); var lbl = wrap.querySelector('.check-label'); if (lbl) lbl.classList.add('done'); }
+      // Nouveau format : la clé est l'id de la case.
+      var box = document.getElementById(k);
+      // Ancien format positionnel "section_index" : aucun élément ne porte cet id,
+      // on retombe sur la position. Tant que l'ordre du DOM existant n'a pas bougé,
+      // les dossiers déjà enregistrés se relisent correctement.
+      if (!box) {
+        var parts = k.split('_');
+        var idx = parseInt(parts[parts.length - 1]) - 1;
+        var sec = parts.slice(0, -1).join('_');
+        box = document.querySelectorAll('[data-sec="' + sec + '"]')[idx];
+      }
+      if (box && box.hasAttribute('data-sec')) {
+        box.checked = data.checks[k];
+        var wrap = box.closest('.check-item');
+        if (wrap) {
+          var lbl = wrap.querySelector('.check-label');
+          if (data.checks[k]) { wrap.classList.add('is-done'); if (lbl) lbl.classList.add('done'); }
+          else { wrap.classList.remove('is-done'); if (lbl) lbl.classList.remove('done'); }
         }
       }
     });
@@ -786,21 +799,30 @@ function restoreState(data) {
       if (k.startsWith('check_')) {
         var cbId = k.replace('check_', '').replace(/_/g, '-');
         var cbEl = document.getElementById(cbId);
-        if (cbEl && data.fields[k] === '1') {
-          cbEl.checked = true;
+        if (cbEl) {
+          var on = data.fields[k] === '1';
+          cbEl.checked = on;
           var wrap = cbEl.closest('.check-item');
-          if (wrap) { wrap.classList.add('is-done'); var lbl = wrap.querySelector('.check-label'); if (lbl) lbl.classList.add('done'); }
+          if (wrap) {
+            var lbl = wrap.querySelector('.check-label');
+            if (on) { wrap.classList.add('is-done'); if (lbl) lbl.classList.add('done'); }
+            else { wrap.classList.remove('is-done'); if (lbl) lbl.classList.remove('done'); }
+          }
         }
       }
-      // Restaurer le stationnement multi-options
+      // Restaurer le stationnement multi-options.
+      // Nouveau format : codes stables séparés par virgule (ex "prive, rue-gratuit").
+      // Ancien format : libellés (qui peuvent contenir des virgules), retrouvés en sous-chaîne.
       if (k === 'parking_yn' && data.fields[k]) {
-        var vals = data.fields[k].split(',').map(function(v){ return v.trim(); });
+        var raw = data.fields[k];
+        var codes = raw.split(',').map(function(s){ return s.trim(); });
+        var anyActive = false;
         document.querySelectorAll('#parking-options .yn-btn').forEach(function(btn){
-          if (vals.indexOf(btn.textContent.trim()) !== -1) {
-            btn.classList.add('active');
-          }
+          var pval = btn.getAttribute('data-pval');
+          var on = (pval && codes.indexOf(pval) !== -1) || raw.indexOf(btn.textContent.trim()) !== -1;
+          btn.classList.toggle('active', on);
+          if (on) anyActive = true;
         });
-        var anyActive = vals.length > 0;
         var detail = document.getElementById('parking-detail');
         if (detail && anyActive) detail.style.display = 'block';
         var cb = document.getElementById('uc-parking');
@@ -893,6 +915,11 @@ function closeCompletedSecs() {
 }
 async function loadFromAirtable(noteFromUrl) {
   noteFromUrl = noteFromUrl || '';
+  // Base locale : on restaure d'abord le localStorage. Si Airtable répond,
+  // ses données écrasent ce qui existe ; sinon (file://, hors-ligne, sync échouée,
+  // nouveau dossier) la saisie locale, dont la note, n'est pas perdue.
+  var localData = loadFromLocalStorage();
+  if (localData) restoreState(localData);
   if (isFileProtocol()) {
     buildNote(noteFromUrl);
     updateAll();
