@@ -202,7 +202,13 @@ input[type=file]{display:none}
   </div>
   <div class="sec-intro"><div class="sec-intro-bar"></div><p>Ces documents nous permettent de constituer votre dossier et de paramétrer correctement vos annonces Airbnb et Booking.</p></div>
   <div class="items">
-    <div class="check-item" id="ci-doc-kbis"><label class="check-wrap"><input type="checkbox" data-sec="docs" id="doc-kbis" onchange="updateAll();toggleDone('ci-doc-kbis',this)"><div class="cbox"></div></label><div class="check-info"><label for="doc-kbis" class="check-label" style="display:inline">Kbis de la société</label><button class="hint-q" onclick="toggleHintQ(this)" aria-label="Aide">?</button><div class="hint-hidden">Document officiel d'immatriculation, disponible sur infogreffe.fr ou via le guichet unique inpi.fr.</div><div class="done-tag">✓ Déposé</div></div></div>
+    <div class="field-item" id="statut-block"><div class="field-label">Vous détenez le bien <span style="font-weight:300;color:var(--ink3)">(obligatoire)</span></div><div class="field-hint">Le choix adapte les pièces à fournir.</div>
+      <div class="yn-wrap">
+        <button class="yn-btn" id="statut-societe" onclick="chooseStatut('societe',this)">En société</button>
+        <button class="yn-btn" id="statut-nompropre" onclick="chooseStatut('nom-propre',this)">En nom propre</button>
+      </div>
+    </div>
+    <div class="check-item" id="ci-doc-kbis" style="display:none"><label class="check-wrap"><input type="checkbox" data-sec="docs" data-off="1" id="doc-kbis" onchange="updateAll();toggleDone('ci-doc-kbis',this)"><div class="cbox"></div></label><div class="check-info"><label for="doc-kbis" class="check-label" style="display:inline">Kbis de la société</label><button class="hint-q" onclick="toggleHintQ(this)" aria-label="Aide">?</button><div class="hint-hidden">Document officiel d'immatriculation, disponible sur infogreffe.fr ou via le guichet unique inpi.fr.</div><div class="done-tag">✓ Déposé</div></div></div>
     <div class="check-item" id="ci-doc-cni"><label class="check-wrap"><input type="checkbox" data-sec="docs" id="doc-cni" onchange="updateAll();toggleDone('ci-doc-cni',this)"><div class="cbox"></div></label><div class="check-info"><label for="doc-cni" class="check-label" style="display:inline">Pièce d'identité de chaque gérant</label><button class="hint-q" onclick="toggleHintQ(this)" aria-label="Aide">?</button><div class="hint-hidden">Carte nationale d'identité ou passeport en cours de validité — un document par gérant.</div><div class="done-tag">✓ Déposé</div></div></div>
     <div class="check-item" id="ci-doc-acte"><label class="check-wrap"><input type="checkbox" data-sec="docs" id="doc-acte" onchange="updateAll();toggleDone('ci-doc-acte',this)"><div class="cbox"></div></label><div class="check-info"><label for="doc-acte" class="check-label" style="display:inline">Acte de propriété</label><button class="hint-q" onclick="toggleHintQ(this)" aria-label="Aide">?</button><div class="hint-hidden">Transmis par votre notaire lors de l'achat. Un document par logement si les titres sont séparés.</div><div class="done-tag">✓ Déposé</div></div></div>
     <div class="check-item" id="ci-doc-rib"><label class="check-wrap"><input type="checkbox" data-sec="docs" id="doc-rib" onchange="updateAll();toggleDone('ci-doc-rib',this)"><div class="cbox"></div></label><div class="check-info"><label for="doc-rib" class="check-label" style="display:inline">RIB de la société</label><button class="hint-q" onclick="toggleHintQ(this)" aria-label="Aide">?</button><div class="hint-hidden">C'est sur ce compte que vous recevrez directement vos versements Airbnb et Booking.</div><div class="done-tag">✓ Déposé</div></div></div>
@@ -210,9 +216,10 @@ input[type=file]{display:none}
     <div class="check-item" id="ci-doc-photo"><label class="check-wrap"><input type="checkbox" data-sec="docs" id="doc-photo" onchange="updateAll();toggleDone('ci-doc-photo',this)"><div class="cbox"></div></label><div class="check-info"><label for="doc-photo" class="check-label" style="display:inline">Photo de profil</label><button class="hint-q" onclick="toggleHintQ(this)" aria-label="Aide">?</button><div class="hint-hidden">Une photo de vous est nécessaire pour paramétrer votre compte Airbnb. Elle rassure les voyageurs et améliore la visibilité de votre annonce.</div><div class="done-tag">✓ Déposé</div></div></div>
     <div class="check-item" id="ci-doc-copro"><label class="check-wrap"><input type="checkbox" id="doc-copro" onchange="toggleDone('ci-doc-copro',this);saveField('check_doc_copro',this.checked?'1':'0')"><div class="cbox"></div></label><div class="check-info"><label for="doc-copro" class="check-label" style="display:inline">Règlement de copropriété <span style="font-weight:300;color:var(--ink3)">(si existant)</span></label><button class="hint-q" onclick="toggleHintQ(this)" aria-label="Aide">?</button><div class="hint-hidden">Si votre logement est en copropriété, transmettez le règlement — certaines clauses peuvent encadrer la location courte durée.</div><div class="done-tag">✓ Déposé</div></div></div>
     <div class="field-item"><div class="field-label">Numéro SIRET <span style="font-weight:300;color:var(--ink3)">(obligatoire)</span></div><div class="field-hint">14 chiffres, disponible sur votre Kbis.</div><input type="text" class="field-input" id="f-siret" placeholder="Ex : 12345678900012" maxlength="14" oninput="saveField('siret',this.value);checkSiret()"><input type="checkbox" data-sec="docs" id="uc-siret" style="display:none"></div>
-    <div class="field-item"><div class="field-label">NIF <span style="font-weight:300;color:var(--ink3)">(obligatoire — requis par Booking)</span></div><div class="field-hint">Numéro d'Identification Fiscale, disponible sur votre avis d'imposition ou auprès de votre comptable.</div><input type="text" class="field-input" id="f-nif" placeholder="Ex : 1234567890123" oninput="saveField('nif',this.value);checkNif()"><input type="checkbox" data-sec="docs" id="uc-nif" style="display:none"></div>
+    <div class="field-item" id="fi-nif" style="display:none"><div class="field-label">NIF <span style="font-weight:300;color:var(--ink3)">(obligatoire — requis par Booking)</span></div><div class="field-hint">Numéro d'Identification Fiscale, disponible sur votre avis d'imposition ou auprès de votre comptable.</div><input type="text" class="field-input" id="f-nif" placeholder="Ex : 1234567890123" oninput="saveField('nif',this.value);checkNif()"><input type="checkbox" data-sec="docs" data-off="1" id="uc-nif" style="display:none"></div>
     <div class="check-item" id="ci-pno-ok"><label class="check-wrap"><input type="checkbox" data-sec="docs" id="pno-ok" onchange="updateAll();toggleDone('ci-pno-ok',this)"><div class="cbox"></div></label><div class="check-info"><label for="pno-ok" class="check-label">La location saisonnière est bien couverte par votre PNO</label><div class="check-hint">Certaines PNO excluent la location courte durée. Vérifiez auprès de votre assureur avant de cocher.</div><div class="done-tag">✓</div></div></div>
     <div class="check-item" id="ci-doc-dpe"><label class="check-wrap"><input type="checkbox" data-sec="docs" id="doc-dpe" onchange="updateAll();toggleDone('ci-doc-dpe',this)"><div class="cbox"></div></label><div class="check-info"><label for="doc-dpe" class="check-label" style="display:inline">DPE, Diagnostic de Performance Énergétique</label><button class="hint-q" onclick="toggleHintQ(this)" aria-label="Aide">?</button><div class="hint-hidden">Classé de A à G, réalisé par un diagnostiqueur certifié, valable 10 ans. Avec la loi Le Meur, un DPE classe A à E est exigé pour les nouvelles autorisations en zone de changement d'usage, et tous les meublés de tourisme devront atteindre la classe E minimum d'ici 2034.</div><div class="done-tag">✓ Déposé</div></div></div>
+    <input type="checkbox" data-sec="docs" id="uc-statut" style="display:none">
   </div>
 </div></div>
 
@@ -500,13 +507,16 @@ function buildSecTotals() {
     SECS[s].total++;
   });
 }
+function secTotal(sec) {
+  return document.querySelectorAll('[data-sec="' + sec + '"]:not([data-off])').length;
+}
 function getTotal() {
-  return Object.values(SECS).reduce(function(a, s) { return a + s.total; }, 0);
+  return Object.keys(SECS).reduce(function(a, s) { return a + secTotal(s); }, 0);
 }
 function isFileProtocol() { return window.location.protocol === 'file:'; }
 function lsKey() { return 'omea-lancement-' + clientId; }
 function getChecked(sec) {
-  return document.querySelectorAll('[data-sec="' + sec + '"]:checked').length;
+  return document.querySelectorAll('[data-sec="' + sec + '"]:not([data-off]):checked').length;
 }
 function getDone() {
   return Object.keys(SECS).reduce(function(a, s) { return a + getChecked(s); }, 0);
@@ -616,7 +626,7 @@ function updateAll() {
   document.getElementById('prog-lbl').textContent = done + ' / ' + TOTAL + ' complétés';
   Object.keys(SECS).forEach(function(sec) {
     var d = getChecked(sec);
-    var t = SECS[sec].total;
+    var t = secTotal(sec);
     var cls = bc(d, t);
     var st = document.getElementById('st-' + sec);
     if (st && t > 0) { st.textContent = d + ' / ' + t; st.className = 'sec-badge ' + cls; }
@@ -659,6 +669,32 @@ function checkNif() {
   var input = document.getElementById('f-nif');
   var cb = document.getElementById('uc-nif');
   if (cb) { cb.checked = !!(input && input.value.trim().length > 0); updateAll(); }
+}
+// Statut du propriétaire : société (Kbis + SIRET, pas de NIF) ou nom propre (SIRET + NIF, pas de Kbis).
+function setActif(itemEl, cbEl, on) {
+  if (itemEl) itemEl.style.display = on ? '' : 'none';
+  if (cbEl) { if (on) cbEl.removeAttribute('data-off'); else cbEl.setAttribute('data-off', '1'); }
+}
+function applyStatut(val) {
+  var isSoc = val === 'societe';
+  var isNp = val === 'nom-propre';
+  var b1 = document.getElementById('statut-societe');
+  var b2 = document.getElementById('statut-nompropre');
+  if (b1) b1.classList.toggle('active', isSoc);
+  if (b2) b2.classList.toggle('active', isNp);
+  setActif(document.getElementById('ci-doc-kbis'), document.getElementById('doc-kbis'), isSoc);
+  setActif(document.getElementById('fi-nif'), document.getElementById('uc-nif'), isNp);
+  var cni = document.querySelector('label[for="doc-cni"]');
+  if (cni) cni.textContent = isSoc ? "Pièce d'identité de chaque gérant" : "Pièce d'identité";
+  var rib = document.querySelector('label[for="doc-rib"]');
+  if (rib) rib.textContent = isSoc ? "RIB de la société" : "RIB";
+  var st = document.getElementById('uc-statut');
+  if (st) st.checked = (isSoc || isNp);
+}
+function chooseStatut(val, btn) {
+  applyStatut(val);
+  saveField('statut_proprio', val);
+  updateAll();
 }
 function checkSiret() {
   var input = document.getElementById('f-siret');
@@ -845,6 +881,7 @@ function restoreState(data) {
       if (st) { st.textContent = data.uploads[k]; st.className = 'upload-status ok'; }
     });
   }
+  if (data.fields && data.fields.statut_proprio) applyStatut(data.fields.statut_proprio);
 }
 function buildRecord() {
   var checks = serializeChecks();
