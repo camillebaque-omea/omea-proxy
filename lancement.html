@@ -7,7 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@300;400;500;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'"><noscript><link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@300;400;500;800&display=swap" rel="stylesheet"></noscript>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-:root{--y:#EAC72D;--yd:#C9A918;--ink:#1A1A1A;--ink2:#555;--ink3:#999;--bg:#F7F6F3;--w:#fff;--bd:#E5E2DA;--gr:#1E7A45;--gbg:#EBF5F0;--gbd:#A8D4BB}
+:root{--y:#EAC72D;--yd:#C9A918;--ink:#17160F;--ink2:#5B5748;--ink3:#96917E;--bg:#F5F1E6;--w:#fff;--bd:#E5DFCB;--gr:#1E7A45;--gbg:#EAF4EE;--gbd:#A8D4BB}
 body{font-family:'Libre Franklin',sans-serif;background:var(--bg);color:var(--ink);min-height:100vh}
 nav{background:var(--w);border-bottom:1px solid var(--bd);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:60px;position:sticky;top:0;z-index:100}
 .logo{font-weight:800;font-size:17px}.logo span{color:var(--y)}
@@ -18,95 +18,117 @@ nav{background:var(--w);border-bottom:1px solid var(--bd);padding:0 2rem;display
 .at-retry{background:rgba(255,255,255,0.2);border:1px solid rgba(255,255,255,0.4);color:#fff;padding:5px 12px;border-radius:3px;font-family:'Libre Franklin',sans-serif;font-size:11px;font-weight:800;cursor:pointer;letter-spacing:0.06em;text-transform:uppercase}
 .at-retry:hover{background:rgba(255,255,255,0.35)}
 .at-close{background:none;border:none;color:rgba(255,255,255,0.6);font-size:16px;cursor:pointer;padding:0 4px;line-height:1}
-.hero{background:var(--ink);padding:2.5rem 2rem;text-align:center}
-.hero-tag{display:inline-block;background:var(--y);color:var(--ink);font-size:10px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;padding:4px 12px;border-radius:2px;margin-bottom:14px}
-.hero h1{font-size:28px;font-weight:800;color:var(--w);letter-spacing:-.02em;margin-bottom:8px}
+.hero{background:var(--ink);padding:3rem 2rem 2.5rem;display:flex;align-items:center;justify-content:center;gap:2.5rem;flex-wrap:wrap;text-align:left}
+.hero-copy{max-width:440px}
+.hero-tag{display:inline-block;background:var(--y);color:var(--ink);font-size:10px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;padding:5px 13px;border-radius:20px;margin-bottom:16px}
+.hero h1{font-size:36px;font-weight:800;color:var(--w);letter-spacing:-.03em;margin-bottom:10px;line-height:1.1}
 .hero h1 em{color:var(--y);font-style:normal}
-.hero p{font-size:13px;color:rgba(255,255,255,.5);font-weight:300;line-height:1.7;max-width:420px;margin:0 auto}
-.prog-bar{background:var(--w);border-bottom:1px solid var(--bd);padding:14px 2rem;display:flex;align-items:center;gap:1.5rem;position:sticky;top:60px;z-index:99}
-.prog-lbl{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);white-space:nowrap}
-.prog-track{flex:1;height:5px;background:var(--bd);border-radius:3px;overflow:hidden}
-.prog-fill{height:5px;background:var(--y);border-radius:3px;transition:width .4s ease;width:0%}
-.prog-pct{font-size:18px;font-weight:800;color:var(--ink);min-width:44px;text-align:right}
-.content{max-width:680px;margin:0 auto;padding:2rem 1.5rem 5rem}
-.sec{margin-bottom:12px;background:var(--w);border:1px solid var(--bd);border-radius:6px;overflow:hidden}
-.sec-head{display:flex;align-items:center;gap:12px;padding:16px 20px;cursor:pointer;user-select:none}
+.hero p{font-size:14px;color:rgba(255,255,255,.55);font-weight:300;line-height:1.7}
+.hero-ring{position:relative;width:118px;height:118px;flex-shrink:0}
+.hero-ring svg{transform:rotate(0deg)}
+.hero-ring-label{position:absolute;inset:0;display:flex;align-items:baseline;justify-content:center;gap:2px;color:var(--w)}
+.hero-ring-label span:first-child{font-size:30px;font-weight:800;letter-spacing:-.02em}
+.hero-ring-unit{font-size:14px;color:rgba(255,255,255,.55);font-weight:500}
+.phase-nav{position:sticky;top:60px;z-index:99;background:var(--w);border-bottom:1px solid var(--bd);display:flex;gap:8px;padding:12px 1.5rem;overflow-x:auto;max-width:100%}
+.phase-nav-pill{flex-shrink:0;display:flex;align-items:center;gap:8px;padding:8px 16px;border-radius:20px;background:var(--bg);color:var(--ink2);font-size:12px;font-weight:800;letter-spacing:.02em;text-decoration:none;border:1.5px solid transparent;transition:all .15s;white-space:nowrap}
+.phase-nav-pill:hover{border-color:var(--y);color:var(--ink)}
+.phase-nav-pill .dot{width:7px;height:7px;border-radius:50%;background:var(--bd);flex-shrink:0}
+.prog-bar{background:var(--bg);padding:0;display:block;position:sticky;top:calc(60px + 45px);z-index:98}
+.prog-lbl,.prog-pct{display:none}
+.prog-track{height:4px;background:var(--bd);overflow:hidden}
+.prog-fill{height:4px;background:var(--y);transition:width .4s ease;width:0%}
+.content{max-width:700px;margin:0 auto;padding:2.5rem 1.5rem 5rem}
+.phase-divider{display:flex;align-items:baseline;gap:16px;margin:2.75rem 0 1.25rem}
+.phase-divider:first-child{margin-top:0}
+.phase-num-big{font-size:44px;font-weight:800;color:var(--y);letter-spacing:-.03em;line-height:1}
+.phase-title-wrap{flex:1;border-bottom:2px solid var(--ink);padding-bottom:10px}
+.phase-title{font-size:20px;font-weight:800;color:var(--ink);letter-spacing:-.01em}
+.phase-sub{font-size:12px;color:var(--ink3);font-weight:400;margin-top:2px}
+.sec{margin-bottom:14px;background:var(--w);border:1px solid var(--bd);border-radius:12px;overflow:hidden;box-shadow:0 1px 2px rgba(23,22,15,.03)}
+.sec-head{display:flex;align-items:center;gap:14px;padding:18px 22px;cursor:pointer;user-select:none}
 .sec-head:hover{background:var(--bg)}
-.sec-num{font-size:10px;font-weight:800;letter-spacing:.12em;color:var(--y);min-width:22px}
-.sec-name{font-size:14px;font-weight:800;color:var(--ink);flex:1;letter-spacing:-.01em}
-.sec-badge{font-size:10px;font-weight:800;padding:3px 9px;border-radius:2px;letter-spacing:.04em;white-space:nowrap}
+.sec-num{display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:9px;background:var(--bg);font-size:12px;font-weight:800;color:var(--ink2);flex-shrink:0}
+.sec-head-text{display:flex;flex-direction:column;gap:3px;flex:1;min-width:0}
+.sec-name{font-size:16px;font-weight:800;color:var(--ink);letter-spacing:-.01em}
+.sec-sub{font-size:12px;color:var(--ink3);font-weight:400;line-height:1.4}
+.sec-badge{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:800;padding:5px 11px;border-radius:20px;letter-spacing:.02em;white-space:nowrap}
+.sec-badge::before{content:'';width:6px;height:6px;border-radius:50%;background:currentColor;flex-shrink:0}
 .b-e{background:var(--bg);color:var(--ink3)}
-.b-p{background:#FFF9E0;color:#8B6914;border:1px solid #E8D87A}
-.b-d{background:var(--gbg);color:var(--gr);border:1px solid var(--gbd)}
-.sec-arr{color:var(--ink3);font-size:10px;transition:transform .2s;font-weight:800}
+.b-p{background:#FFF6D9;color:#8B6914}
+.b-d{background:var(--gbg);color:var(--gr)}
+.sec-arr{color:var(--ink3);font-size:12px;transition:transform .2s;font-weight:800}
 .sec-arr.open{transform:rotate(180deg)}
 .sec-body{border-top:1px solid var(--bd);display:none}
 .sec-body.open{display:block}
-.sec-intro{padding:14px 20px 0;display:flex;align-items:flex-start;gap:10px}
-.sec-intro-bar{width:3px;min-height:36px;background:var(--y);border-radius:2px;flex-shrink:0}
-.sec-intro p{font-size:12px;color:var(--ink2);line-height:1.6;font-weight:300;padding:2px 0 14px}
-.items{padding:4px 20px 16px}
-.check-item{display:flex;align-items:flex-start;gap:14px;padding:14px 0;border-bottom:1px solid var(--bg)}
+.items{padding:6px 22px 20px}
+.check-item{display:flex;align-items:flex-start;gap:14px;padding:16px 0;border-bottom:1px solid var(--bg)}
 .check-item:last-child{border-bottom:none}
-.check-item.is-done{background:var(--gbg);margin:0 -20px;padding:14px 20px;border-radius:4px}
-.check-wrap{flex-shrink:0;margin-top:1px}
+.check-item.is-done{background:var(--gbg);margin:0 -22px;padding:16px 22px;border-radius:8px}
+.check-wrap{flex-shrink:0;margin-top:-3px}
+.check-wrap-spacer{width:28px;flex-shrink:0}
+.tag-meta{display:inline-block;font-size:9.5px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;padding:3px 9px;border-radius:20px;margin-left:8px;vertical-align:middle;background:#FFF6D9;color:#8B6914}
+.tag-meta-opt{background:var(--bg);color:var(--ink3)}
 .check-wrap input{display:none}
-.cbox{width:24px;height:24px;border:2px solid var(--bd);border-radius:5px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;background:var(--w)}
+.cbox{width:28px;height:28px;border:2px solid var(--bd);border-radius:9px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;background:var(--w)}
 .cbox:hover{border-color:var(--y)}
-.check-wrap input:checked+.cbox{background:var(--y);border-color:var(--y)}
-.check-wrap input:checked+.cbox::after{content:'';display:block;width:12px;height:7px;border-left:2.5px solid var(--ink);border-bottom:2.5px solid var(--ink);transform:rotate(-45deg) translateY(-1px)}
+.check-wrap input:checked+.cbox{background:var(--y);border-color:var(--y);transform:scale(1.06)}
+.check-wrap input:checked+.cbox::after{content:'';display:block;width:13px;height:8px;border-left:2.5px solid var(--ink);border-bottom:2.5px solid var(--ink);transform:rotate(-45deg) translateY(-1px)}
 .check-info{flex:1}
-.check-label{font-size:14px;font-weight:500;color:var(--ink);line-height:1.4;cursor:pointer;display:block}
+.check-label{font-size:14.5px;font-weight:600;color:var(--ink);line-height:1.5;cursor:pointer;display:inline}
 .check-label.done{color:var(--ink3);text-decoration:line-through}
-.check-hint{font-size:12px;color:var(--ink3);font-weight:300;line-height:1.5;margin-top:4px}
-.hint-q{display:inline-flex;align-items:center;justify-content:center;width:15px;height:15px;border-radius:50%;border:1.5px solid var(--bd);font-size:9px;font-weight:800;color:var(--ink3);background:none;cursor:pointer;font-family:'Libre Franklin',sans-serif;transition:all .15s;line-height:1;vertical-align:middle;margin-left:5px;flex-shrink:0}
-.hint-q:hover{border-color:var(--y);color:var(--ink)}
-.hint-q.active{border-color:var(--y);background:var(--y);color:var(--ink)}
-.hint-hidden{font-size:12px;color:var(--ink3);font-weight:300;line-height:1.5;margin-top:6px;padding:8px 10px;background:var(--bg);border-left:2px solid var(--y);border-radius:0 3px 3px 0;display:none}
+.check-hint{font-size:12.5px;color:var(--ink3);font-weight:400;line-height:1.55;margin-top:5px}
+.hint-q{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;border:none;font-size:11px;font-weight:800;color:var(--ink3);background:var(--bg);cursor:pointer;font-family:'Libre Franklin',sans-serif;transition:all .15s;line-height:1;flex-shrink:0;vertical-align:middle;margin-left:7px}
+.hint-q:hover{background:var(--y);color:var(--ink)}
+.hint-q.active{background:var(--y);color:var(--ink)}
+.hint-hidden{font-size:12.5px;color:var(--ink2);font-weight:400;line-height:1.55;margin-top:8px;padding:10px 12px;background:var(--bg);border-radius:8px;display:none}
 .hint-hidden.show{display:block}
 .done-tag{display:none;font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--gr);margin-top:4px}
 .is-done .done-tag{display:block}
-.refs{margin-top:10px;padding:10px 12px;background:var(--bg);border-radius:4px;border:1px solid var(--bd)}
-.refs-title{font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--ink3);margin-bottom:8px}
-.ref-link{display:block;font-size:12px;color:var(--ink2);text-decoration:none;padding:4px 0;border-bottom:1px solid var(--bd)}
+.refs{margin-top:12px;padding:14px 16px;background:var(--bg);border-radius:0 10px 10px 0;border-left:3px solid var(--y)}
+.refs-title{font-size:12px;font-weight:800;color:var(--ink);margin-bottom:8px}
+.ref-link{display:block;font-size:12.5px;color:var(--ink2);text-decoration:none;padding:5px 0;border-bottom:1px solid var(--bd)}
 .ref-link:last-child{border-bottom:none}
-.ref-link:hover{color:var(--y)}
+.ref-link:hover{color:var(--yd)}
 .ref-name{font-weight:500}
-.field-item{padding:12px 0;border-bottom:1px solid var(--bg)}
+.field-item{display:grid;grid-template-columns:28px 1fr;column-gap:14px;padding:14px 0;border-bottom:1px solid var(--bg)}
+.field-item::before{content:'';grid-column:1;grid-row:1}
+.field-item>*{grid-column:2}
 .field-item:last-child{border-bottom:none}
-.field-label{font-size:13px;font-weight:800;color:var(--ink);margin-bottom:4px}
-.field-hint{font-size:12px;color:var(--ink3);font-weight:300;margin-bottom:8px;line-height:1.5}
-.field-input{width:100%;padding:10px 12px;font-family:'Libre Franklin',sans-serif;font-size:13px;color:var(--ink);background:var(--bg);border:1.5px solid var(--bd);border-radius:4px;outline:none;transition:border-color .15s;font-weight:400;resize:vertical}
+.field-label{font-size:13.5px;font-weight:800;color:var(--ink);margin-bottom:5px}
+.field-hint{font-size:12.5px;color:var(--ink3);font-weight:400;margin-bottom:9px;line-height:1.55}
+.field-input{width:100%;padding:11px 13px;font-family:'Libre Franklin',sans-serif;font-size:13.5px;color:var(--ink);background:var(--bg);border:1.5px solid var(--bd);border-radius:8px;outline:none;transition:border-color .15s;font-weight:400;resize:vertical}
 .field-input:focus{border-color:var(--y);background:var(--w)}
 .field-input::placeholder{color:var(--ink3)}
-.upload-item{padding:12px 0;border-bottom:1px solid var(--bg)}
+.upload-item{display:grid;grid-template-columns:28px 1fr;column-gap:14px;padding:14px 0;border-bottom:1px solid var(--bg)}
+.upload-item::before{content:'';grid-column:1;grid-row:1}
+.upload-item>*{grid-column:2}
 .upload-item:last-child{border-bottom:none}
-.upload-label{font-size:13px;font-weight:800;color:var(--ink);margin-bottom:3px}
-.upload-hint{font-size:12px;color:var(--ink3);font-weight:300;margin-bottom:8px;line-height:1.5}
+.upload-label{font-size:13.5px;font-weight:800;color:var(--ink);margin-bottom:4px}
+.upload-hint{font-size:12.5px;color:var(--ink3);font-weight:400;margin-bottom:9px;line-height:1.55}
 .upload-zone{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-.upload-btn{padding:8px 16px;background:var(--w);border:1.5px solid var(--bd);border-radius:4px;font-family:'Libre Franklin',sans-serif;font-size:12px;font-weight:800;color:var(--ink);cursor:pointer;transition:all .15s;letter-spacing:.04em;white-space:nowrap}
+.upload-btn{padding:9px 17px;background:var(--w);border:1.5px solid var(--bd);border-radius:8px;font-family:'Libre Franklin',sans-serif;font-size:12.5px;font-weight:800;color:var(--ink);cursor:pointer;transition:all .15s;letter-spacing:.02em;white-space:nowrap}
 .upload-btn:hover{border-color:var(--y)}
-.upload-status{font-size:12px;color:var(--ink3);font-weight:300}
-.upload-status.ok{color:var(--gr);font-weight:500}
+.upload-status{font-size:12.5px;color:var(--ink3);font-weight:400}
+.upload-status.ok{color:var(--gr);font-weight:700}
 input[type=file]{display:none}
-.drive-block{margin:0 20px 16px;padding:16px;background:#F0F7FF;border:1px solid #C5DCF5;border-radius:6px}
-.drive-block-title{font-size:13px;font-weight:800;color:var(--ink);margin-bottom:4px}
-.drive-block-hint{font-size:12px;color:var(--ink2);font-weight:300;line-height:1.5;margin-bottom:12px}
-.drive-btn{display:inline-flex;align-items:center;gap:8px;padding:10px 18px;background:#1A73E8;color:#fff;border:none;border-radius:4px;font-family:'Libre Franklin',sans-serif;font-size:13px;font-weight:800;cursor:pointer;text-decoration:none;letter-spacing:.03em;transition:background .15s}
-.drive-btn:hover{background:#1557B0}
-.drive-btn-missing{display:inline-block;padding:10px 18px;background:var(--bg);color:var(--ink3);border:1.5px dashed var(--bd);border-radius:4px;font-size:12px;font-weight:300}
-.cerfa-block{margin:0 20px 8px;padding:12px 14px;background:var(--bg);border:1px solid var(--bd);border-radius:4px;display:flex;align-items:center;justify-content:space-between;gap:12px}
-.cerfa-title{font-size:13px;font-weight:800;color:var(--ink);margin-bottom:2px}
-.cerfa-sub{font-size:12px;color:var(--ink3);font-weight:300}
-.cerfa-btn{flex-shrink:0;padding:8px 14px;background:var(--w);border:1.5px solid var(--bd);border-radius:4px;font-family:'Libre Franklin',sans-serif;font-size:12px;font-weight:800;color:var(--ink);text-decoration:none;letter-spacing:.04em;white-space:nowrap}
+.drive-block{margin:0 22px 18px;padding:18px;background:var(--bg);border-radius:0 10px 10px 0;border-left:3px solid var(--y)}
+.drive-block-title{font-size:13.5px;font-weight:800;color:var(--ink);margin-bottom:4px}
+.drive-block-hint{font-size:12.5px;color:var(--ink2);font-weight:400;line-height:1.55;margin-bottom:14px}
+.drive-btn{display:inline-flex;align-items:center;gap:8px;padding:11px 20px;background:var(--ink);color:var(--w);border:none;border-radius:8px;font-family:'Libre Franklin',sans-serif;font-size:13px;font-weight:800;cursor:pointer;text-decoration:none;letter-spacing:.02em;transition:background .15s}
+.drive-btn:hover{background:#000}
+.drive-btn-missing{display:inline-block;padding:11px 20px;background:var(--w);color:var(--ink3);border:1.5px dashed var(--bd);border-radius:8px;font-size:12.5px;font-weight:400}
+.cerfa-block{margin:0 22px 10px;padding:14px 16px;background:var(--bg);border-radius:0 10px 10px 0;border-left:3px solid var(--y);display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cerfa-title{font-size:13.5px;font-weight:800;color:var(--ink);margin-bottom:2px}
+.cerfa-sub{font-size:12.5px;color:var(--ink3);font-weight:400}
+.cerfa-btn{flex-shrink:0;padding:9px 15px;background:var(--w);border:1.5px solid var(--bd);border-radius:8px;font-family:'Libre Franklin',sans-serif;font-size:12.5px;font-weight:800;color:var(--ink);text-decoration:none;letter-spacing:.02em;white-space:nowrap}
 .cerfa-btn:hover{border-color:var(--y)}
-.cta{margin-top:2rem;background:var(--ink);border-radius:6px;padding:2rem;text-align:center}
-.cta h3{font-size:20px;font-weight:800;color:var(--w);letter-spacing:-.02em;margin-bottom:6px}
-.cta p{font-size:13px;color:rgba(255,255,255,.45);margin-bottom:1.5rem;line-height:1.6;font-weight:300}
-.cta-btn{padding:13px 32px;background:var(--y);color:var(--ink);border:none;border-radius:4px;font-family:'Libre Franklin',sans-serif;font-size:13px;font-weight:800;cursor:pointer;letter-spacing:.06em;text-transform:uppercase;transition:all .15s}
+.cta{margin-top:2.5rem;background:var(--ink);border-radius:14px;padding:2.75rem 2rem;text-align:center}
+.cta h3{font-size:24px;font-weight:800;color:var(--w);letter-spacing:-.02em;margin-bottom:8px}
+.cta p{font-size:13.5px;color:rgba(255,255,255,.5);margin-bottom:1.75rem;line-height:1.6;font-weight:300;max-width:420px;margin-left:auto;margin-right:auto}
+.cta-btn{padding:15px 36px;background:var(--y);color:var(--ink);border:none;border-radius:9px;font-family:'Libre Franklin',sans-serif;font-size:13.5px;font-weight:800;cursor:pointer;letter-spacing:.05em;text-transform:uppercase;transition:all .15s}
 .cta-btn:disabled{opacity:.25;cursor:not-allowed}
-.cta-lock{font-size:11px;color:rgba(255,255,255,.3);margin-top:10px;font-weight:300}
-.cta-ok{font-size:13px;color:var(--y);margin-top:12px;display:none;font-weight:500}
+.cta-lock{font-size:11.5px;color:rgba(255,255,255,.35);margin-top:12px;font-weight:400}
+.cta-ok{font-size:13.5px;color:var(--y);margin-top:14px;display:none;font-weight:700}
 .admin-panel{display:none;max-width:680px;margin:2rem auto;background:var(--w);border:2px solid var(--y);border-radius:8px;padding:2rem}
 .admin-panel.show{display:block}
 .admin-title{font-size:16px;font-weight:800;color:var(--ink);margin-bottom:4px}
@@ -122,17 +144,17 @@ input[type=file]{display:none}
 .admin-copy{margin-top:10px;padding:8px 16px;background:var(--y);color:var(--ink);border:none;border-radius:4px;font-family:'Libre Franklin',sans-serif;font-size:12px;font-weight:800;cursor:pointer;letter-spacing:.04em}
 .admin-copy:hover{background:var(--yd)}
 .admin-copied{font-size:11px;color:var(--gr);font-weight:500;margin-top:6px;display:none}
-.yn-wrap{display:flex;gap:8px;margin-top:8px}
-.yn-btn{padding:7px 20px;border-radius:3px;border:1.5px solid var(--bd);font-family:'Libre Franklin',sans-serif;font-size:12px;font-weight:800;letter-spacing:.04em;cursor:pointer;background:var(--w);color:var(--ink3);transition:all .15s}
+.yn-wrap{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
+.yn-btn{padding:8px 20px;border-radius:20px;border:1.5px solid var(--bd);font-family:'Libre Franklin',sans-serif;font-size:12.5px;font-weight:800;letter-spacing:.02em;cursor:pointer;background:var(--w);color:var(--ink3);transition:all .15s;white-space:nowrap;flex-shrink:0}
 .yn-btn:hover{border-color:var(--ink3);color:var(--ink)}
 .yn-btn.yn-yes.active{background:var(--gbg);border-color:var(--gr);color:var(--gr)}
 .yn-btn.yn-no.active{background:#FFF9E0;border-color:#C9A918;color:#8B6914}
 .yn-btn.active{background:#FFF9E0;border-color:var(--y);color:var(--ink)}
-.log-tabs-wrap{margin:24px 0 4px;padding:16px;background:var(--w);border:1px solid var(--bd);border-radius:6px}
+.log-tabs-wrap{margin:28px 0 4px;padding:18px;background:var(--w);border:1px solid var(--bd);border-radius:12px}
 .log-tabs-label{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);margin-bottom:4px}
 .log-tabs-hint{font-size:12px;color:var(--ink3);font-weight:300;margin-bottom:12px;line-height:1.5}
 .log-tabs{display:flex;flex-wrap:wrap;gap:8px}
-.log-tab{display:flex;align-items:center;gap:7px;padding:8px 8px 8px 14px;background:var(--bg);border:1.5px solid var(--bd);border-radius:20px;cursor:pointer;font-size:13px;font-weight:500;color:var(--ink2);transition:all .15s}
+.log-tab{display:flex;align-items:center;gap:7px;padding:9px 9px 9px 15px;background:var(--bg);border:1.5px solid var(--bd);border-radius:20px;cursor:pointer;font-size:13.5px;font-weight:700;color:var(--ink2);transition:all .15s;white-space:nowrap}
 .log-tab:hover{border-color:var(--y)}
 .log-tab.active{background:var(--ink);border-color:var(--ink);color:var(--w)}
 .log-tab-pct{font-size:11px;font-weight:800;opacity:.65}
@@ -142,8 +164,8 @@ input[type=file]{display:none}
 .log-tab-add:hover{border-color:var(--y);color:var(--ink)}
 .log-tab.active{animation:logPulse .6s ease}
 @keyframes logPulse{0%{box-shadow:0 0 0 5px rgba(234,199,45,.55)}100%{box-shadow:0 0 0 0 rgba(234,199,45,0)}}
-.logement-scope-wrap{border:2px solid var(--y);border-radius:8px;padding:18px 16px 4px;margin-top:4px;background:#FFFDF3}
-.logement-scope-header{display:flex;align-items:center;gap:9px;font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--ink);margin:0 4px 16px;padding-bottom:12px;border-bottom:2px dashed var(--y)}
+.logement-scope-wrap{border:2px solid var(--y);border-radius:14px;padding:20px 18px 6px;margin-top:6px;background:#FFFDF3}
+.logement-scope-header{display:flex;align-items:center;gap:9px;font-size:12.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--ink);margin:0 4px 18px;padding-bottom:14px;border-bottom:2px dashed var(--y)}
 .logement-scope-header .dot{width:9px;height:9px;border-radius:50%;background:var(--y);flex-shrink:0}
 </style>
 </head>
@@ -190,9 +212,25 @@ input[type=file]{display:none}
 
 <div id="main-content" style="display:none">
 <div class="hero">
-  <div class="hero-tag">Lancement</div>
-  <h1>Bienvenue, <em id="client-name">Propriétaire</em>.</h1>
-  <p>Voici tout ce qu'il faut mettre en place avant l'ouverture de votre logement. Cochez chaque point une fois qu'il est fait et revenez autant de fois que nécessaire, tout est sauvegardé automatiquement.</p>
+  <div class="hero-copy">
+    <div class="hero-tag">Lancement</div>
+    <h1>Bienvenue, <em id="client-name">Propriétaire</em>.</h1>
+    <p>Voici tout ce qu'il faut mettre en place avant l'ouverture de votre logement. Cochez chaque point une fois qu'il est fait et revenez autant de fois que nécessaire, tout est sauvegardé automatiquement.</p>
+  </div>
+  <div class="hero-ring">
+    <svg width="118" height="118" viewBox="0 0 120 120">
+      <circle cx="60" cy="60" r="52" stroke="rgba(255,255,255,.14)" stroke-width="9" fill="none"></circle>
+      <circle id="hero-ring-fg" cx="60" cy="60" r="52" stroke="var(--y)" stroke-width="9" fill="none" stroke-linecap="round" stroke-dasharray="327" stroke-dashoffset="327" transform="rotate(-90 60 60)"></circle>
+    </svg>
+    <div class="hero-ring-label"><span id="hero-pct">0</span><span class="hero-ring-unit">%</span></div>
+  </div>
+</div>
+
+<div class="phase-nav" id="phase-nav">
+  <a href="#phase-1" class="phase-nav-pill"><span class="dot"></span>Dossier propriétaire</a>
+  <a href="#phase-2" class="phase-nav-pill"><span class="dot"></span>Le logement</a>
+  <a href="#phase-3" class="phase-nav-pill"><span class="dot"></span>Sécurité & assurance</a>
+  <a href="#phase-4" class="phase-nav-pill"><span class="dot"></span>Finalisation</a>
 </div>
 
 <div class="prog-bar">
@@ -203,10 +241,15 @@ input[type=file]{display:none}
 
 <div class="content">
 
+<div class="phase-divider" id="phase-1">
+  <div class="phase-num-big">01</div>
+  <div class="phase-title-wrap"><div class="phase-title">Dossier propriétaire</div><div class="phase-sub">Valable pour l'ensemble de vos logements gérés par Ômea</div></div>
+</div>
+
 <!-- 01 DOCUMENTS -->
 <div class="sec">
 <div class="sec-head" onclick="toggleSec('docs')">
-  <span class="sec-num">01</span><span class="sec-name">Documents à transmettre</span>
+  <div class="sec-head-text"><span class="sec-name">Documents à transmettre</span><span class="sec-sub">Valable pour tous vos logements Ômea</span></div>
   <span class="sec-badge b-e" id="st-docs">0 / 1</span>
   <span class="sec-arr open" id="arr-docs">▾</span>
 </div>
@@ -217,9 +260,8 @@ input[type=file]{display:none}
     <a id="drive-link" href="#" target="_blank" class="drive-btn" style="display:none">Accéder à mon dossier</a>
     <span class="drive-btn-missing" id="drive-missing" style="display:none">Votre dossier vous sera transmis par Ômea.</span>
   </div>
-  <div class="sec-intro"><div class="sec-intro-bar"></div><p>Ces documents nous permettent de constituer votre dossier et de paramétrer correctement vos annonces Airbnb et Booking. Ils sont valables pour l'ensemble de vos logements gérés par Ômea.</p></div>
   <div class="items">
-    <div class="field-item" id="statut-block"><div class="field-label">Vous détenez le bien <span style="font-weight:300;color:var(--ink3)">(obligatoire)</span></div><div class="field-hint">Le choix adapte les pièces à fournir.</div>
+    <div class="field-item" id="statut-block"><div class="field-label">Vous détenez le bien <span class="tag-meta">Obligatoire</span></div><div class="field-hint">Le choix adapte les pièces à fournir.</div>
       <div class="yn-wrap">
         <button class="yn-btn" id="statut-societe" onclick="chooseStatut('societe',this)">En société</button>
         <button class="yn-btn" id="statut-nompropre" onclick="chooseStatut('nom-propre',this)">En nom propre</button>
@@ -232,9 +274,9 @@ input[type=file]{display:none}
     <div class="check-item" id="ci-doc-pno"><label class="check-wrap"><input type="checkbox" data-sec="docs" id="doc-pno" onchange="updateAll();toggleDone('ci-doc-pno',this)"><div class="cbox"></div></label><div class="check-info"><label for="doc-pno" class="check-label" style="display:inline">Attestation PNO <span style="font-weight:300;color:var(--ink3)">(en cours de validité)</span></label><button class="hint-q" onclick="toggleHintQ(this)" aria-label="Aide">?</button><div class="hint-hidden">L'assurance Propriétaire Non Occupant est obligatoire pour tout propriétaire bailleur.</div><div class="done-tag">✓ Déposé</div></div></div>
     <div class="check-item" id="ci-doc-photo"><label class="check-wrap"><input type="checkbox" data-sec="docs" id="doc-photo" onchange="updateAll();toggleDone('ci-doc-photo',this)"><div class="cbox"></div></label><div class="check-info"><label for="doc-photo" class="check-label" style="display:inline">Photo de profil</label><button class="hint-q" onclick="toggleHintQ(this)" aria-label="Aide">?</button><div class="hint-hidden">Une photo de vous est nécessaire pour paramétrer votre compte Airbnb. Elle rassure les voyageurs et améliore la visibilité de votre annonce.</div><div class="done-tag">✓ Déposé</div></div></div>
     <div class="check-item" id="ci-doc-copro"><label class="check-wrap"><input type="checkbox" id="doc-copro" onchange="toggleDone('ci-doc-copro',this);saveField('check_doc_copro',this.checked?'1':'0')"><div class="cbox"></div></label><div class="check-info"><label for="doc-copro" class="check-label" style="display:inline">Règlement de copropriété <span style="font-weight:300;color:var(--ink3)">(si existant)</span></label><button class="hint-q" onclick="toggleHintQ(this)" aria-label="Aide">?</button><div class="hint-hidden">Si votre logement est en copropriété, transmettez le règlement, certaines clauses peuvent encadrer la location courte durée.</div><div class="done-tag">✓ Déposé</div></div></div>
-    <div class="field-item"><div class="field-label">Numéro SIRET <span style="font-weight:300;color:var(--ink3)">(obligatoire)</span></div><div class="field-hint">14 chiffres, disponible sur votre Kbis.</div><input type="text" class="field-input" id="f-siret" placeholder="Ex : 12345678900012" maxlength="14" oninput="saveField('siret',this.value);checkSiret()"><input type="checkbox" data-sec="docs" id="uc-siret" style="display:none"></div>
-    <div class="field-item" id="fi-nif" style="display:none"><div class="field-label">NIF <span style="font-weight:300;color:var(--ink3)">(obligatoire, requis par Booking)</span></div><div class="field-hint">Numéro d'Identification Fiscale, disponible sur votre avis d'imposition ou auprès de votre comptable.</div><input type="text" class="field-input" id="f-nif" placeholder="Ex : 1234567890123" oninput="saveField('nif',this.value);checkNif()"><input type="checkbox" data-sec="docs" data-off="1" id="uc-nif" style="display:none"></div>
-    <div class="check-item" id="ci-pno-ok"><label class="check-wrap"><input type="checkbox" data-sec="docs" id="pno-ok" onchange="updateAll();toggleDone('ci-pno-ok',this)"><div class="cbox"></div></label><div class="check-info"><label for="pno-ok" class="check-label">La location saisonnière est bien couverte par votre PNO</label><div class="check-hint">Certaines PNO excluent la location courte durée. Vérifiez auprès de votre assureur avant de cocher.</div><div class="done-tag">✓</div></div></div>
+    <div class="field-item"><div class="field-label">Numéro SIRET <span class="tag-meta">Obligatoire</span></div><div class="field-hint">14 chiffres, disponible sur votre Kbis.</div><input type="text" class="field-input" id="f-siret" placeholder="Ex : 12345678900012" maxlength="14" oninput="saveField('siret',this.value);checkSiret()"><input type="checkbox" data-sec="docs" id="uc-siret" style="display:none"></div>
+    <div class="field-item" id="fi-nif" style="display:none"><div class="field-label">NIF <span class="tag-meta">Obligatoire</span></div><div class="field-hint">Numéro d'Identification Fiscale, disponible sur votre avis d'imposition ou auprès de votre comptable.</div><input type="text" class="field-input" id="f-nif" placeholder="Ex : 1234567890123" oninput="saveField('nif',this.value);checkNif()"><input type="checkbox" data-sec="docs" data-off="1" id="uc-nif" style="display:none"></div>
+    <div class="check-item" id="ci-pno-ok"><label class="check-wrap"><input type="checkbox" data-sec="docs" id="pno-ok" onchange="updateAll();toggleDone('ci-pno-ok',this)"><div class="cbox"></div></label><div class="check-info"><label for="pno-ok" class="check-label" style="display:inline">La location saisonnière est bien couverte par votre PNO</label><button class="hint-q" onclick="toggleHintQ(this)" aria-label="Aide">?</button><div class="hint-hidden">Certaines PNO excluent la location courte durée. Vérifiez auprès de votre assureur avant de cocher.</div><div class="done-tag">✓</div></div></div>
     <div class="check-item" id="ci-doc-dpe"><label class="check-wrap"><input type="checkbox" data-sec="docs" id="doc-dpe" onchange="updateAll();toggleDone('ci-doc-dpe',this)"><div class="cbox"></div></label><div class="check-info"><label for="doc-dpe" class="check-label" style="display:inline">DPE, Diagnostic de Performance Énergétique</label><button class="hint-q" onclick="toggleHintQ(this)" aria-label="Aide">?</button><div class="hint-hidden">Classé de A à G, réalisé par un diagnostiqueur certifié, valable 10 ans. Avec la loi Le Meur, un DPE classe A à E est exigé pour les nouvelles autorisations en zone de changement d'usage, et tous les meublés de tourisme devront atteindre la classe E minimum d'ici 2034.</div><div class="done-tag">✓ Déposé</div></div></div>
     <input type="checkbox" data-sec="docs" id="uc-statut" style="display:none">
   </div>
@@ -243,15 +285,14 @@ input[type=file]{display:none}
 <!-- 02 ANNONCES -->
 <div class="sec">
 <div class="sec-head" onclick="toggleSec('annonces')">
-  <span class="sec-num">02</span><span class="sec-name">Création des annonces</span>
+  <div class="sec-head-text"><span class="sec-name">Création des annonces</span><span class="sec-sub">Créées sur votre compte, on configure tout ensemble</span></div>
   <span class="sec-badge b-e" id="st-annonces">0 / 2</span>
-  <span class="sec-arr open" id="arr-annonces">▾</span>
+  <span class="sec-arr" id="arr-annonces">▾</span>
 </div>
-<div class="sec-body open" id="body-annonces">
-  <div class="sec-intro"><div class="sec-intro-bar"></div><p>Vos annonces Airbnb et Booking sont créées sur votre propre compte. Nous paramétrons tout ensemble lors d'un premier échange dédié. Ces informations sont valables pour l'ensemble de vos logements.</p></div>
+<div class="sec-body" id="body-annonces">
   <div class="items">
     <div class="check-item" id="ci-mail-annonce"><label class="check-wrap"><input type="checkbox" data-sec="annonces" id="mail-annonce-ok" onchange="updateAll();toggleDone('ci-mail-annonce',this)"><div class="cbox"></div></label><div class="check-info"><label for="mail-annonce-ok" class="check-label">L'adresse mail dédiée aux annonces est définie</label><div style="margin-top:8px"><input type="text" class="field-input" id="f-mail_annonce" placeholder="Ex : lina.logements@gmail.com" oninput="saveField('mail_annonce',this.value)"></div><div class="done-tag">✓</div></div></div>
-    <div class="check-item" id="ci-tel-annonce"><label class="check-wrap"><input type="checkbox" data-sec="annonces" id="tel-annonce-ok" onchange="updateAll();toggleDone('ci-tel-annonce',this)"><div class="cbox"></div></label><div class="check-info"><label for="tel-annonce-ok" class="check-label">Le numéro de téléphone dédié est disponible</label><div class="check-hint">Un numéro par compte Airbnb, il ne peut pas être associé à un autre compte existant.</div><div style="margin-top:8px"><input type="text" class="field-input" id="f-tel_annonce" placeholder="Ex : 06 XX XX XX XX" oninput="saveField('tel_annonce',this.value)"></div><div class="done-tag">✓</div></div></div>
+    <div class="check-item" id="ci-tel-annonce"><label class="check-wrap"><input type="checkbox" data-sec="annonces" id="tel-annonce-ok" onchange="updateAll();toggleDone('ci-tel-annonce',this)"><div class="cbox"></div></label><div class="check-info"><label for="tel-annonce-ok" class="check-label" style="display:inline">Le numéro de téléphone dédié est disponible</label><button class="hint-q" onclick="toggleHintQ(this)" aria-label="Aide">?</button><div class="hint-hidden">Un numéro par compte Airbnb, il ne peut pas être associé à un autre compte existant.</div><div style="margin-top:8px"><input type="text" class="field-input" id="f-tel_annonce" placeholder="Ex : 06 XX XX XX XX" oninput="saveField('tel_annonce',this.value)"></div><div class="done-tag">✓</div></div></div>
   </div>
 </div></div>
 
@@ -264,19 +305,23 @@ input[type=file]{display:none}
 <div class="logement-scope-wrap">
 <div class="logement-scope-header"><span class="dot"></span><span id="logement-scope-header">Vous modifiez : Logement 1</span></div>
 
+<div class="phase-divider" id="phase-2" style="margin-top:0">
+  <div class="phase-num-big">02</div>
+  <div class="phase-title-wrap"><div class="phase-title">Le logement</div><div class="phase-sub">Mairie, clés, accès, linge, matériel, internet — propre à ce logement</div></div>
+</div>
+
 <!-- 03 MAIRIE -->
 <div class="sec">
 <div class="sec-head" onclick="toggleSec('mairie')">
-  <span class="sec-num">03</span><span class="sec-name">Déclaration en mairie</span>
+  <div class="sec-head-text"><span class="sec-name">Déclaration en mairie</span><span class="sec-sub">Obligatoire avant mise en location, CERFA ou declaloc.fr</span></div>
   <span class="sec-badge b-e" id="st-mairie">0 / 2</span>
-  <span class="sec-arr open" id="arr-mairie">▾</span>
+  <span class="sec-arr" id="arr-mairie">▾</span>
 </div>
-<div class="sec-body open" id="body-mairie">
-  <div class="sec-intro"><div class="sec-intro-bar"></div><p>Avant toute mise en location, la loi impose une déclaration en mairie pour ce logement. Vérifiez d'abord si votre commune est sur <a href="https://www.declaloc.fr" target="_blank" style="color:var(--ink2);text-decoration:underline">declaloc.fr</a> (certaines communes ont basculé sur ce téléservice national). Sinon, le CERFA classique s'applique et peut être envoyé directement par mail à votre mairie.</p></div>
+<div class="sec-body" id="body-mairie">
   <div class="cerfa-block"><div><div class="cerfa-title">CERFA 14004*04</div><div class="cerfa-sub">Formulaire de déclaration en mairie des meublés de tourisme</div></div><a href="https://www.formulaires.service-public.fr/gf/cerfa_14004_04.do" target="_blank" class="cerfa-btn">Télécharger</a></div>
   <div class="items">
     <div class="check-item" id="ci-cerfa"><label class="check-wrap"><input type="checkbox" data-sec="mairie" id="cerfa-ok" onchange="updateAll();toggleDone('ci-cerfa',this)"><div class="cbox"></div></label><div class="check-info"><label for="cerfa-ok" class="check-label" style="display:inline">Déclaration déposée pour ce logement</label><button class="hint-q" onclick="toggleHintQ(this)" aria-label="Aide">?</button><div class="hint-hidden">Si des démarches de changement d'usage ou de destination sont nécessaires pour votre bien, nous pouvons en rediscuter ensemble.</div><div class="done-tag">✓</div></div></div>
-    <div class="upload-item"><div class="upload-label">Récépissé d'enregistrement</div><button class="hint-q" onclick="toggleHintQ(this)" aria-label="Aide">?</button><div class="hint-hidden" style="margin-bottom:8px">La mairie vous remet un récépissé après déclaration. Ce document contient votre numéro d'enregistrement, obligatoire sur vos annonces Airbnb et Booking. Déposez-le dans votre dossier Drive.</div><div class="upload-zone"><a id="drive-link-recepisse" href="#" target="_blank" class="upload-btn" style="display:none">Déposer dans mon dossier</a><span class="drive-btn-missing" id="drive-missing-recepisse" style="display:none;font-size:12px;color:var(--ink3)">Dossier transmis par Ômea</span></div></div>
+    <div class="upload-item"><div class="upload-label">Récépissé d'enregistrement <button class="hint-q" onclick="toggleHintQ(this)" aria-label="Aide">?</button></div><div class="hint-hidden" style="margin-bottom:8px">La mairie vous remet un récépissé après déclaration. Ce document contient votre numéro d'enregistrement, obligatoire sur vos annonces Airbnb et Booking. Déposez-le dans votre dossier Drive.</div><div class="upload-zone"><a id="drive-link-recepisse" href="#" target="_blank" class="upload-btn" style="display:none">Déposer dans mon dossier</a><span class="drive-btn-missing" id="drive-missing-recepisse" style="display:none;font-size:12px;color:var(--ink3)">Dossier transmis par Ômea</span></div></div>
     <div class="check-item" id="ci-mairie2"><label class="check-wrap"><input type="checkbox" data-sec="mairie" id="mairie2-ok" onchange="updateAll();toggleDone('ci-mairie2',this)"><div class="cbox"></div></label><div class="check-info"><label for="mairie2-ok" class="check-label">Le récépissé est bien déposé dans le dossier</label><div class="done-tag">✓</div></div></div>
   </div>
 </div></div>
@@ -284,33 +329,31 @@ input[type=file]{display:none}
 <!-- 03 CLÉS -->
 <div class="sec">
 <div class="sec-head" onclick="toggleSec('cles')">
-  <span class="sec-num">04</span><span class="sec-name">Organisation des clés</span>
+  <div class="sec-head-text"><span class="sec-name">Organisation des clés</span></div>
   <span class="sec-badge b-e" id="st-cles">0 / 1</span>
-  <span class="sec-arr open" id="arr-cles">▾</span>
+  <span class="sec-arr" id="arr-cles">▾</span>
 </div>
-<div class="sec-body open" id="body-cles">
-  <div class="sec-intro"><div class="sec-intro-bar"></div><p>Pour que les voyageurs accèdent à leur logement de façon autonome et que nous puissions intervenir à tout moment, il faut prévoir un jeu de clés complet par interlocuteur dès le départ.</p></div>
+<div class="sec-body" id="body-cles">
   <div class="items">
     <div class="check-item" id="ci-cles"><label class="check-wrap"><input type="checkbox" data-sec="cles" id="cles-ok" onchange="updateAll();toggleDone('ci-cles',this)"><div class="cbox"></div></label><div class="check-info"><label for="cles-ok" class="check-label" style="display:inline">3 jeux de clés complets sont disponibles pour ce logement</label><button class="hint-q" onclick="toggleHintQ(this)" aria-label="Aide">?</button><div class="hint-hidden">Un jeu pour les voyageurs, un jeu de secours, un pour Ômea. Chaque jeu doit inclure toutes les clés nécessaires : clé d'entrée de l'immeuble, clé de la porte de l'appartement, et toute autre clé intermédiaire.</div><div class="done-tag">✓</div></div></div>
-    <div class="field-item"><div class="field-label">Commentaire sur les clés <span style="font-weight:300;color:var(--ink3)">(facultatif)</span><button class="hint-q" onclick="toggleHintQ(this)" aria-label="Aide">?</button><div class="hint-hidden">Une précision à nous transmettre : type de clé, badge ou bip, clé qui coince, jeu incomplet, point à anticiper.</div></div><textarea class="field-input" id="f-cles_commentaire" rows="2" placeholder="Ex : badge Vigik pour l'entrée de l'immeuble, la clé du bas coince un peu" oninput="saveField('cles_commentaire',this.value)"></textarea></div>
+    <div class="field-item"><div class="field-label">Commentaire sur les clés <span class="tag-meta tag-meta-opt">Facultatif</span><button class="hint-q" onclick="toggleHintQ(this)" aria-label="Aide">?</button><div class="hint-hidden">Une précision à nous transmettre : type de clé, badge ou bip, clé qui coince, jeu incomplet, point à anticiper.</div></div><textarea class="field-input" id="f-cles_commentaire" rows="2" placeholder="Ex : badge Vigik pour l'entrée de l'immeuble, la clé du bas coince un peu" oninput="saveField('cles_commentaire',this.value)"></textarea></div>
   </div>
 </div></div>
 
 <!-- 04 ACCÈS -->
 <div class="sec">
 <div class="sec-head" onclick="toggleSec('acces')">
-  <span class="sec-num">05</span><span class="sec-name">Accès & logistique</span>
+  <div class="sec-head-text"><span class="sec-name">Accès & logistique</span></div>
   <span class="sec-badge b-e" id="st-acces">0 / 2</span>
-  <span class="sec-arr open" id="arr-acces">▾</span>
+  <span class="sec-arr" id="arr-acces">▾</span>
 </div>
-<div class="sec-body open" id="body-acces">
-  <div class="sec-intro"><div class="sec-intro-bar"></div><p>Pour que les voyageurs arrivent sereinement et que nous puissions intervenir à tout moment, quelques points pratiques sont à valider ensemble dès le départ.</p></div>
+<div class="sec-body" id="body-acces">
   <div class="items">
     <div class="check-item" id="ci-menage-dem"><label class="check-wrap"><input type="checkbox" data-sec="acces" id="menage-dem-ok" onchange="updateAll();toggleDone('ci-menage-dem',this)"><div class="cbox"></div></label><div class="check-info"><label for="menage-dem-ok" class="check-label" style="display:inline">J'accepte un ménage de démarrage avant la première réservation</label><button class="hint-q" onclick="toggleHintQ(this)" aria-label="Aide">?</button><div class="hint-hidden">Le ménage de démarrage nous permet de préparer le logement dans les meilleures conditions. Il est facturé une seule fois au lancement.</div><div class="done-tag">✓</div></div></div>
     <div class="field-item"><div class="field-label">Modalités d'ouverture de la porte de l'immeuble<button class="hint-q" onclick="toggleHintQ(this)" aria-label="Aide">?</button><div class="hint-hidden">Si votre logement est dans un immeuble avec une porte d'accès, précisez comment elle s'ouvre.</div></div><input type="text" class="field-input" id="f-acces_immeuble" placeholder="Ex : digicode (code 1234A), interphone, ou porte libre" oninput="saveField('acces_immeuble',this.value)"></div>
-    <div class="field-item"><div class="field-label">Entretien des parties communes <span style="font-weight:300;color:var(--ink3)">(facultatif)</span></div><div class="field-hint">Précisez les surfaces concernées et la fréquence souhaitée, nous vous ferons un devis.</div><textarea class="field-input" id="f-communs" rows="2" placeholder="Ex : couloir et escaliers, 2 fois par mois" oninput="saveField('communs',this.value)"></textarea></div>
-    <div class="field-item"><div class="field-label">Emplacement de la boîte à clés principale <span style="font-weight:300;color:var(--ink3)">(obligatoire)</span><button class="hint-q" onclick="toggleHintQ(this)" aria-label="Aide">?</button><div class="hint-hidden">Précisez où sera installée la boîte à clés principale, accès voyageurs.</div></div><textarea class="field-input" id="f-btk_principale" rows="2" placeholder="Ex : à droite de la porte d'entrée / sur le pilier gauche du portail" oninput="saveField('btk_principale',this.value);checkBtkPrincipale()"></textarea><input type="checkbox" data-sec="acces" id="uc-btk-principale" style="display:none"></div>
-    <div class="field-item"><div class="field-label">Emplacement de la boîte à clés de secours <span style="font-weight:300;color:var(--ink3)">(obligatoire)</span><button class="hint-q" onclick="toggleHintQ(this)" aria-label="Aide">?</button><div class="hint-hidden">En cas de problème avec la boîte principale, nous devons avoir accès à un jeu de clés de secours dans un endroit discret.</div></div><textarea class="field-input" id="f-btk_secours" rows="2" placeholder="Ex : boîte aux lettres n°3 / local poubelles au rez-de-chaussée" oninput="saveField('btk_secours',this.value);checkBtkSecours()"></textarea><input type="checkbox" data-sec="acces" id="uc-btk-secours" style="display:none"></div>
+    <div class="field-item"><div class="field-label">Entretien des parties communes <span class="tag-meta tag-meta-opt">Facultatif</span></div><div class="field-hint">Précisez les surfaces concernées et la fréquence souhaitée, nous vous ferons un devis.</div><textarea class="field-input" id="f-communs" rows="2" placeholder="Ex : couloir et escaliers, 2 fois par mois" oninput="saveField('communs',this.value)"></textarea></div>
+    <div class="field-item"><div class="field-label">Emplacement de la boîte à clés principale <span class="tag-meta">Obligatoire</span><button class="hint-q" onclick="toggleHintQ(this)" aria-label="Aide">?</button><div class="hint-hidden">Précisez où sera installée la boîte à clés principale, accès voyageurs.</div></div><textarea class="field-input" id="f-btk_principale" rows="2" placeholder="Ex : à droite de la porte d'entrée / sur le pilier gauche du portail" oninput="saveField('btk_principale',this.value);checkBtkPrincipale()"></textarea><input type="checkbox" data-sec="acces" id="uc-btk-principale" style="display:none"></div>
+    <div class="field-item"><div class="field-label">Emplacement de la boîte à clés de secours <span class="tag-meta">Obligatoire</span><button class="hint-q" onclick="toggleHintQ(this)" aria-label="Aide">?</button><div class="hint-hidden">En cas de problème avec la boîte principale, nous devons avoir accès à un jeu de clés de secours dans un endroit discret.</div></div><textarea class="field-input" id="f-btk_secours" rows="2" placeholder="Ex : boîte aux lettres n°3 / local poubelles au rez-de-chaussée" oninput="saveField('btk_secours',this.value);checkBtkSecours()"></textarea><input type="checkbox" data-sec="acces" id="uc-btk-secours" style="display:none"></div>
     <div class="field-item" id="fi-parking"><div class="field-label">Stationnement</div>
       <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:8px" id="parking-options">
         <button class="yn-btn" data-pval="prive" onclick="parkingOption('prive',this)">Place privée (cour, garage, box)</button>
@@ -331,25 +374,21 @@ input[type=file]{display:none}
 <!-- 05 LINGE -->
 <div class="sec">
 <div class="sec-head" onclick="toggleSec('linge')">
-  <span class="sec-num">06</span><span class="sec-name">Blanchisserie & stockage</span>
+  <div class="sec-head-text"><span class="sec-name">Blanchisserie & stockage</span><span class="sec-sub">Lit fait et serviettes propres à l'arrivée</span></div>
   <span class="sec-badge b-e" id="st-linge">0 / 2</span>
-  <span class="sec-arr open" id="arr-linge">▾</span>
+  <span class="sec-arr" id="arr-linge">▾</span>
 </div>
-<div class="sec-body open" id="body-linge">
-  <div class="sec-intro"><div class="sec-intro-bar"></div><p>Un voyageur qui arrive doit trouver son lit fait, des serviettes propres et tout ce qu'il faut pour démarrer son séjour.</p></div>
+<div class="sec-body" id="body-linge">
   <div class="items">
-    <div class="check-item" id="ci-linge"><label class="check-wrap"><input type="checkbox" data-sec="linge" id="linge-ok" onchange="updateAll();toggleDone('ci-linge',this)"><div class="cbox"></div></label><div class="check-info"><label for="linge-ok" class="check-label">Le linge est commandé, 3 jeux par couchage</label><div class="check-hint">Pour chaque couchage : 3 jeux de draps complets, 2 alèses par matelas, 2 protège-oreillers, 3 grandes serviettes de bain par voyageur. Pour chaque salle de bain : 3 tapis de bain. Par cuisine : 3 torchons.</div>
-      <div class="refs" style="background:#FFFCEF;border-color:#E8D87A">
-        <div class="refs-title" style="color:#8B6914">Partenaire linge, Le Comptoir de l'Hôtellerie</div>
-        <a class="ref-link" href="https://lecomptoirdelhotellerie.com/" target="_blank" style="border-bottom:none;font-weight:500;color:var(--ink)">Commander sur lecomptoirdelhotellerie.com →</a>
-        <div style="margin-top:8px;display:inline-flex;align-items:center;gap:6px;background:var(--y);color:var(--ink);font-weight:800;font-size:12px;letter-spacing:.04em;padding:6px 12px;border-radius:4px">Code de réduction : OMEA26</div>
-        <p style="font-size:11px;color:var(--ink3);font-weight:300;line-height:1.5;margin:8px 0 0">Ômea ne perçoit aucune contrepartie sur cette recommandation.</p>
-      </div>
-      <div class="refs" style="margin-top:8px"><div class="refs-title">Autres références</div>
+    <div class="check-item" id="ci-linge"><label class="check-wrap"><input type="checkbox" data-sec="linge" id="linge-ok" onchange="updateAll();toggleDone('ci-linge',this)"><div class="cbox"></div></label><div class="check-info"><label for="linge-ok" class="check-label" style="display:inline">Le linge est commandé, 3 jeux par couchage</label><button class="hint-q" onclick="toggleHintQ(this)" aria-label="Aide">?</button><div class="hint-hidden">Pour chaque couchage : 3 jeux de draps complets, 2 alèses par matelas, 2 protège-oreillers, 3 grandes serviettes de bain par voyageur. Pour chaque salle de bain : 3 tapis de bain. Par cuisine : 3 torchons.</div>
+      <div class="refs">
+        <div class="refs-title">Partenaire linge, Le Comptoir de l'Hôtellerie <span style="color:var(--yd)">— code OMEA26</span></div>
+        <a class="ref-link" href="https://lecomptoirdelhotellerie.com/" target="_blank">Commander sur lecomptoirdelhotellerie.com →</a>
         <a class="ref-link" href="https://amazon.fr/dp/B078C7LD6D" target="_blank"><span class="ref-name">Housse de matelas (alèse)</span>, Amazon</a>
         <a class="ref-link" href="https://www.ikea.com/fr/fr/p/sotnaetfjaeril-protege-oreiller-80531316/" target="_blank"><span class="ref-name">Protège-oreiller</span>, Ikea</a>
+        <p style="font-size:11px;color:var(--ink3);font-weight:300;line-height:1.5;margin:8px 0 0">Ômea ne perçoit aucune contrepartie sur cette recommandation.</p>
       </div><div class="done-tag">✓</div></div></div>
-    <div class="check-item" id="ci-stockage"><label class="check-wrap"><input type="checkbox" data-sec="linge" id="stockage-ok" onchange="updateAll();toggleDone('ci-stockage',this)"><div class="cbox"></div></label><div class="check-info"><label for="stockage-ok" class="check-label">L'espace de stockage est en place, monté et fonctionnel</label><div class="check-hint">Un espace fermé à clé dans le logement est nécessaire pour ranger le linge propre, les consommables et le matériel ménage.</div>
+    <div class="check-item" id="ci-stockage"><label class="check-wrap"><input type="checkbox" data-sec="linge" id="stockage-ok" onchange="updateAll();toggleDone('ci-stockage',this)"><div class="cbox"></div></label><div class="check-info"><label for="stockage-ok" class="check-label" style="display:inline">L'espace de stockage est en place, monté et fonctionnel</label><button class="hint-q" onclick="toggleHintQ(this)" aria-label="Aide">?</button><div class="hint-hidden">Un espace fermé à clé dans le logement est nécessaire pour ranger le linge propre, les consommables et le matériel ménage.</div>
       <div class="refs"><div class="refs-title">Référence recommandée</div><a class="ref-link" href="https://www.amazon.fr/dp/B0BSFQ8WZ2" target="_blank"><span class="ref-name">Armoire de stockage sécurisée</span>, Amazon</a></div>
       <div class="done-tag">✓</div></div></div>
   </div>
@@ -358,12 +397,11 @@ input[type=file]{display:none}
 <!-- 06 MATÉRIEL -->
 <div class="sec">
 <div class="sec-head" onclick="toggleSec('materiel')">
-  <span class="sec-num">07</span><span class="sec-name">Équipements sur place</span>
+  <div class="sec-head-text"><span class="sec-name">Équipements sur place</span></div>
   <span class="sec-badge b-e" id="st-materiel">0 / 3</span>
-  <span class="sec-arr open" id="arr-materiel">▾</span>
+  <span class="sec-arr" id="arr-materiel">▾</span>
 </div>
-<div class="sec-body open" id="body-materiel">
-  <div class="sec-intro"><div class="sec-intro-bar"></div><p>Quelques équipements sont indispensables pour que nous intervenions dans de bonnes conditions et que les voyageurs passent un bon séjour.</p></div>
+<div class="sec-body" id="body-materiel">
   <div class="items">
     <div class="check-item" id="ci-mat"><label class="check-wrap"><input type="checkbox" data-sec="materiel" id="mat-ok" onchange="updateAll();toggleDone('ci-mat',this)"><div class="cbox"></div></label><div class="check-info"><label for="mat-ok" class="check-label" style="display:inline">Le matériel ménage est en place dans le logement</label><button class="hint-q" onclick="toggleHintQ(this)" aria-label="Aide">?</button><div class="hint-hidden">Serpillière plate, seau, aspirateur, brosse de toilette.</div><div class="done-tag">✓</div></div></div>
     <div class="check-item" id="ci-confort"><label class="check-wrap"><input type="checkbox" data-sec="materiel" id="confort-ok" onchange="updateAll();toggleDone('ci-confort',this)"><div class="cbox"></div></label><div class="check-info"><label for="confort-ok" class="check-label" style="display:inline">Les équipements recommandés sont achetés et opérationnels</label><button class="hint-q" onclick="toggleHintQ(this)" aria-label="Aide">?</button><div class="hint-hidden">Machine à café, bouilloire, grille-pain, sèche-cheveux.</div><div class="done-tag">✓</div></div></div>
@@ -389,32 +427,36 @@ input[type=file]{display:none}
 <!-- 07 INTERNET -->
 <div class="sec">
 <div class="sec-head" onclick="toggleSec('internet')">
-  <span class="sec-num">08</span><span class="sec-name">Internet</span>
+  <div class="sec-head-text"><span class="sec-name">Internet</span><span class="sec-sub">1er critère de satisfaction, jusqu'à 4 semaines d'installation</span></div>
   <span class="sec-badge b-e" id="st-internet">0 / 1</span>
-  <span class="sec-arr open" id="arr-internet">▾</span>
+  <span class="sec-arr" id="arr-internet">▾</span>
 </div>
-<div class="sec-body open" id="body-internet">
-  <div class="sec-intro"><div class="sec-intro-bar"></div><p>Le wifi est le premier critère de satisfaction des voyageurs. Les délais de passage du technicien peuvent aller jusqu'à 4 semaines, anticipez dès maintenant.</p></div>
+<div class="sec-body" id="body-internet">
   <div class="items">
     <div class="check-item" id="ci-inet"><label class="check-wrap"><input type="checkbox" data-sec="internet" id="inet-ok" onchange="updateAll();toggleDone('ci-inet',this)"><div class="cbox"></div></label><div class="check-info"><label for="inet-ok" class="check-label">L'abonnement internet est souscrit et opérationnel dans le logement</label><div class="done-tag">✓</div></div></div>
-    <div class="field-item"><div class="field-label">Mot de passe Wifi <span style="font-weight:300;color:var(--ink3)">(obligatoire)</span></div><div class="field-hint">À compléter une fois la box installée. Si possible, privilégiez un réseau invité séparé de votre réseau personnel.</div><input type="text" class="field-input" id="f-wifi" placeholder="Ex : MonWifi2024" oninput="saveField('wifi',this.value);checkWifi()"><input type="checkbox" data-sec="internet" id="uc-wifi" style="display:none"></div>
+    <div class="field-item"><div class="field-label">Mot de passe Wifi <span class="tag-meta">Obligatoire</span></div><div class="field-hint">À compléter une fois la box installée. Si possible, privilégiez un réseau invité séparé de votre réseau personnel.</div><input type="text" class="field-input" id="f-wifi" placeholder="Ex : MonWifi2024" oninput="saveField('wifi',this.value);checkWifi()"><input type="checkbox" data-sec="internet" id="uc-wifi" style="display:none"></div>
   </div>
 </div></div>
+
+<div class="phase-divider" id="phase-3">
+  <div class="phase-num-big">03</div>
+  <div class="phase-title-wrap"><div class="phase-title">Sécurité & assurance</div><div class="phase-sub">Ce qui protège vos voyageurs et votre logement</div></div>
+</div>
 
 <!-- 08 ASSURANCE -->
 <div class="sec">
 <div class="sec-head" onclick="toggleSec('assurance')">
-  <span class="sec-num">09</span><span class="sec-name">Assurance complémentaire</span>
+  <div class="sec-head-text"><span class="sec-name">Assurance complémentaire</span></div>
   <span class="sec-badge b-e" id="st-assurance">0 / 1</span>
-  <span class="sec-arr open" id="arr-assurance">▾</span>
+  <span class="sec-arr" id="arr-assurance">▾</span>
 </div>
-<div class="sec-body open" id="body-assurance">
-  <div class="sec-intro"><div class="sec-intro-bar"></div><p>Airbnb et Booking proposent leurs propres garanties, mais elles ont des limites. L'assurance Cover couvre ce que votre PNO ne prend pas en charge.</p></div>
+<div class="sec-body" id="body-assurance">
   <div class="items">
-    <div class="check-item" id="ci-cover" style="padding-left:38px">
-      <div class="check-info" style="padding:4px 0">
-        <div class="check-label">Assurance Cover, êtes-vous intéressé(e) ?</div>
-        <div class="check-hint">Vous pouvez la souscrire sur <a href="https://fr.passpass.io/cover" target="_blank" style="color:var(--ink);text-decoration:underline">passpass.io/cover</a>, ou à l'année via Ômea à tarif préférentiel.</div>
+    <div class="check-item" id="ci-cover">
+      <div class="check-wrap-spacer"></div>
+      <div class="check-info">
+        <div class="check-label">Souscrire l'assurance Cover</div>
+        <div class="check-hint">Complète votre PNO, sur ce que Airbnb/Booking ne couvrent pas. Souscription sur <a href="https://fr.passpass.io/cover" target="_blank" style="color:var(--ink);text-decoration:underline">passpass.io/cover</a>, ou à l'année via Ômea à tarif préférentiel.</div>
         <div class="yn-wrap">
           <button class="yn-btn yn-yes" onclick="ynSelect('cover','oui',this)">Oui</button>
           <button class="yn-btn yn-no" onclick="ynSelect('cover','non',this)">Non</button>
@@ -428,20 +470,20 @@ input[type=file]{display:none}
 <!-- 09 SÉCURITÉ -->
 <div class="sec">
 <div class="sec-head" onclick="toggleSec('securite')">
-  <span class="sec-num">10</span><span class="sec-name">Sécurité & équipements</span>
+  <div class="sec-head-text"><span class="sec-name">Sécurité & équipements</span></div>
   <span class="sec-badge b-e" id="st-securite">0 / 6</span>
-  <span class="sec-arr open" id="arr-securite">▾</span>
+  <span class="sec-arr" id="arr-securite">▾</span>
 </div>
-<div class="sec-body open" id="body-securite">
-  <div class="sec-intro"><div class="sec-intro-bar"></div><p>Quelques points de sécurité à confirmer avant la mise en ligne.</p></div>
+<div class="sec-body" id="body-securite">
   <div class="items">
     <div class="check-item" id="ci-valeur"><label class="check-wrap"><input type="checkbox" data-sec="securite" id="valeur-ok" onchange="updateAll();toggleDone('ci-valeur',this)"><div class="cbox"></div></label><div class="check-info"><label for="valeur-ok" class="check-label" style="display:inline">Je confirme qu'il n'y a pas d'objet de grande valeur dans le logement</label><button class="hint-q" onclick="toggleHintQ(this)" aria-label="Aide">?</button><div class="hint-hidden">Œuvres d'art, bijoux, collections… S'il y en a, ils doivent être retirés avant la mise en location.</div><div class="done-tag">✓</div></div></div>
     <div class="check-item" id="ci-camera"><label class="check-wrap"><input type="checkbox" data-sec="securite" id="camera-ok" onchange="updateAll();toggleDone('ci-camera',this)"><div class="cbox"></div></label><div class="check-info"><label for="camera-ok" class="check-label">Je confirme qu'il n'y a pas de caméra dans le logement</label><button class="hint-q" onclick="toggleHintQ(this)" aria-label="Aide">?</button><div class="hint-hidden">Les caméras à l'intérieur d'un logement en location sont strictement interdites par Airbnb et Booking.</div><div class="done-tag">✓</div></div></div>
     <div class="check-item" id="ci-gaz"><label class="check-wrap"><input type="checkbox" data-sec="securite" id="gaz-ok" onchange="updateAll();toggleDone('ci-gaz',this)"><div class="cbox"></div></label><div class="check-info"><label for="gaz-ok" class="check-label">Le logement n'a pas de gaz, ou un détecteur de monoxyde de carbone est en place</label><button class="hint-q" onclick="toggleHintQ(this)" aria-label="Aide">?</button><div class="hint-hidden">Si votre logement dispose d'une installation gaz, un détecteur de monoxyde de carbone est obligatoire.</div><div class="done-tag">✓</div></div></div>
     <div class="check-item" id="ci-detec"><label class="check-wrap"><input type="checkbox" data-sec="securite" id="detec-ok" onchange="updateAll();toggleDone('ci-detec',this)"><div class="cbox"></div></label><div class="check-info"><label for="detec-ok" class="check-label">Détecteur de fumée présent et fonctionnel dans le logement</label><button class="hint-q" onclick="toggleHintQ(this)" aria-label="Aide">?</button><div class="hint-hidden">Obligation légale, un détecteur par logement, en état de fonctionnement.</div><div class="done-tag">✓</div></div></div>
-    <div class="check-item" id="ci-extincteur" style="padding-left:38px">
-      <div class="check-info" style="padding:4px 0">
-        <div class="check-label">Un extincteur est présent dans le logement <span style="font-weight:300;color:var(--ink3)">(facultatif)</span></div>
+    <div class="check-item" id="ci-extincteur">
+      <div class="check-wrap-spacer"></div>
+      <div class="check-info">
+        <div class="check-label">Un extincteur est présent dans le logement <span class="tag-meta tag-meta-opt">Facultatif</span></div>
         <div class="yn-wrap">
           <button class="yn-btn yn-yes" onclick="ynSelect('extincteur','oui',this)">Oui</button>
           <button class="yn-btn yn-no" onclick="ynSelect('extincteur','non',this)">Non</button>
@@ -449,20 +491,24 @@ input[type=file]{display:none}
         <input type="checkbox" data-sec="securite" id="uc-extincteur" style="display:none">
       </div>
     </div>
-    <div class="check-item" id="ci-minut"><label class="check-wrap"><input type="checkbox" id="minut-ok" onchange="toggleDone('ci-minut',this);saveField('check_minut_ok',this.checked?'1':'0')"><div class="cbox"></div></label><div class="check-info"><label for="minut-ok" class="check-label" style="display:inline">Je souhaite l'installation d'un boîtier Minut dans le logement <span style="font-weight:300;color:var(--ink3)">(facultatif)</span></label><button class="hint-q" onclick="toggleHintQ(this)" aria-label="Aide">?</button><div class="hint-hidden">Recommandé pour les maisons. Le capteur détecte les nuisances sonores et envoie une alerte automatique en cas de dépassement du seuil, sans enregistrer ni identifier qui que ce soit. Conforme aux règles Airbnb et Booking.</div><div class="done-tag">✓</div></div></div>
-    <div class="field-item"><div class="field-label">Surface du logement <span style="font-weight:300;color:var(--ink3)">(obligatoire)</span></div><input type="text" class="field-input" id="f-surface" placeholder="Ex : 38 m²" oninput="saveField('surface',this.value);checkSurface()"><input type="checkbox" data-sec="securite" id="uc-surface" style="display:none"></div>
+    <div class="check-item" id="ci-minut"><label class="check-wrap"><input type="checkbox" id="minut-ok" onchange="toggleDone('ci-minut',this);saveField('check_minut_ok',this.checked?'1':'0')"><div class="cbox"></div></label><div class="check-info"><label for="minut-ok" class="check-label" style="display:inline">Je souhaite l'installation d'un boîtier Minut dans le logement <span class="tag-meta tag-meta-opt">Facultatif</span></label><button class="hint-q" onclick="toggleHintQ(this)" aria-label="Aide">?</button><div class="hint-hidden">Recommandé pour les maisons. Le capteur détecte les nuisances sonores et envoie une alerte automatique en cas de dépassement du seuil, sans enregistrer ni identifier qui que ce soit. Conforme aux règles Airbnb et Booking.</div><div class="done-tag">✓</div></div></div>
+    <div class="field-item"><div class="field-label">Surface du logement <span class="tag-meta">Obligatoire</span></div><input type="text" class="field-input" id="f-surface" placeholder="Ex : 38 m²" oninput="saveField('surface',this.value);checkSurface()"><input type="checkbox" data-sec="securite" id="uc-surface" style="display:none"></div>
   </div>
 </div></div>
+
+<div class="phase-divider" id="phase-4">
+  <div class="phase-num-big">04</div>
+  <div class="phase-title-wrap"><div class="phase-title">Finalisation</div><div class="phase-sub">Derniers repères avant la mise en ligne</div></div>
+</div>
 
 <!-- 11 PHOTOS -->
 <div class="sec">
 <div class="sec-head" onclick="toggleSec('photos')">
-  <span class="sec-num">11</span><span class="sec-name">Photos à transmettre</span>
+  <div class="sec-head-text"><span class="sec-name">Photos à transmettre</span><span class="sec-sub">Trois repères utiles pour intervenir sereinement</span></div>
   <span class="sec-badge b-e" id="st-photos">0 / 3</span>
-  <span class="sec-arr open" id="arr-photos">▾</span>
+  <span class="sec-arr" id="arr-photos">▾</span>
 </div>
-<div class="sec-body open" id="body-photos">
-  <div class="sec-intro"><div class="sec-intro-bar"></div><p>Quand vous avez accès au logement, trois photos simples suffisent. Ce sont des repères pratiques dont nous avons besoin pour intervenir sereinement.</p></div>
+<div class="sec-body" id="body-photos">
   <div class="items">
     <div class="upload-item"><div class="upload-label">Arrivée d'eau, pour ce logement</div><div class="upload-hint">En cas de fuite ou de coupure, nous devons savoir où couper l'eau.</div><div class="upload-zone"><button class="upload-btn" onclick="triggerUpload('eau')">Déposer la photo</button><span class="upload-status" id="us-eau">Aucune photo</span></div><input type="file" id="up-eau" accept="image/*" onchange="handleUpload('eau');autoCheckUpload('eau')"><input type="checkbox" data-sec="photos" id="uc-eau" style="display:none"><div style="margin-top:8px"><textarea class="field-input" id="f-note_eau" rows="2" placeholder="Ou décrivez l'emplacement en texte" oninput="saveField('note_eau',this.value);autoCheckPhotoOrNote('eau')"></textarea></div></div>
     <div class="upload-item"><div class="upload-label">Compteur électrique, pour ce logement</div><div class="upload-hint">En cas de problème électrique, nous devons pouvoir intervenir.</div><div class="upload-zone"><button class="upload-btn" onclick="triggerUpload('elec')">Déposer la photo</button><span class="upload-status" id="us-elec">Aucune photo</span></div><input type="file" id="up-elec" accept="image/*" onchange="handleUpload('elec');autoCheckUpload('elec')"><input type="checkbox" data-sec="photos" id="uc-elec" style="display:none"><div style="margin-top:8px"><textarea class="field-input" id="f-note_elec" rows="2" placeholder="Ou décrivez l'emplacement en texte" oninput="saveField('note_elec',this.value);autoCheckPhotoOrNote('elec')"></textarea></div></div>
@@ -473,12 +519,11 @@ input[type=file]{display:none}
 <!-- 12 COMMENTAIRE -->
 <div class="sec">
 <div class="sec-head" onclick="toggleSec('commentaire')">
-  <span class="sec-num">12</span><span class="sec-name">Commentaire & consignes</span>
+  <div class="sec-head-text"><span class="sec-name">Commentaire & consignes</span><span class="sec-sub">Précisions et questions en suspens</span></div>
   <span class="sec-badge b-e" id="st-commentaire">Facultatif</span>
-  <span class="sec-arr open" id="arr-commentaire">▾</span>
+  <span class="sec-arr" id="arr-commentaire">▾</span>
 </div>
-<div class="sec-body open" id="body-commentaire">
-  <div class="sec-intro"><div class="sec-intro-bar"></div><p>Consignes particulières sur ce logement, questions en suspens, contraintes spécifiques.</p></div>
+<div class="sec-body" id="body-commentaire">
   <div class="items">
     <div class="field-item"><div class="field-label">Consignes ménage particulières</div><textarea class="field-input" id="f-consignes_menage" rows="3" placeholder="Ex : parquet ciré (ne pas mouiller), miroir de salle de bain à manipuler avec précaution" oninput="saveField('consignes_menage',this.value)"></textarea></div>
     <div class="field-item" style="margin-top:8px"><div class="field-label">Commentaire libre</div><textarea class="field-input" id="f-commentaire" rows="4" placeholder="Écrivez ici tout ce qui vous semble utile à nous transmettre…" oninput="saveField('commentaire',this.value)"></textarea></div>
@@ -779,12 +824,11 @@ function captureActiveLogement() {
   l.uploads = captureCurrentLogementUploads();
 }
 function openLogementSecs() {
-  LOGEMENT_SECS.forEach(function(sec) {
-    var b = document.getElementById('body-' + sec);
-    var a = document.getElementById('arr-' + sec);
-    if (b) b.classList.add('open');
-    if (a) a.classList.add('open');
-  });
+  var sec = LOGEMENT_SECS[0];
+  var b = document.getElementById('body-' + sec);
+  var a = document.getElementById('arr-' + sec);
+  if (b) b.classList.add('open');
+  if (a) a.classList.add('open');
 }
 function switchLogement(idx) {
   if (!logements[idx]) return;
@@ -884,6 +928,10 @@ function updateAll() {
   document.getElementById('prog-fill').style.width = pct + '%';
   document.getElementById('prog-pct').textContent = pct + ' %';
   document.getElementById('prog-lbl').textContent = done + ' / ' + TOTAL + ' complétés';
+  var heroRing = document.getElementById('hero-ring-fg');
+  if (heroRing) heroRing.style.strokeDashoffset = (327 - 327 * pct / 100);
+  var heroPct = document.getElementById('hero-pct');
+  if (heroPct) heroPct.textContent = pct;
   CLIENT_SECS.concat(LOGEMENT_SECS).forEach(function(sec) {
     var d = getChecked(sec);
     var t = secTotal(sec);
