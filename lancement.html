@@ -140,6 +140,8 @@ input[type=file]{display:none}
 .log-tab-edit:hover{opacity:1}
 .log-tab-add{padding:8px 16px;background:var(--w);border:1.5px dashed var(--bd);border-radius:20px;font-family:'Libre Franklin',sans-serif;font-size:13px;font-weight:800;color:var(--ink3);cursor:pointer}
 .log-tab-add:hover{border-color:var(--y);color:var(--ink)}
+.log-tab.active{animation:logPulse .6s ease}
+@keyframes logPulse{0%{box-shadow:0 0 0 5px rgba(234,199,45,.55)}100%{box-shadow:0 0 0 0 rgba(234,199,45,0)}}
 </style>
 </head>
 <body>
@@ -235,6 +237,21 @@ input[type=file]{display:none}
   </div>
 </div></div>
 
+<!-- 02 ANNONCES -->
+<div class="sec">
+<div class="sec-head" onclick="toggleSec('annonces')">
+  <span class="sec-num">02</span><span class="sec-name">Création des annonces</span>
+  <span class="sec-badge b-e" id="st-annonces">0 / 2</span>
+  <span class="sec-arr open" id="arr-annonces">▾</span>
+</div>
+<div class="sec-body open" id="body-annonces">
+  <div class="sec-intro"><div class="sec-intro-bar"></div><p>Vos annonces Airbnb et Booking sont créées sur votre propre compte. Nous paramétrons tout ensemble lors d'un premier échange dédié. Ces informations sont valables pour l'ensemble de vos logements.</p></div>
+  <div class="items">
+    <div class="check-item" id="ci-mail-annonce"><label class="check-wrap"><input type="checkbox" data-sec="annonces" id="mail-annonce-ok" onchange="updateAll();toggleDone('ci-mail-annonce',this)"><div class="cbox"></div></label><div class="check-info"><label for="mail-annonce-ok" class="check-label">L'adresse mail dédiée aux annonces est définie</label><div style="margin-top:8px"><input type="text" class="field-input" id="f-mail_annonce" placeholder="Ex : lina.logements@gmail.com" oninput="saveField('mail_annonce',this.value)"></div><div class="done-tag">✓</div></div></div>
+    <div class="check-item" id="ci-tel-annonce"><label class="check-wrap"><input type="checkbox" data-sec="annonces" id="tel-annonce-ok" onchange="updateAll();toggleDone('ci-tel-annonce',this)"><div class="cbox"></div></label><div class="check-info"><label for="tel-annonce-ok" class="check-label">Le numéro de téléphone dédié est disponible</label><div class="check-hint">Un numéro par compte Airbnb, il ne peut pas être associé à un autre compte existant.</div><div style="margin-top:8px"><input type="text" class="field-input" id="f-tel_annonce" placeholder="Ex : 06 XX XX XX XX" oninput="saveField('tel_annonce',this.value)"></div><div class="done-tag">✓</div></div></div>
+  </div>
+</div></div>
+
 <div class="log-tabs-wrap">
   <div class="log-tabs-label">Vos logements</div>
   <div class="log-tabs-hint">Les sections ci-dessous (mairie, clés, accès, équipements...) sont propres à chaque logement. Si vous gérez plusieurs biens sous ce même dossier, ajoutez un logement par bien.</div>
@@ -244,7 +261,7 @@ input[type=file]{display:none}
 <!-- 02 MAIRIE -->
 <div class="sec">
 <div class="sec-head" onclick="toggleSec('mairie')">
-  <span class="sec-num">02</span><span class="sec-name">Déclaration en mairie</span>
+  <span class="sec-num">03</span><span class="sec-name">Déclaration en mairie</span>
   <span class="sec-badge b-e" id="st-mairie">0 / 2</span>
   <span class="sec-arr open" id="arr-mairie">▾</span>
 </div>
@@ -261,7 +278,7 @@ input[type=file]{display:none}
 <!-- 03 CLÉS -->
 <div class="sec">
 <div class="sec-head" onclick="toggleSec('cles')">
-  <span class="sec-num">03</span><span class="sec-name">Organisation des clés</span>
+  <span class="sec-num">04</span><span class="sec-name">Organisation des clés</span>
   <span class="sec-badge b-e" id="st-cles">0 / 1</span>
   <span class="sec-arr open" id="arr-cles">▾</span>
 </div>
@@ -276,7 +293,7 @@ input[type=file]{display:none}
 <!-- 04 ACCÈS -->
 <div class="sec">
 <div class="sec-head" onclick="toggleSec('acces')">
-  <span class="sec-num">04</span><span class="sec-name">Accès & logistique</span>
+  <span class="sec-num">05</span><span class="sec-name">Accès & logistique</span>
   <span class="sec-badge b-e" id="st-acces">0 / 2</span>
   <span class="sec-arr open" id="arr-acces">▾</span>
 </div>
@@ -308,7 +325,7 @@ input[type=file]{display:none}
 <!-- 05 LINGE -->
 <div class="sec">
 <div class="sec-head" onclick="toggleSec('linge')">
-  <span class="sec-num">05</span><span class="sec-name">Blanchisserie & stockage</span>
+  <span class="sec-num">06</span><span class="sec-name">Blanchisserie & stockage</span>
   <span class="sec-badge b-e" id="st-linge">0 / 2</span>
   <span class="sec-arr open" id="arr-linge">▾</span>
 </div>
@@ -335,7 +352,7 @@ input[type=file]{display:none}
 <!-- 06 MATÉRIEL -->
 <div class="sec">
 <div class="sec-head" onclick="toggleSec('materiel')">
-  <span class="sec-num">06</span><span class="sec-name">Équipements sur place</span>
+  <span class="sec-num">07</span><span class="sec-name">Équipements sur place</span>
   <span class="sec-badge b-e" id="st-materiel">0 / 3</span>
   <span class="sec-arr open" id="arr-materiel">▾</span>
 </div>
@@ -366,7 +383,7 @@ input[type=file]{display:none}
 <!-- 07 INTERNET -->
 <div class="sec">
 <div class="sec-head" onclick="toggleSec('internet')">
-  <span class="sec-num">07</span><span class="sec-name">Internet</span>
+  <span class="sec-num">08</span><span class="sec-name">Internet</span>
   <span class="sec-badge b-e" id="st-internet">0 / 1</span>
   <span class="sec-arr open" id="arr-internet">▾</span>
 </div>
@@ -381,7 +398,7 @@ input[type=file]{display:none}
 <!-- 08 ASSURANCE -->
 <div class="sec">
 <div class="sec-head" onclick="toggleSec('assurance')">
-  <span class="sec-num">08</span><span class="sec-name">Assurance complémentaire</span>
+  <span class="sec-num">09</span><span class="sec-name">Assurance complémentaire</span>
   <span class="sec-badge b-e" id="st-assurance">0 / 1</span>
   <span class="sec-arr open" id="arr-assurance">▾</span>
 </div>
@@ -405,7 +422,7 @@ input[type=file]{display:none}
 <!-- 09 SÉCURITÉ -->
 <div class="sec">
 <div class="sec-head" onclick="toggleSec('securite')">
-  <span class="sec-num">09</span><span class="sec-name">Sécurité & équipements</span>
+  <span class="sec-num">10</span><span class="sec-name">Sécurité & équipements</span>
   <span class="sec-badge b-e" id="st-securite">0 / 6</span>
   <span class="sec-arr open" id="arr-securite">▾</span>
 </div>
@@ -428,21 +445,6 @@ input[type=file]{display:none}
     </div>
     <div class="check-item" id="ci-minut"><label class="check-wrap"><input type="checkbox" id="minut-ok" onchange="toggleDone('ci-minut',this);saveField('check_minut_ok',this.checked?'1':'0')"><div class="cbox"></div></label><div class="check-info"><label for="minut-ok" class="check-label" style="display:inline">Je souhaite l'installation d'un boîtier Minut dans le logement <span style="font-weight:300;color:var(--ink3)">(facultatif)</span></label><button class="hint-q" onclick="toggleHintQ(this)" aria-label="Aide">?</button><div class="hint-hidden">Recommandé pour les maisons. Le capteur détecte les nuisances sonores et envoie une alerte automatique en cas de dépassement du seuil, sans enregistrer ni identifier qui que ce soit. Conforme aux règles Airbnb et Booking.</div><div class="done-tag">✓</div></div></div>
     <div class="field-item"><div class="field-label">Surface du logement <span style="font-weight:300;color:var(--ink3)">(obligatoire)</span></div><input type="text" class="field-input" id="f-surface" placeholder="Ex : 38 m²" oninput="saveField('surface',this.value);checkSurface()"><input type="checkbox" data-sec="securite" id="uc-surface" style="display:none"></div>
-  </div>
-</div></div>
-
-<!-- 10 ANNONCES -->
-<div class="sec">
-<div class="sec-head" onclick="toggleSec('annonces')">
-  <span class="sec-num">10</span><span class="sec-name">Création des annonces</span>
-  <span class="sec-badge b-e" id="st-annonces">0 / 2</span>
-  <span class="sec-arr open" id="arr-annonces">▾</span>
-</div>
-<div class="sec-body open" id="body-annonces">
-  <div class="sec-intro"><div class="sec-intro-bar"></div><p>Vos annonces Airbnb et Booking sont créées sur votre propre compte. Nous paramétrons tout ensemble lors d'un premier échange dédié. Ces informations sont valables pour l'ensemble de vos logements.</p></div>
-  <div class="items">
-    <div class="check-item" id="ci-mail-annonce"><label class="check-wrap"><input type="checkbox" data-sec="annonces" id="mail-annonce-ok" onchange="updateAll();toggleDone('ci-mail-annonce',this)"><div class="cbox"></div></label><div class="check-info"><label for="mail-annonce-ok" class="check-label">L'adresse mail dédiée aux annonces est définie</label><div style="margin-top:8px"><input type="text" class="field-input" id="f-mail_annonce" placeholder="Ex : lina.logements@gmail.com" oninput="saveField('mail_annonce',this.value)"></div><div class="done-tag">✓</div></div></div>
-    <div class="check-item" id="ci-tel-annonce"><label class="check-wrap"><input type="checkbox" data-sec="annonces" id="tel-annonce-ok" onchange="updateAll();toggleDone('ci-tel-annonce',this)"><div class="cbox"></div></label><div class="check-info"><label for="tel-annonce-ok" class="check-label">Le numéro de téléphone dédié est disponible</label><div class="check-hint">Un numéro par compte Airbnb, il ne peut pas être associé à un autre compte existant.</div><div style="margin-top:8px"><input type="text" class="field-input" id="f-tel_annonce" placeholder="Ex : 06 XX XX XX XX" oninput="saveField('tel_annonce',this.value)"></div><div class="done-tag">✓</div></div></div>
   </div>
 </div></div>
 
@@ -769,8 +771,17 @@ function captureActiveLogement() {
   l.fields = captureCurrentLogementFields();
   l.uploads = captureCurrentLogementUploads();
 }
+function openLogementSecs() {
+  LOGEMENT_SECS.forEach(function(sec) {
+    var b = document.getElementById('body-' + sec);
+    var a = document.getElementById('arr-' + sec);
+    if (b) b.classList.add('open');
+    if (a) a.classList.add('open');
+  });
+}
 function switchLogement(idx) {
-  if (!logements[idx] || idx === activeLogIdx) { renderLogementTabs(); return; }
+  if (!logements[idx]) return;
+  if (idx === activeLogIdx) { renderLogementTabs(); return; }
   captureActiveLogement();
   clearLogementDOM();
   activeLogIdx = idx;
@@ -782,7 +793,13 @@ function switchLogement(idx) {
     var st = document.getElementById('us-' + k);
     if (st) { st.textContent = l.uploads[k]; st.className = 'upload-status ok'; }
   });
+  // On rouvre systématiquement les sections logement : sinon, si elles s'étaient
+  // auto-refermées (toutes cochées) sur le logement précédent, le changement de
+  // logement ne se voit pas puisque tout reste replié.
+  openLogementSecs();
   updateAll();
+  var firstSec = document.getElementById('body-' + LOGEMENT_SECS[0]);
+  if (firstSec) firstSec.closest('.sec').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 function addLogement() {
   var n = logements.length + 1;
@@ -1115,7 +1132,6 @@ function buildClientRecord() {
     'Drive': driveUrl,
     'Progression %': globalPct,
     'Points complétés': globalDone,
-    'Nb logements': logements.length,
     'Statut': fields['_transmis'] === '1' ? 'Transmis' : (globalPct > 0 ? 'En cours' : 'Nouveau'),
     'Checks': JSON.stringify(checks),
     'Réponses': JSON.stringify(clientFieldsOut),
@@ -1158,7 +1174,11 @@ async function findLogementRecords() {
     var filter = encodeURIComponent('{Client ID}="' + clientId + '"');
     var atUrl = 'https://api.airtable.com/v0/' + AT_BASE + '/' + encodeURIComponent(AT_TABLE_LOGEMENTS) + '?filterByFormula=' + filter + '&sort[0][field]=Ordre&sort[0][direction]=asc';
     var r = await fetch(proxyUrl(atUrl));
-    if (!r.ok) return [];
+    if (!r.ok) {
+      var errBodyFind = await r.text();
+      console.error('Erreur Airtable (lecture Logements), statut ' + r.status + ' : ' + errBodyFind);
+      return [];
+    }
     var data = await r.json();
     return data.records || [];
   } catch(e) { return []; }
@@ -1167,7 +1187,11 @@ async function saveLogementToAirtable(idx) {
   var l = logements[idx];
   var atUrl = 'https://api.airtable.com/v0/' + AT_BASE + '/' + encodeURIComponent(AT_TABLE_LOGEMENTS) + (l.atId ? '/' + l.atId : '');
   var r = await fetch(proxyUrl(atUrl), { method: l.atId ? 'PATCH' : 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ fields: buildLogementRecord(idx) }) });
-  if (!r.ok) throw new Error('HTTP ' + r.status + ' (logement)');
+  if (!r.ok) {
+    var errBodyLog = await r.text();
+    console.error('Erreur Airtable (Logements), statut ' + r.status + ' : ' + errBodyLog);
+    throw new Error('HTTP ' + r.status + ' (logement)');
+  }
   var data = await r.json();
   if (data.id && !l.atId) l.atId = data.id;
 }
@@ -1181,7 +1205,11 @@ async function saveToAirtable() {
     if (!atRecordId) { var found = await findRecord(); if (found) atRecordId = found; }
     var atUrl = 'https://api.airtable.com/v0/' + AT_BASE + '/' + encodeURIComponent(AT_TABLE) + (atRecordId ? '/' + atRecordId : '');
     var r = await fetch(proxyUrl(atUrl), { method: atRecordId ? 'PATCH' : 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ fields: buildClientRecord() }) });
-    if (!r.ok) throw new Error('HTTP ' + r.status + ' (dossier)');
+    if (!r.ok) {
+      var errBodyClient = await r.text();
+      console.error('Erreur Airtable (Dossiers), statut ' + r.status + ' : ' + errBodyClient);
+      throw new Error('HTTP ' + r.status + ' (dossier)');
+    }
     var data = await r.json();
     if (data.id && !atRecordId) atRecordId = data.id;
     for (var i = 0; i < logements.length; i++) { await saveLogementToAirtable(i); }
