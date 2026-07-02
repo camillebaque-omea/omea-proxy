@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ômea — Lancement</title>
+<title>Ômea, Lancement</title>
 <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@300;400;500;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'"><noscript><link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@300;400;500;800&display=swap" rel="stylesheet"></noscript>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -128,6 +128,18 @@ input[type=file]{display:none}
 .yn-btn.yn-yes.active{background:var(--gbg);border-color:var(--gr);color:var(--gr)}
 .yn-btn.yn-no.active{background:#FFF9E0;border-color:#C9A918;color:#8B6914}
 .yn-btn.active{background:#FFF9E0;border-color:var(--y);color:var(--ink)}
+.log-tabs-wrap{margin:24px 0 4px;padding:16px;background:var(--w);border:1px solid var(--bd);border-radius:6px}
+.log-tabs-label{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);margin-bottom:4px}
+.log-tabs-hint{font-size:12px;color:var(--ink3);font-weight:300;margin-bottom:12px;line-height:1.5}
+.log-tabs{display:flex;flex-wrap:wrap;gap:8px}
+.log-tab{display:flex;align-items:center;gap:7px;padding:8px 8px 8px 14px;background:var(--bg);border:1.5px solid var(--bd);border-radius:20px;cursor:pointer;font-size:13px;font-weight:500;color:var(--ink2);transition:all .15s}
+.log-tab:hover{border-color:var(--y)}
+.log-tab.active{background:var(--ink);border-color:var(--ink);color:var(--w)}
+.log-tab-pct{font-size:11px;font-weight:800;opacity:.65}
+.log-tab-edit{background:none;border:none;font-size:12px;cursor:pointer;color:inherit;opacity:.55;padding:2px 4px;line-height:1}
+.log-tab-edit:hover{opacity:1}
+.log-tab-add{padding:8px 16px;background:var(--w);border:1.5px dashed var(--bd);border-radius:20px;font-family:'Libre Franklin',sans-serif;font-size:13px;font-weight:800;color:var(--ink3);cursor:pointer}
+.log-tab-add:hover{border-color:var(--y);color:var(--ink)}
 </style>
 </head>
 <body>
@@ -138,7 +150,7 @@ input[type=file]{display:none}
 </nav>
 
 <div class="at-error" id="at-error">
-  <span class="at-error-msg" id="at-error-msg">⚠ Erreur de sauvegarde — données conservées en local.</span>
+  <span class="at-error-msg" id="at-error-msg">⚠ Erreur de sauvegarde, données conservées en local.</span>
   <button class="at-retry" onclick="retrySave()">Réessayer</button>
   <button class="at-close" onclick="hideAtError()">✕</button>
 </div>
@@ -156,11 +168,11 @@ input[type=file]{display:none}
     <input class="admin-input" id="admin-drive" type="text" placeholder="https://drive.google.com/drive/folders/..." oninput="generateAdminUrl()">
   </div>
   <div class="admin-row">
-    <label class="admin-label">Points spécifiques <span style="font-weight:300;text-transform:none;letter-spacing:0">— un item par ligne</span></label>
+    <label class="admin-label">Points spécifiques <span style="font-weight:300;text-transform:none;letter-spacing:0">(un item par ligne)</span></label>
     <textarea class="admin-input" id="admin-items" rows="4" placeholder="Ex : Fournir le règlement intérieur&#10;Confirmer le nombre de voyageurs maximum&#10;Transmettre les codes de la climatisation" oninput="generateAdminUrl()" style="resize:vertical;line-height:1.6"></textarea>
   </div>
   <div class="admin-row">
-    <label class="admin-label">Note de la conciergerie <span style="font-weight:300;text-transform:none;letter-spacing:0">— recommandations &amp; points importants</span></label>
+    <label class="admin-label">Note de la conciergerie <span style="font-weight:300;text-transform:none;letter-spacing:0">(recommandations et points importants)</span></label>
     <textarea class="admin-input" id="admin-note" rows="4" placeholder="Ex : Pensez à vérifier l'état du chauffe-eau avant la mise en ligne. Prévoir un lot de bienvenue pour la première réservation." oninput="generateAdminUrl()" style="resize:vertical;line-height:1.6"></textarea>
   </div>
   <div class="admin-result" id="admin-result">
@@ -175,7 +187,7 @@ input[type=file]{display:none}
 <div class="hero">
   <div class="hero-tag">Lancement</div>
   <h1>Bienvenue, <em id="client-name">Propriétaire</em>.</h1>
-  <p>Voici tout ce qu'il faut mettre en place avant l'ouverture de votre logement. Cochez chaque point une fois qu'il est fait et revenez autant de fois que nécessaire — tout est sauvegardé automatiquement.</p>
+  <p>Voici tout ce qu'il faut mettre en place avant l'ouverture de votre logement. Cochez chaque point une fois qu'il est fait et revenez autant de fois que nécessaire, tout est sauvegardé automatiquement.</p>
 </div>
 
 <div class="prog-bar">
@@ -196,11 +208,11 @@ input[type=file]{display:none}
 <div class="sec-body open" id="body-docs">
   <div class="drive-block" id="drive-block">
     <div class="drive-block-title">Dossier sécurisé Ômea</div>
-    <div class="drive-block-hint">Déposez tous vos documents dans votre dossier personnel — accessible uniquement par vous et l'équipe Ômea. Une fois chaque document déposé, cochez la case correspondante ci-dessous.</div>
+    <div class="drive-block-hint">Déposez tous vos documents dans votre dossier personnel, accessible uniquement par vous et l'équipe Ômea. Une fois chaque document déposé, cochez la case correspondante ci-dessous.</div>
     <a id="drive-link" href="#" target="_blank" class="drive-btn" style="display:none">Accéder à mon dossier</a>
     <span class="drive-btn-missing" id="drive-missing" style="display:none">Votre dossier vous sera transmis par Ômea.</span>
   </div>
-  <div class="sec-intro"><div class="sec-intro-bar"></div><p>Ces documents nous permettent de constituer votre dossier et de paramétrer correctement vos annonces Airbnb et Booking.</p></div>
+  <div class="sec-intro"><div class="sec-intro-bar"></div><p>Ces documents nous permettent de constituer votre dossier et de paramétrer correctement vos annonces Airbnb et Booking. Ils sont valables pour l'ensemble de vos logements gérés par Ômea.</p></div>
   <div class="items">
     <div class="field-item" id="statut-block"><div class="field-label">Vous détenez le bien <span style="font-weight:300;color:var(--ink3)">(obligatoire)</span></div><div class="field-hint">Le choix adapte les pièces à fournir.</div>
       <div class="yn-wrap">
@@ -209,19 +221,25 @@ input[type=file]{display:none}
       </div>
     </div>
     <div class="check-item" id="ci-doc-kbis" style="display:none"><label class="check-wrap"><input type="checkbox" data-sec="docs" data-off="1" id="doc-kbis" onchange="updateAll();toggleDone('ci-doc-kbis',this)"><div class="cbox"></div></label><div class="check-info"><label for="doc-kbis" class="check-label" style="display:inline">Kbis de la société</label><button class="hint-q" onclick="toggleHintQ(this)" aria-label="Aide">?</button><div class="hint-hidden">Document officiel d'immatriculation, disponible sur infogreffe.fr ou via le guichet unique inpi.fr.</div><div class="done-tag">✓ Déposé</div></div></div>
-    <div class="check-item" id="ci-doc-cni"><label class="check-wrap"><input type="checkbox" data-sec="docs" id="doc-cni" onchange="updateAll();toggleDone('ci-doc-cni',this)"><div class="cbox"></div></label><div class="check-info"><label for="doc-cni" class="check-label" style="display:inline">Pièce d'identité de chaque gérant</label><button class="hint-q" onclick="toggleHintQ(this)" aria-label="Aide">?</button><div class="hint-hidden">Carte nationale d'identité ou passeport en cours de validité — un document par gérant.</div><div class="done-tag">✓ Déposé</div></div></div>
+    <div class="check-item" id="ci-doc-cni"><label class="check-wrap"><input type="checkbox" data-sec="docs" id="doc-cni" onchange="updateAll();toggleDone('ci-doc-cni',this)"><div class="cbox"></div></label><div class="check-info"><label for="doc-cni" class="check-label" style="display:inline">Pièce d'identité de chaque gérant</label><button class="hint-q" onclick="toggleHintQ(this)" aria-label="Aide">?</button><div class="hint-hidden">Carte nationale d'identité ou passeport en cours de validité, un document par gérant.</div><div class="done-tag">✓ Déposé</div></div></div>
     <div class="check-item" id="ci-doc-acte"><label class="check-wrap"><input type="checkbox" data-sec="docs" id="doc-acte" onchange="updateAll();toggleDone('ci-doc-acte',this)"><div class="cbox"></div></label><div class="check-info"><label for="doc-acte" class="check-label" style="display:inline">Acte de propriété</label><button class="hint-q" onclick="toggleHintQ(this)" aria-label="Aide">?</button><div class="hint-hidden">Transmis par votre notaire lors de l'achat. Un document par logement si les titres sont séparés.</div><div class="done-tag">✓ Déposé</div></div></div>
     <div class="check-item" id="ci-doc-rib"><label class="check-wrap"><input type="checkbox" data-sec="docs" id="doc-rib" onchange="updateAll();toggleDone('ci-doc-rib',this)"><div class="cbox"></div></label><div class="check-info"><label for="doc-rib" class="check-label" style="display:inline">RIB de la société</label><button class="hint-q" onclick="toggleHintQ(this)" aria-label="Aide">?</button><div class="hint-hidden">C'est sur ce compte que vous recevrez directement vos versements Airbnb et Booking.</div><div class="done-tag">✓ Déposé</div></div></div>
     <div class="check-item" id="ci-doc-pno"><label class="check-wrap"><input type="checkbox" data-sec="docs" id="doc-pno" onchange="updateAll();toggleDone('ci-doc-pno',this)"><div class="cbox"></div></label><div class="check-info"><label for="doc-pno" class="check-label" style="display:inline">Attestation PNO <span style="font-weight:300;color:var(--ink3)">(en cours de validité)</span></label><button class="hint-q" onclick="toggleHintQ(this)" aria-label="Aide">?</button><div class="hint-hidden">L'assurance Propriétaire Non Occupant est obligatoire pour tout propriétaire bailleur.</div><div class="done-tag">✓ Déposé</div></div></div>
     <div class="check-item" id="ci-doc-photo"><label class="check-wrap"><input type="checkbox" data-sec="docs" id="doc-photo" onchange="updateAll();toggleDone('ci-doc-photo',this)"><div class="cbox"></div></label><div class="check-info"><label for="doc-photo" class="check-label" style="display:inline">Photo de profil</label><button class="hint-q" onclick="toggleHintQ(this)" aria-label="Aide">?</button><div class="hint-hidden">Une photo de vous est nécessaire pour paramétrer votre compte Airbnb. Elle rassure les voyageurs et améliore la visibilité de votre annonce.</div><div class="done-tag">✓ Déposé</div></div></div>
-    <div class="check-item" id="ci-doc-copro"><label class="check-wrap"><input type="checkbox" id="doc-copro" onchange="toggleDone('ci-doc-copro',this);saveField('check_doc_copro',this.checked?'1':'0')"><div class="cbox"></div></label><div class="check-info"><label for="doc-copro" class="check-label" style="display:inline">Règlement de copropriété <span style="font-weight:300;color:var(--ink3)">(si existant)</span></label><button class="hint-q" onclick="toggleHintQ(this)" aria-label="Aide">?</button><div class="hint-hidden">Si votre logement est en copropriété, transmettez le règlement — certaines clauses peuvent encadrer la location courte durée.</div><div class="done-tag">✓ Déposé</div></div></div>
+    <div class="check-item" id="ci-doc-copro"><label class="check-wrap"><input type="checkbox" id="doc-copro" onchange="toggleDone('ci-doc-copro',this);saveField('check_doc_copro',this.checked?'1':'0')"><div class="cbox"></div></label><div class="check-info"><label for="doc-copro" class="check-label" style="display:inline">Règlement de copropriété <span style="font-weight:300;color:var(--ink3)">(si existant)</span></label><button class="hint-q" onclick="toggleHintQ(this)" aria-label="Aide">?</button><div class="hint-hidden">Si votre logement est en copropriété, transmettez le règlement, certaines clauses peuvent encadrer la location courte durée.</div><div class="done-tag">✓ Déposé</div></div></div>
     <div class="field-item"><div class="field-label">Numéro SIRET <span style="font-weight:300;color:var(--ink3)">(obligatoire)</span></div><div class="field-hint">14 chiffres, disponible sur votre Kbis.</div><input type="text" class="field-input" id="f-siret" placeholder="Ex : 12345678900012" maxlength="14" oninput="saveField('siret',this.value);checkSiret()"><input type="checkbox" data-sec="docs" id="uc-siret" style="display:none"></div>
-    <div class="field-item" id="fi-nif" style="display:none"><div class="field-label">NIF <span style="font-weight:300;color:var(--ink3)">(obligatoire — requis par Booking)</span></div><div class="field-hint">Numéro d'Identification Fiscale, disponible sur votre avis d'imposition ou auprès de votre comptable.</div><input type="text" class="field-input" id="f-nif" placeholder="Ex : 1234567890123" oninput="saveField('nif',this.value);checkNif()"><input type="checkbox" data-sec="docs" data-off="1" id="uc-nif" style="display:none"></div>
+    <div class="field-item" id="fi-nif" style="display:none"><div class="field-label">NIF <span style="font-weight:300;color:var(--ink3)">(obligatoire, requis par Booking)</span></div><div class="field-hint">Numéro d'Identification Fiscale, disponible sur votre avis d'imposition ou auprès de votre comptable.</div><input type="text" class="field-input" id="f-nif" placeholder="Ex : 1234567890123" oninput="saveField('nif',this.value);checkNif()"><input type="checkbox" data-sec="docs" data-off="1" id="uc-nif" style="display:none"></div>
     <div class="check-item" id="ci-pno-ok"><label class="check-wrap"><input type="checkbox" data-sec="docs" id="pno-ok" onchange="updateAll();toggleDone('ci-pno-ok',this)"><div class="cbox"></div></label><div class="check-info"><label for="pno-ok" class="check-label">La location saisonnière est bien couverte par votre PNO</label><div class="check-hint">Certaines PNO excluent la location courte durée. Vérifiez auprès de votre assureur avant de cocher.</div><div class="done-tag">✓</div></div></div>
     <div class="check-item" id="ci-doc-dpe"><label class="check-wrap"><input type="checkbox" data-sec="docs" id="doc-dpe" onchange="updateAll();toggleDone('ci-doc-dpe',this)"><div class="cbox"></div></label><div class="check-info"><label for="doc-dpe" class="check-label" style="display:inline">DPE, Diagnostic de Performance Énergétique</label><button class="hint-q" onclick="toggleHintQ(this)" aria-label="Aide">?</button><div class="hint-hidden">Classé de A à G, réalisé par un diagnostiqueur certifié, valable 10 ans. Avec la loi Le Meur, un DPE classe A à E est exigé pour les nouvelles autorisations en zone de changement d'usage, et tous les meublés de tourisme devront atteindre la classe E minimum d'ici 2034.</div><div class="done-tag">✓ Déposé</div></div></div>
     <input type="checkbox" data-sec="docs" id="uc-statut" style="display:none">
   </div>
 </div></div>
+
+<div class="log-tabs-wrap">
+  <div class="log-tabs-label">Vos logements</div>
+  <div class="log-tabs-hint">Les sections ci-dessous (mairie, clés, accès, équipements...) sont propres à chaque logement. Si vous gérez plusieurs biens sous ce même dossier, ajoutez un logement par bien.</div>
+  <div class="log-tabs" id="logement-tabs"></div>
+</div>
 
 <!-- 02 MAIRIE -->
 <div class="sec">
@@ -231,10 +249,10 @@ input[type=file]{display:none}
   <span class="sec-arr open" id="arr-mairie">▾</span>
 </div>
 <div class="sec-body open" id="body-mairie">
-  <div class="sec-intro"><div class="sec-intro-bar"></div><p>Avant toute mise en location, la loi impose une déclaration en mairie pour le ou les logements. Vérifiez d'abord si votre commune est sur <a href="https://www.declaloc.fr" target="_blank" style="color:var(--ink2);text-decoration:underline">declaloc.fr</a> — certaines communes ont basculé sur ce téléservice national. Sinon, le CERFA classique s'applique et peut être envoyé directement par mail à votre mairie.</p></div>
+  <div class="sec-intro"><div class="sec-intro-bar"></div><p>Avant toute mise en location, la loi impose une déclaration en mairie pour ce logement. Vérifiez d'abord si votre commune est sur <a href="https://www.declaloc.fr" target="_blank" style="color:var(--ink2);text-decoration:underline">declaloc.fr</a> (certaines communes ont basculé sur ce téléservice national). Sinon, le CERFA classique s'applique et peut être envoyé directement par mail à votre mairie.</p></div>
   <div class="cerfa-block"><div><div class="cerfa-title">CERFA 14004*04</div><div class="cerfa-sub">Formulaire de déclaration en mairie des meublés de tourisme</div></div><a href="https://www.formulaires.service-public.fr/gf/cerfa_14004_04.do" target="_blank" class="cerfa-btn">Télécharger</a></div>
   <div class="items">
-    <div class="check-item" id="ci-cerfa"><label class="check-wrap"><input type="checkbox" data-sec="mairie" id="cerfa-ok" onchange="updateAll();toggleDone('ci-cerfa',this)"><div class="cbox"></div></label><div class="check-info"><label for="cerfa-ok" class="check-label" style="display:inline">Déclaration déposée pour le ou les logements</label><button class="hint-q" onclick="toggleHintQ(this)" aria-label="Aide">?</button><div class="hint-hidden">Si des démarches de changement d'usage ou de destination sont nécessaires pour votre bien, nous pouvons en rediscuter ensemble.</div><div class="done-tag">✓</div></div></div>
+    <div class="check-item" id="ci-cerfa"><label class="check-wrap"><input type="checkbox" data-sec="mairie" id="cerfa-ok" onchange="updateAll();toggleDone('ci-cerfa',this)"><div class="cbox"></div></label><div class="check-info"><label for="cerfa-ok" class="check-label" style="display:inline">Déclaration déposée pour ce logement</label><button class="hint-q" onclick="toggleHintQ(this)" aria-label="Aide">?</button><div class="hint-hidden">Si des démarches de changement d'usage ou de destination sont nécessaires pour votre bien, nous pouvons en rediscuter ensemble.</div><div class="done-tag">✓</div></div></div>
     <div class="upload-item"><div class="upload-label">Récépissé d'enregistrement</div><button class="hint-q" onclick="toggleHintQ(this)" aria-label="Aide">?</button><div class="hint-hidden" style="margin-bottom:8px">La mairie vous remet un récépissé après déclaration. Ce document contient votre numéro d'enregistrement, obligatoire sur vos annonces Airbnb et Booking. Déposez-le dans votre dossier Drive.</div><div class="upload-zone"><a id="drive-link-recepisse" href="#" target="_blank" class="upload-btn" style="display:none">Déposer dans mon dossier</a><span class="drive-btn-missing" id="drive-missing-recepisse" style="display:none;font-size:12px;color:var(--ink3)">Dossier transmis par Ômea</span></div></div>
     <div class="check-item" id="ci-mairie2"><label class="check-wrap"><input type="checkbox" data-sec="mairie" id="mairie2-ok" onchange="updateAll();toggleDone('ci-mairie2',this)"><div class="cbox"></div></label><div class="check-info"><label for="mairie2-ok" class="check-label">Le récépissé est bien déposé dans le dossier</label><div class="done-tag">✓</div></div></div>
   </div>
@@ -250,8 +268,8 @@ input[type=file]{display:none}
 <div class="sec-body open" id="body-cles">
   <div class="sec-intro"><div class="sec-intro-bar"></div><p>Pour que les voyageurs accèdent à leur logement de façon autonome et que nous puissions intervenir à tout moment, il faut prévoir un jeu de clés complet par interlocuteur dès le départ.</p></div>
   <div class="items">
-    <div class="check-item" id="ci-cles"><label class="check-wrap"><input type="checkbox" data-sec="cles" id="cles-ok" onchange="updateAll();toggleDone('ci-cles',this)"><div class="cbox"></div></label><div class="check-info"><label for="cles-ok" class="check-label" style="display:inline">3 jeux de clés complets sont disponibles par logement</label><button class="hint-q" onclick="toggleHintQ(this)" aria-label="Aide">?</button><div class="hint-hidden">Un jeu pour les voyageurs, un jeu de secours, un pour Ômea. Chaque jeu doit inclure toutes les clés nécessaires — clé d'entrée de l'immeuble, clé de la porte de l'appartement, et toute autre clé intermédiaire.</div><div class="done-tag">✓</div></div></div>
-    <div class="field-item"><div class="field-label">Commentaire sur les clés <span style="font-weight:300;color:var(--ink3)">(facultatif)</span><button class="hint-q" onclick="toggleHintQ(this)" aria-label="Aide">?</button><div class="hint-hidden">Une précision à nous transmettre : type de clé, badge ou bip, clé qui coince, jeu incomplet, point à anticiper.</div></div><textarea class="field-input" id="f-cles_commentaire" rows="2" placeholder="Ex : badge Vigik pour l'entrée de l'immeuble / la clé du bas coince un peu" oninput="saveField('cles_commentaire',this.value)"></textarea></div>
+    <div class="check-item" id="ci-cles"><label class="check-wrap"><input type="checkbox" data-sec="cles" id="cles-ok" onchange="updateAll();toggleDone('ci-cles',this)"><div class="cbox"></div></label><div class="check-info"><label for="cles-ok" class="check-label" style="display:inline">3 jeux de clés complets sont disponibles pour ce logement</label><button class="hint-q" onclick="toggleHintQ(this)" aria-label="Aide">?</button><div class="hint-hidden">Un jeu pour les voyageurs, un jeu de secours, un pour Ômea. Chaque jeu doit inclure toutes les clés nécessaires : clé d'entrée de l'immeuble, clé de la porte de l'appartement, et toute autre clé intermédiaire.</div><div class="done-tag">✓</div></div></div>
+    <div class="field-item"><div class="field-label">Commentaire sur les clés <span style="font-weight:300;color:var(--ink3)">(facultatif)</span><button class="hint-q" onclick="toggleHintQ(this)" aria-label="Aide">?</button><div class="hint-hidden">Une précision à nous transmettre : type de clé, badge ou bip, clé qui coince, jeu incomplet, point à anticiper.</div></div><textarea class="field-input" id="f-cles_commentaire" rows="2" placeholder="Ex : badge Vigik pour l'entrée de l'immeuble, la clé du bas coince un peu" oninput="saveField('cles_commentaire',this.value)"></textarea></div>
   </div>
 </div></div>
 
@@ -266,9 +284,9 @@ input[type=file]{display:none}
   <div class="sec-intro"><div class="sec-intro-bar"></div><p>Pour que les voyageurs arrivent sereinement et que nous puissions intervenir à tout moment, quelques points pratiques sont à valider ensemble dès le départ.</p></div>
   <div class="items">
     <div class="check-item" id="ci-menage-dem"><label class="check-wrap"><input type="checkbox" data-sec="acces" id="menage-dem-ok" onchange="updateAll();toggleDone('ci-menage-dem',this)"><div class="cbox"></div></label><div class="check-info"><label for="menage-dem-ok" class="check-label" style="display:inline">J'accepte un ménage de démarrage avant la première réservation</label><button class="hint-q" onclick="toggleHintQ(this)" aria-label="Aide">?</button><div class="hint-hidden">Le ménage de démarrage nous permet de préparer le logement dans les meilleures conditions. Il est facturé une seule fois au lancement.</div><div class="done-tag">✓</div></div></div>
-    <div class="field-item"><div class="field-label">Modalités d'ouverture de la porte de l'immeuble<button class="hint-q" onclick="toggleHintQ(this)" aria-label="Aide">?</button><div class="hint-hidden">Si votre logement est dans un immeuble avec une porte d'accès, précisez comment elle s'ouvre.</div></div><input type="text" class="field-input" id="f-acces_immeuble" placeholder="Ex : digicode — code 1234A / interphone / porte libre" oninput="saveField('acces_immeuble',this.value)"></div>
-    <div class="field-item"><div class="field-label">Entretien des parties communes <span style="font-weight:300;color:var(--ink3)">(facultatif)</span></div><div class="field-hint">Précisez les surfaces concernées et la fréquence souhaitée — nous vous ferons un devis.</div><textarea class="field-input" id="f-communs" rows="2" placeholder="Ex : couloir et escaliers — 2 fois par mois" oninput="saveField('communs',this.value)"></textarea></div>
-    <div class="field-item"><div class="field-label">Emplacement de la boîte à clés principale <span style="font-weight:300;color:var(--ink3)">(obligatoire)</span><button class="hint-q" onclick="toggleHintQ(this)" aria-label="Aide">?</button><div class="hint-hidden">Précisez où sera installée la boîte à clés principale — accès voyageurs.</div></div><textarea class="field-input" id="f-btk_principale" rows="2" placeholder="Ex : à droite de la porte d'entrée / sur le pilier gauche du portail" oninput="saveField('btk_principale',this.value);checkBtkPrincipale()"></textarea><input type="checkbox" data-sec="acces" id="uc-btk-principale" style="display:none"></div>
+    <div class="field-item"><div class="field-label">Modalités d'ouverture de la porte de l'immeuble<button class="hint-q" onclick="toggleHintQ(this)" aria-label="Aide">?</button><div class="hint-hidden">Si votre logement est dans un immeuble avec une porte d'accès, précisez comment elle s'ouvre.</div></div><input type="text" class="field-input" id="f-acces_immeuble" placeholder="Ex : digicode (code 1234A), interphone, ou porte libre" oninput="saveField('acces_immeuble',this.value)"></div>
+    <div class="field-item"><div class="field-label">Entretien des parties communes <span style="font-weight:300;color:var(--ink3)">(facultatif)</span></div><div class="field-hint">Précisez les surfaces concernées et la fréquence souhaitée, nous vous ferons un devis.</div><textarea class="field-input" id="f-communs" rows="2" placeholder="Ex : couloir et escaliers, 2 fois par mois" oninput="saveField('communs',this.value)"></textarea></div>
+    <div class="field-item"><div class="field-label">Emplacement de la boîte à clés principale <span style="font-weight:300;color:var(--ink3)">(obligatoire)</span><button class="hint-q" onclick="toggleHintQ(this)" aria-label="Aide">?</button><div class="hint-hidden">Précisez où sera installée la boîte à clés principale, accès voyageurs.</div></div><textarea class="field-input" id="f-btk_principale" rows="2" placeholder="Ex : à droite de la porte d'entrée / sur le pilier gauche du portail" oninput="saveField('btk_principale',this.value);checkBtkPrincipale()"></textarea><input type="checkbox" data-sec="acces" id="uc-btk-principale" style="display:none"></div>
     <div class="field-item"><div class="field-label">Emplacement de la boîte à clés de secours <span style="font-weight:300;color:var(--ink3)">(obligatoire)</span><button class="hint-q" onclick="toggleHintQ(this)" aria-label="Aide">?</button><div class="hint-hidden">En cas de problème avec la boîte principale, nous devons avoir accès à un jeu de clés de secours dans un endroit discret.</div></div><textarea class="field-input" id="f-btk_secours" rows="2" placeholder="Ex : boîte aux lettres n°3 / local poubelles au rez-de-chaussée" oninput="saveField('btk_secours',this.value);checkBtkSecours()"></textarea><input type="checkbox" data-sec="acces" id="uc-btk-secours" style="display:none"></div>
     <div class="field-item" id="fi-parking"><div class="field-label">Stationnement</div>
       <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:8px" id="parking-options">
@@ -297,19 +315,19 @@ input[type=file]{display:none}
 <div class="sec-body open" id="body-linge">
   <div class="sec-intro"><div class="sec-intro-bar"></div><p>Un voyageur qui arrive doit trouver son lit fait, des serviettes propres et tout ce qu'il faut pour démarrer son séjour.</p></div>
   <div class="items">
-    <div class="check-item" id="ci-linge"><label class="check-wrap"><input type="checkbox" data-sec="linge" id="linge-ok" onchange="updateAll();toggleDone('ci-linge',this)"><div class="cbox"></div></label><div class="check-info"><label for="linge-ok" class="check-label">Le linge est commandé — 3 jeux par couchage</label><div class="check-hint">Pour chaque couchage : 3 jeux de draps complets, 2 alèses par matelas, 2 protège-oreillers, 3 grandes serviettes de bain par voyageur. Pour chaque salle de bain : 3 tapis de bain. Par cuisine : 3 torchons.</div>
+    <div class="check-item" id="ci-linge"><label class="check-wrap"><input type="checkbox" data-sec="linge" id="linge-ok" onchange="updateAll();toggleDone('ci-linge',this)"><div class="cbox"></div></label><div class="check-info"><label for="linge-ok" class="check-label">Le linge est commandé, 3 jeux par couchage</label><div class="check-hint">Pour chaque couchage : 3 jeux de draps complets, 2 alèses par matelas, 2 protège-oreillers, 3 grandes serviettes de bain par voyageur. Pour chaque salle de bain : 3 tapis de bain. Par cuisine : 3 torchons.</div>
       <div class="refs" style="background:#FFFCEF;border-color:#E8D87A">
-        <div class="refs-title" style="color:#8B6914">Partenaire linge — Le Comptoir de l'Hôtellerie</div>
+        <div class="refs-title" style="color:#8B6914">Partenaire linge, Le Comptoir de l'Hôtellerie</div>
         <a class="ref-link" href="https://lecomptoirdelhotellerie.com/" target="_blank" style="border-bottom:none;font-weight:500;color:var(--ink)">Commander sur lecomptoirdelhotellerie.com →</a>
         <div style="margin-top:8px;display:inline-flex;align-items:center;gap:6px;background:var(--y);color:var(--ink);font-weight:800;font-size:12px;letter-spacing:.04em;padding:6px 12px;border-radius:4px">Code de réduction : OMEA26</div>
         <p style="font-size:11px;color:var(--ink3);font-weight:300;line-height:1.5;margin:8px 0 0">Ômea ne perçoit aucune contrepartie sur cette recommandation.</p>
       </div>
       <div class="refs" style="margin-top:8px"><div class="refs-title">Autres références</div>
-        <a class="ref-link" href="https://amazon.fr/dp/B078C7LD6D" target="_blank"><span class="ref-name">Housse de matelas (alèse)</span> — Amazon</a>
-        <a class="ref-link" href="https://www.ikea.com/fr/fr/p/sotnaetfjaeril-protege-oreiller-80531316/" target="_blank"><span class="ref-name">Protège-oreiller</span> — Ikea</a>
+        <a class="ref-link" href="https://amazon.fr/dp/B078C7LD6D" target="_blank"><span class="ref-name">Housse de matelas (alèse)</span>, Amazon</a>
+        <a class="ref-link" href="https://www.ikea.com/fr/fr/p/sotnaetfjaeril-protege-oreiller-80531316/" target="_blank"><span class="ref-name">Protège-oreiller</span>, Ikea</a>
       </div><div class="done-tag">✓</div></div></div>
-    <div class="check-item" id="ci-stockage"><label class="check-wrap"><input type="checkbox" data-sec="linge" id="stockage-ok" onchange="updateAll();toggleDone('ci-stockage',this)"><div class="cbox"></div></label><div class="check-info"><label for="stockage-ok" class="check-label">L'espace de stockage est en place, monté et fonctionnel</label><div class="check-hint">Un espace fermé à clé dans le ou les logements est nécessaire pour ranger le linge propre, les consommables et le matériel ménage.</div>
-      <div class="refs"><div class="refs-title">Référence recommandée</div><a class="ref-link" href="https://www.amazon.fr/dp/B0BSFQ8WZ2" target="_blank"><span class="ref-name">Armoire de stockage sécurisée</span> — Amazon</a></div>
+    <div class="check-item" id="ci-stockage"><label class="check-wrap"><input type="checkbox" data-sec="linge" id="stockage-ok" onchange="updateAll();toggleDone('ci-stockage',this)"><div class="cbox"></div></label><div class="check-info"><label for="stockage-ok" class="check-label">L'espace de stockage est en place, monté et fonctionnel</label><div class="check-hint">Un espace fermé à clé dans le logement est nécessaire pour ranger le linge propre, les consommables et le matériel ménage.</div>
+      <div class="refs"><div class="refs-title">Référence recommandée</div><a class="ref-link" href="https://www.amazon.fr/dp/B0BSFQ8WZ2" target="_blank"><span class="ref-name">Armoire de stockage sécurisée</span>, Amazon</a></div>
       <div class="done-tag">✓</div></div></div>
   </div>
 </div></div>
@@ -324,7 +342,7 @@ input[type=file]{display:none}
 <div class="sec-body open" id="body-materiel">
   <div class="sec-intro"><div class="sec-intro-bar"></div><p>Quelques équipements sont indispensables pour que nous intervenions dans de bonnes conditions et que les voyageurs passent un bon séjour.</p></div>
   <div class="items">
-    <div class="check-item" id="ci-mat"><label class="check-wrap"><input type="checkbox" data-sec="materiel" id="mat-ok" onchange="updateAll();toggleDone('ci-mat',this)"><div class="cbox"></div></label><div class="check-info"><label for="mat-ok" class="check-label" style="display:inline">Le matériel ménage est en place dans le ou les logements</label><button class="hint-q" onclick="toggleHintQ(this)" aria-label="Aide">?</button><div class="hint-hidden">Serpillière plate, seau, aspirateur, brosse de toilette.</div><div class="done-tag">✓</div></div></div>
+    <div class="check-item" id="ci-mat"><label class="check-wrap"><input type="checkbox" data-sec="materiel" id="mat-ok" onchange="updateAll();toggleDone('ci-mat',this)"><div class="cbox"></div></label><div class="check-info"><label for="mat-ok" class="check-label" style="display:inline">Le matériel ménage est en place dans le logement</label><button class="hint-q" onclick="toggleHintQ(this)" aria-label="Aide">?</button><div class="hint-hidden">Serpillière plate, seau, aspirateur, brosse de toilette.</div><div class="done-tag">✓</div></div></div>
     <div class="check-item" id="ci-confort"><label class="check-wrap"><input type="checkbox" data-sec="materiel" id="confort-ok" onchange="updateAll();toggleDone('ci-confort',this)"><div class="cbox"></div></label><div class="check-info"><label for="confort-ok" class="check-label" style="display:inline">Les équipements recommandés sont achetés et opérationnels</label><button class="hint-q" onclick="toggleHintQ(this)" aria-label="Aide">?</button><div class="hint-hidden">Machine à café, bouilloire, grille-pain, sèche-cheveux.</div><div class="done-tag">✓</div></div></div>
     <div class="field-item" style="border-top:1px solid var(--bg);padding-top:14px;margin-top:4px"><div class="field-label">Inventaire des équipements présents</div><div class="field-hint">Cochez tout ce qui est disponible dans le logement.</div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:8px">
@@ -339,7 +357,7 @@ input[type=file]{display:none}
         <div class="check-item" id="ci-eq-sc" style="padding:10px 0"><label class="check-wrap"><input type="checkbox" id="eq-sc" onchange="toggleDone('ci-eq-sc',this);saveField('check_eq_sc',this.checked?'1':'0')"><div class="cbox"></div></label><div class="check-info"><label class="check-label" style="font-size:13px">Sèche-cheveux</label><div class="done-tag">✓</div></div></div>
         <div class="check-item" id="ci-eq-tv" style="padding:10px 0"><label class="check-wrap"><input type="checkbox" id="eq-tv" onchange="toggleDone('ci-eq-tv',this);saveField('check_eq_tv',this.checked?'1':'0')"><div class="cbox"></div></label><div class="check-info"><label class="check-label" style="font-size:13px">Télévision</label><div class="done-tag">✓</div></div></div>
       </div>
-      <input type="text" class="field-input" id="f-autres_eq" style="margin-top:8px" placeholder="Autres équipements — Ex : congélateur, climatisation…" oninput="saveField('autres_eq',this.value)">
+      <input type="text" class="field-input" id="f-autres_eq" style="margin-top:8px" placeholder="Autres équipements, ex : congélateur, climatisation…" oninput="saveField('autres_eq',this.value)">
     </div>
     <div class="check-item" id="ci-eq-confirm" style="margin-top:8px"><label class="check-wrap"><input type="checkbox" data-sec="materiel" id="eq-confirm-ok" onchange="updateAll();toggleDone('ci-eq-confirm',this)"><div class="cbox"></div></label><div class="check-info"><label for="eq-confirm-ok" class="check-label">Je confirme que tous les équipements cochés sont opérationnels dans le logement</label><div class="done-tag">✓</div></div></div>
   </div>
@@ -353,10 +371,10 @@ input[type=file]{display:none}
   <span class="sec-arr open" id="arr-internet">▾</span>
 </div>
 <div class="sec-body open" id="body-internet">
-  <div class="sec-intro"><div class="sec-intro-bar"></div><p>Le wifi est le premier critère de satisfaction des voyageurs. Les délais de passage du technicien peuvent aller jusqu'à 4 semaines — anticipez dès maintenant.</p></div>
+  <div class="sec-intro"><div class="sec-intro-bar"></div><p>Le wifi est le premier critère de satisfaction des voyageurs. Les délais de passage du technicien peuvent aller jusqu'à 4 semaines, anticipez dès maintenant.</p></div>
   <div class="items">
-    <div class="check-item" id="ci-inet"><label class="check-wrap"><input type="checkbox" data-sec="internet" id="inet-ok" onchange="updateAll();toggleDone('ci-inet',this)"><div class="cbox"></div></label><div class="check-info"><label for="inet-ok" class="check-label">L'abonnement internet est souscrit et opérationnel dans le ou les logements</label><div class="done-tag">✓</div></div></div>
-    <div class="field-item"><div class="field-label">Mot de passe Wifi <span style="font-weight:300;color:var(--ink3)">(obligatoire)</span></div><div class="field-hint">À compléter une fois la box installée. Si possible, privilégiez un réseau invité séparé de votre réseau personnel.</div><input type="text" class="field-input" id="f-wifi" placeholder="Ex : T1bis — MonWifi2024 / T2 — MonWifi2025" oninput="saveField('wifi',this.value);checkWifi()"><input type="checkbox" data-sec="internet" id="uc-wifi" style="display:none"></div>
+    <div class="check-item" id="ci-inet"><label class="check-wrap"><input type="checkbox" data-sec="internet" id="inet-ok" onchange="updateAll();toggleDone('ci-inet',this)"><div class="cbox"></div></label><div class="check-info"><label for="inet-ok" class="check-label">L'abonnement internet est souscrit et opérationnel dans le logement</label><div class="done-tag">✓</div></div></div>
+    <div class="field-item"><div class="field-label">Mot de passe Wifi <span style="font-weight:300;color:var(--ink3)">(obligatoire)</span></div><div class="field-hint">À compléter une fois la box installée. Si possible, privilégiez un réseau invité séparé de votre réseau personnel.</div><input type="text" class="field-input" id="f-wifi" placeholder="Ex : MonWifi2024" oninput="saveField('wifi',this.value);checkWifi()"><input type="checkbox" data-sec="internet" id="uc-wifi" style="display:none"></div>
   </div>
 </div></div>
 
@@ -372,7 +390,7 @@ input[type=file]{display:none}
   <div class="items">
     <div class="check-item" id="ci-cover" style="padding-left:38px">
       <div class="check-info" style="padding:4px 0">
-        <div class="check-label">Assurance Cover — êtes-vous intéressé(e) ?</div>
+        <div class="check-label">Assurance Cover, êtes-vous intéressé(e) ?</div>
         <div class="check-hint">Vous pouvez la souscrire sur <a href="https://fr.passpass.io/cover" target="_blank" style="color:var(--ink);text-decoration:underline">passpass.io/cover</a>, ou à l'année via Ômea à tarif préférentiel.</div>
         <div class="yn-wrap">
           <button class="yn-btn yn-yes" onclick="ynSelect('cover','oui',this)">Oui</button>
@@ -388,7 +406,7 @@ input[type=file]{display:none}
 <div class="sec">
 <div class="sec-head" onclick="toggleSec('securite')">
   <span class="sec-num">09</span><span class="sec-name">Sécurité & équipements</span>
-  <span class="sec-badge b-e" id="st-securite">0 / 7</span>
+  <span class="sec-badge b-e" id="st-securite">0 / 6</span>
   <span class="sec-arr open" id="arr-securite">▾</span>
 </div>
 <div class="sec-body open" id="body-securite">
@@ -396,8 +414,8 @@ input[type=file]{display:none}
   <div class="items">
     <div class="check-item" id="ci-valeur"><label class="check-wrap"><input type="checkbox" data-sec="securite" id="valeur-ok" onchange="updateAll();toggleDone('ci-valeur',this)"><div class="cbox"></div></label><div class="check-info"><label for="valeur-ok" class="check-label" style="display:inline">Je confirme qu'il n'y a pas d'objet de grande valeur dans le logement</label><button class="hint-q" onclick="toggleHintQ(this)" aria-label="Aide">?</button><div class="hint-hidden">Œuvres d'art, bijoux, collections… S'il y en a, ils doivent être retirés avant la mise en location.</div><div class="done-tag">✓</div></div></div>
     <div class="check-item" id="ci-camera"><label class="check-wrap"><input type="checkbox" data-sec="securite" id="camera-ok" onchange="updateAll();toggleDone('ci-camera',this)"><div class="cbox"></div></label><div class="check-info"><label for="camera-ok" class="check-label">Je confirme qu'il n'y a pas de caméra dans le logement</label><button class="hint-q" onclick="toggleHintQ(this)" aria-label="Aide">?</button><div class="hint-hidden">Les caméras à l'intérieur d'un logement en location sont strictement interdites par Airbnb et Booking.</div><div class="done-tag">✓</div></div></div>
-    <div class="check-item" id="ci-gaz"><label class="check-wrap"><input type="checkbox" data-sec="securite" id="gaz-ok" onchange="updateAll();toggleDone('ci-gaz',this)"><div class="cbox"></div></label><div class="check-info"><label for="gaz-ok" class="check-label">Le logement n'a pas de gaz — ou un détecteur de monoxyde de carbone est en place</label><button class="hint-q" onclick="toggleHintQ(this)" aria-label="Aide">?</button><div class="hint-hidden">Si votre logement dispose d'une installation gaz, un détecteur de monoxyde de carbone est obligatoire.</div><div class="done-tag">✓</div></div></div>
-    <div class="check-item" id="ci-detec"><label class="check-wrap"><input type="checkbox" data-sec="securite" id="detec-ok" onchange="updateAll();toggleDone('ci-detec',this)"><div class="cbox"></div></label><div class="check-info"><label for="detec-ok" class="check-label">Détecteur de fumée présent et fonctionnel dans le ou les logements</label><button class="hint-q" onclick="toggleHintQ(this)" aria-label="Aide">?</button><div class="hint-hidden">Obligation légale, un détecteur par logement, en état de fonctionnement.</div><div class="done-tag">✓</div></div></div>
+    <div class="check-item" id="ci-gaz"><label class="check-wrap"><input type="checkbox" data-sec="securite" id="gaz-ok" onchange="updateAll();toggleDone('ci-gaz',this)"><div class="cbox"></div></label><div class="check-info"><label for="gaz-ok" class="check-label">Le logement n'a pas de gaz, ou un détecteur de monoxyde de carbone est en place</label><button class="hint-q" onclick="toggleHintQ(this)" aria-label="Aide">?</button><div class="hint-hidden">Si votre logement dispose d'une installation gaz, un détecteur de monoxyde de carbone est obligatoire.</div><div class="done-tag">✓</div></div></div>
+    <div class="check-item" id="ci-detec"><label class="check-wrap"><input type="checkbox" data-sec="securite" id="detec-ok" onchange="updateAll();toggleDone('ci-detec',this)"><div class="cbox"></div></label><div class="check-info"><label for="detec-ok" class="check-label">Détecteur de fumée présent et fonctionnel dans le logement</label><button class="hint-q" onclick="toggleHintQ(this)" aria-label="Aide">?</button><div class="hint-hidden">Obligation légale, un détecteur par logement, en état de fonctionnement.</div><div class="done-tag">✓</div></div></div>
     <div class="check-item" id="ci-extincteur" style="padding-left:38px">
       <div class="check-info" style="padding:4px 0">
         <div class="check-label">Un extincteur est présent dans le logement <span style="font-weight:300;color:var(--ink3)">(facultatif)</span></div>
@@ -421,10 +439,10 @@ input[type=file]{display:none}
   <span class="sec-arr open" id="arr-annonces">▾</span>
 </div>
 <div class="sec-body open" id="body-annonces">
-  <div class="sec-intro"><div class="sec-intro-bar"></div><p>Vos annonces Airbnb et Booking sont créées sur votre propre compte. Nous paramétrons tout ensemble lors d'un premier échange dédié.</p></div>
+  <div class="sec-intro"><div class="sec-intro-bar"></div><p>Vos annonces Airbnb et Booking sont créées sur votre propre compte. Nous paramétrons tout ensemble lors d'un premier échange dédié. Ces informations sont valables pour l'ensemble de vos logements.</p></div>
   <div class="items">
     <div class="check-item" id="ci-mail-annonce"><label class="check-wrap"><input type="checkbox" data-sec="annonces" id="mail-annonce-ok" onchange="updateAll();toggleDone('ci-mail-annonce',this)"><div class="cbox"></div></label><div class="check-info"><label for="mail-annonce-ok" class="check-label">L'adresse mail dédiée aux annonces est définie</label><div style="margin-top:8px"><input type="text" class="field-input" id="f-mail_annonce" placeholder="Ex : lina.logements@gmail.com" oninput="saveField('mail_annonce',this.value)"></div><div class="done-tag">✓</div></div></div>
-    <div class="check-item" id="ci-tel-annonce"><label class="check-wrap"><input type="checkbox" data-sec="annonces" id="tel-annonce-ok" onchange="updateAll();toggleDone('ci-tel-annonce',this)"><div class="cbox"></div></label><div class="check-info"><label for="tel-annonce-ok" class="check-label">Le numéro de téléphone dédié est disponible</label><div class="check-hint">Un numéro par compte Airbnb — il ne peut pas être associé à un autre compte existant.</div><div style="margin-top:8px"><input type="text" class="field-input" id="f-tel_annonce" placeholder="Ex : 06 XX XX XX XX" oninput="saveField('tel_annonce',this.value)"></div><div class="done-tag">✓</div></div></div>
+    <div class="check-item" id="ci-tel-annonce"><label class="check-wrap"><input type="checkbox" data-sec="annonces" id="tel-annonce-ok" onchange="updateAll();toggleDone('ci-tel-annonce',this)"><div class="cbox"></div></label><div class="check-info"><label for="tel-annonce-ok" class="check-label">Le numéro de téléphone dédié est disponible</label><div class="check-hint">Un numéro par compte Airbnb, il ne peut pas être associé à un autre compte existant.</div><div style="margin-top:8px"><input type="text" class="field-input" id="f-tel_annonce" placeholder="Ex : 06 XX XX XX XX" oninput="saveField('tel_annonce',this.value)"></div><div class="done-tag">✓</div></div></div>
   </div>
 </div></div>
 
@@ -438,9 +456,9 @@ input[type=file]{display:none}
 <div class="sec-body open" id="body-photos">
   <div class="sec-intro"><div class="sec-intro-bar"></div><p>Quand vous avez accès au logement, trois photos simples suffisent. Ce sont des repères pratiques dont nous avons besoin pour intervenir sereinement.</p></div>
   <div class="items">
-    <div class="upload-item"><div class="upload-label">Arrivée d'eau — par logement</div><div class="upload-hint">En cas de fuite ou de coupure, nous devons savoir où couper l'eau.</div><div class="upload-zone"><button class="upload-btn" onclick="triggerUpload('eau')">Déposer la photo</button><span class="upload-status" id="us-eau">Aucune photo</span></div><input type="file" id="up-eau" accept="image/*" onchange="handleUpload('eau');autoCheckUpload('eau')"><input type="checkbox" data-sec="photos" id="uc-eau" style="display:none"><div style="margin-top:8px"><textarea class="field-input" id="f-note_eau" rows="2" placeholder="Ou décrivez l'emplacement en texte" oninput="saveField('note_eau',this.value);autoCheckPhotoOrNote('eau')"></textarea></div></div>
-    <div class="upload-item"><div class="upload-label">Compteur électrique — par logement</div><div class="upload-hint">En cas de problème électrique, nous devons pouvoir intervenir.</div><div class="upload-zone"><button class="upload-btn" onclick="triggerUpload('elec')">Déposer la photo</button><span class="upload-status" id="us-elec">Aucune photo</span></div><input type="file" id="up-elec" accept="image/*" onchange="handleUpload('elec');autoCheckUpload('elec')"><input type="checkbox" data-sec="photos" id="uc-elec" style="display:none"><div style="margin-top:8px"><textarea class="field-input" id="f-note_elec" rows="2" placeholder="Ou décrivez l'emplacement en texte" oninput="saveField('note_elec',this.value);autoCheckPhotoOrNote('elec')"></textarea></div></div>
-    <div class="upload-item"><div class="upload-label">Local poubelles</div><div class="upload-hint">Emplacement et fonctionnement — utile à intégrer dans le guide d'accueil.</div><div class="upload-zone"><button class="upload-btn" onclick="triggerUpload('poubelles')">Déposer la photo</button><span class="upload-status" id="us-poubelles">Aucune photo</span></div><input type="file" id="up-poubelles" accept="image/*" onchange="handleUpload('poubelles');autoCheckUpload('poubelles')"><input type="checkbox" data-sec="photos" id="uc-poubelles" style="display:none"><div style="margin-top:8px"><textarea class="field-input" id="f-note_poubelles" rows="2" placeholder="Ou décrivez l'emplacement en texte" oninput="saveField('note_poubelles',this.value);autoCheckPhotoOrNote('poubelles')"></textarea></div></div>
+    <div class="upload-item"><div class="upload-label">Arrivée d'eau, pour ce logement</div><div class="upload-hint">En cas de fuite ou de coupure, nous devons savoir où couper l'eau.</div><div class="upload-zone"><button class="upload-btn" onclick="triggerUpload('eau')">Déposer la photo</button><span class="upload-status" id="us-eau">Aucune photo</span></div><input type="file" id="up-eau" accept="image/*" onchange="handleUpload('eau');autoCheckUpload('eau')"><input type="checkbox" data-sec="photos" id="uc-eau" style="display:none"><div style="margin-top:8px"><textarea class="field-input" id="f-note_eau" rows="2" placeholder="Ou décrivez l'emplacement en texte" oninput="saveField('note_eau',this.value);autoCheckPhotoOrNote('eau')"></textarea></div></div>
+    <div class="upload-item"><div class="upload-label">Compteur électrique, pour ce logement</div><div class="upload-hint">En cas de problème électrique, nous devons pouvoir intervenir.</div><div class="upload-zone"><button class="upload-btn" onclick="triggerUpload('elec')">Déposer la photo</button><span class="upload-status" id="us-elec">Aucune photo</span></div><input type="file" id="up-elec" accept="image/*" onchange="handleUpload('elec');autoCheckUpload('elec')"><input type="checkbox" data-sec="photos" id="uc-elec" style="display:none"><div style="margin-top:8px"><textarea class="field-input" id="f-note_elec" rows="2" placeholder="Ou décrivez l'emplacement en texte" oninput="saveField('note_elec',this.value);autoCheckPhotoOrNote('elec')"></textarea></div></div>
+    <div class="upload-item"><div class="upload-label">Local poubelles</div><div class="upload-hint">Emplacement et fonctionnement, utile à intégrer dans le guide d'accueil.</div><div class="upload-zone"><button class="upload-btn" onclick="triggerUpload('poubelles')">Déposer la photo</button><span class="upload-status" id="us-poubelles">Aucune photo</span></div><input type="file" id="up-poubelles" accept="image/*" onchange="handleUpload('poubelles');autoCheckUpload('poubelles')"><input type="checkbox" data-sec="photos" id="uc-poubelles" style="display:none"><div style="margin-top:8px"><textarea class="field-input" id="f-note_poubelles" rows="2" placeholder="Ou décrivez l'emplacement en texte" oninput="saveField('note_poubelles',this.value);autoCheckPhotoOrNote('poubelles')"></textarea></div></div>
   </div>
 </div></div>
 
@@ -452,9 +470,9 @@ input[type=file]{display:none}
   <span class="sec-arr open" id="arr-commentaire">▾</span>
 </div>
 <div class="sec-body open" id="body-commentaire">
-  <div class="sec-intro"><div class="sec-intro-bar"></div><p>Consignes particulières sur le logement, questions en suspens, contraintes spécifiques.</p></div>
+  <div class="sec-intro"><div class="sec-intro-bar"></div><p>Consignes particulières sur ce logement, questions en suspens, contraintes spécifiques.</p></div>
   <div class="items">
-    <div class="field-item"><div class="field-label">Consignes ménage particulières</div><textarea class="field-input" id="f-consignes_menage" rows="3" placeholder="Ex : parquet ciré — ne pas mouiller / miroir de salle de bain à manipuler avec précaution" oninput="saveField('consignes_menage',this.value)"></textarea></div>
+    <div class="field-item"><div class="field-label">Consignes ménage particulières</div><textarea class="field-input" id="f-consignes_menage" rows="3" placeholder="Ex : parquet ciré (ne pas mouiller), miroir de salle de bain à manipuler avec précaution" oninput="saveField('consignes_menage',this.value)"></textarea></div>
     <div class="field-item" style="margin-top:8px"><div class="field-label">Commentaire libre</div><textarea class="field-input" id="f-commentaire" rows="4" placeholder="Écrivez ici tout ce qui vous semble utile à nous transmettre…" oninput="saveField('commentaire',this.value)"></textarea></div>
   </div>
 </div></div>
@@ -475,10 +493,10 @@ input[type=file]{display:none}
 
 <div class="cta">
   <h3>Tout est en place.</h3>
-  <p>Une fois tous les points validés, nous pouvons lancer la mise en ligne de votre logement.</p>
+  <p>Une fois tous les points validés, nous pouvons lancer la mise en ligne du ou des logements concernés.</p>
   <button class="cta-btn" id="cta-btn" disabled onclick="submitForm()">Confirmer la transmission</button>
   <div class="cta-lock" id="cta-lock">Complétez l'ensemble des sections pour déverrouiller</div>
-  <div class="cta-ok" id="cta-ok">Reçu — nous prenons le relais.</div>
+  <div class="cta-ok" id="cta-ok">Reçu, nous prenons le relais.</div>
 </div>
 
 </div>
@@ -487,6 +505,7 @@ input[type=file]{display:none}
 <script>
 var AT_BASE = 'appOjWwbA3vSCTnRI';
 var AT_TABLE = 'Dossiers';
+var AT_TABLE_LOGEMENTS = 'Logements';
 var PROXY = 'https://lancement.conciergerie-omea.fr/api/airtable';
 var atRecordId = null;
 var saveTimer = null;
@@ -498,6 +517,20 @@ var clientToken = '';
 var uploads = {};
 var fields = {};
 var SECS = {};
+var LOGEMENT_TOTAL = 0;
+var logements = [{ atId: null, nom: 'Logement 1', checks: {}, fields: {}, uploads: {} }];
+var activeLogIdx = 0;
+
+// Sections niveau propriétaire (valables pour tous les logements du dossier) : documents et création des annonces.
+var CLIENT_SECS = ['docs', 'annonces'];
+// Toutes les autres sections sont propres à chaque logement.
+var LOGEMENT_SECS = ['mairie', 'cles', 'acces', 'linge', 'materiel', 'internet', 'assurance', 'securite', 'photos'];
+// Clés de champ (non liées à data-sec) qui restent niveau propriétaire.
+var CLIENT_FIELD_KEYS = ['siret', 'nif', 'statut_proprio', 'mail_annonce', 'tel_annonce', 'note_conciergerie', 'check_doc_copro', '_transmis'];
+var EQUIP_CHECK_IDS = ['eq-plaques', 'eq-four', 'eq-micro', 'eq-frigo', 'eq-lv', 'eq-cafe', 'eq-bouilloire', 'eq-gp', 'eq-sc', 'eq-tv'];
+var LOGEMENT_TEXT_FIELD_KEYS = ['cles_commentaire', 'acces_immeuble', 'communs', 'btk_principale', 'btk_secours', 'parking_acces', 'autres_eq', 'wifi', 'surface', 'note_eau', 'note_elec', 'note_poubelles', 'consignes_menage', 'commentaire'];
+var UPLOAD_KEYS = ['eau', 'elec', 'poubelles'];
+
 function proxyUrl(atUrl) { return PROXY + '?url=' + encodeURIComponent(atUrl) + (clientId ? '&client=' + encodeURIComponent(clientId) + '&token=' + encodeURIComponent(clientToken) : ''); }
 
 function buildSecTotals() {
@@ -510,17 +543,33 @@ function buildSecTotals() {
 function secTotal(sec) {
   return document.querySelectorAll('[data-sec="' + sec + '"]:not([data-off])').length;
 }
-function getTotal() {
-  return Object.keys(SECS).reduce(function(a, s) { return a + secTotal(s); }, 0);
-}
-function isFileProtocol() { return window.location.protocol === 'file:'; }
-function lsKey() { return 'omea-lancement-' + clientId; }
 function getChecked(sec) {
   return document.querySelectorAll('[data-sec="' + sec + '"]:not([data-off]):checked').length;
 }
-function getDone() {
-  return Object.keys(SECS).reduce(function(a, s) { return a + getChecked(s); }, 0);
+function getClientCheckEls() {
+  return Array.prototype.filter.call(document.querySelectorAll('[data-sec]'), function(cb) {
+    return CLIENT_SECS.indexOf(cb.getAttribute('data-sec')) !== -1;
+  });
 }
+function getLogementCheckEls() {
+  return Array.prototype.filter.call(document.querySelectorAll('[data-sec]'), function(cb) {
+    return LOGEMENT_SECS.indexOf(cb.getAttribute('data-sec')) !== -1;
+  });
+}
+function logementDoneCount(idx) {
+  if (idx === activeLogIdx) {
+    return getLogementCheckEls().filter(function(cb) { return cb.checked; }).length;
+  }
+  var l = logements[idx];
+  var n = 0;
+  if (l && l.checks) { Object.keys(l.checks).forEach(function(k) { if (l.checks[k]) n++; }); }
+  return n;
+}
+function logementPct(idx) {
+  return LOGEMENT_TOTAL > 0 ? Math.round(logementDoneCount(idx) / LOGEMENT_TOTAL * 100) : 0;
+}
+function isFileProtocol() { return window.location.protocol === 'file:'; }
+function lsKey() { return 'omea-lancement-' + clientId; }
 function bc(d, t) {
   if (d === 0) return 'b-e';
   if (d === t) return 'b-d';
@@ -530,7 +579,7 @@ function showAtError(msg) {
   var el = document.getElementById('at-error');
   var ml = document.getElementById('at-error-msg');
   if (el) el.classList.add('show');
-  if (ml) ml.textContent = '⚠ ' + (msg || 'Erreur de sauvegarde — données conservées en local.');
+  if (ml) ml.textContent = '⚠ ' + (msg || 'Erreur de sauvegarde, données conservées en local.');
 }
 function hideAtError() {
   var el = document.getElementById('at-error');
@@ -540,6 +589,22 @@ function retrySave() { hideAtError(); if (!atRecordId) { loadFromAirtable(''); }
 function setSaveStatus(msg) {
   var el = document.getElementById('save-status');
   if (el) el.textContent = msg;
+}
+function setCheckboxState(id, checked) {
+  var cb = document.getElementById(id);
+  if (!cb) return;
+  cb.checked = !!checked;
+  var wrap = cb.closest('.check-item');
+  if (wrap) {
+    var lbl = wrap.querySelector('.check-label');
+    wrap.classList.toggle('is-done', !!checked);
+    if (lbl) lbl.classList.toggle('done', !!checked);
+  }
+}
+function setTextValue(fieldKey, val) {
+  fields[fieldKey] = val || '';
+  var el = document.getElementById('f-' + fieldKey);
+  if (el) el.value = val || '';
 }
 function ynSelect(id, val, btn) {
   var wrap = btn.closest('.check-item') || btn.closest('.check-info').parentElement;
@@ -551,6 +616,17 @@ function ynSelect(id, val, btn) {
   saveField('yn_' + id, val);
   if (id === 'cover' && wrap) { wrap.classList.add('is-done'); }
 }
+function applyYesNo(id, val) {
+  fields['yn_' + id] = val || '';
+  var container = document.getElementById('uc-' + id);
+  var wrap = container ? (container.closest('.check-item') || container.parentElement) : null;
+  if (!wrap) return;
+  wrap.querySelectorAll('.yn-btn').forEach(function(btn) {
+    btn.classList.remove('active');
+    if ((val === 'oui' && btn.classList.contains('yn-yes')) || (val === 'non' && btn.classList.contains('yn-no'))) btn.classList.add('active');
+  });
+  if (id === 'cover') wrap.classList.toggle('is-done', !!val);
+}
 function parkingOption(val, btn) {
   btn.classList.toggle('active');
   var anyActive = document.querySelectorAll('#parking-options .yn-btn.active').length > 0;
@@ -561,6 +637,21 @@ function parkingOption(val, btn) {
   saveField('parking_yn', vals.join(', '));
   var cb = document.getElementById('uc-parking');
   if (cb) { cb.checked = anyActive; updateAll(); }
+}
+function applyParking(raw) {
+  fields['parking_yn'] = raw || '';
+  var codes = raw ? raw.split(',').map(function(s){ return s.trim(); }) : [];
+  var any = false;
+  document.querySelectorAll('#parking-options .yn-btn').forEach(function(btn) {
+    var pval = btn.getAttribute('data-pval');
+    var on = (pval && codes.indexOf(pval) !== -1) || (raw && raw.indexOf(btn.textContent.trim()) !== -1);
+    btn.classList.toggle('active', on);
+    if (on) any = true;
+  });
+  var detail = document.getElementById('parking-detail');
+  if (detail) detail.style.display = any ? 'block' : 'none';
+  var cb = document.getElementById('uc-parking');
+  if (cb) cb.checked = any;
 }
 function checkParking() {
   var textarea = document.getElementById('f-parking_acces');
@@ -588,7 +679,6 @@ function autoCloseSec(sec) {
       var b = document.getElementById('body-' + sec);
       var a = document.getElementById('arr-' + sec);
       if (b && b.classList.contains('open')) {
-        // Ne pas fermer si un input/textarea est actif dans cette section
         var active = document.activeElement;
         if (active && b.contains(active) && (active.tagName === 'INPUT' || active.tagName === 'TEXTAREA')) return;
         b.classList.remove('open');
@@ -617,14 +707,153 @@ function toggleSec(id) {
   if (b.classList.contains('open')) { b.classList.remove('open'); a.classList.remove('open'); }
   else { b.classList.add('open'); a.classList.add('open'); }
 }
+
+/* ---------- Multi-logements ---------- */
+
+function applyEquipmentChecks(fobj) {
+  EQUIP_CHECK_IDS.forEach(function(id) {
+    var key = 'check_' + id.replace(/-/g, '_');
+    var on = fobj[key] === '1';
+    fields[key] = fobj[key] || '0';
+    setCheckboxState(id, on);
+  });
+  var minutOn = fobj['check_minut_ok'] === '1';
+  fields['check_minut_ok'] = fobj['check_minut_ok'] || '0';
+  setCheckboxState('minut-ok', minutOn);
+}
+function applyLogementFields(fobj) {
+  fobj = fobj || {};
+  Object.keys(fobj).forEach(function(k) {
+    if (k === 'parking_yn') { applyParking(fobj[k]); return; }
+    if (k.indexOf('yn_') === 0) { applyYesNo(k.slice(3), fobj[k]); return; }
+    if (k.indexOf('check_') === 0) return;
+    setTextValue(k, fobj[k]);
+  });
+  applyEquipmentChecks(fobj);
+}
+function clearLogementDOM() {
+  getLogementCheckEls().forEach(function(cb) { setCheckboxState(cb.id, false); });
+  LOGEMENT_TEXT_FIELD_KEYS.forEach(function(k) { setTextValue(k, ''); delete fields[k]; });
+  applyParking('');
+  applyYesNo('cover', '');
+  applyYesNo('extincteur', '');
+  EQUIP_CHECK_IDS.forEach(function(id) { setCheckboxState(id, false); });
+  setCheckboxState('minut-ok', false);
+  UPLOAD_KEYS.forEach(function(k) {
+    delete uploads[k];
+    var st = document.getElementById('us-' + k);
+    if (st) { st.textContent = 'Aucune photo'; st.className = 'upload-status'; }
+  });
+}
+function captureCurrentLogementFields() {
+  var out = {};
+  Object.keys(fields).forEach(function(k) {
+    if (CLIENT_FIELD_KEYS.indexOf(k) === -1) out[k] = fields[k];
+  });
+  return out;
+}
+function captureCurrentLogementChecks() {
+  var out = {};
+  getLogementCheckEls().forEach(function(cb) { out[cb.id] = cb.checked; });
+  return out;
+}
+function captureCurrentLogementUploads() {
+  var out = {};
+  UPLOAD_KEYS.forEach(function(k) { if (uploads[k]) out[k] = uploads[k]; });
+  return out;
+}
+function captureActiveLogement() {
+  if (!logements[activeLogIdx]) return;
+  var l = logements[activeLogIdx];
+  l.checks = captureCurrentLogementChecks();
+  l.fields = captureCurrentLogementFields();
+  l.uploads = captureCurrentLogementUploads();
+}
+function switchLogement(idx) {
+  if (!logements[idx] || idx === activeLogIdx) { renderLogementTabs(); return; }
+  captureActiveLogement();
+  clearLogementDOM();
+  activeLogIdx = idx;
+  var l = logements[idx];
+  getLogementCheckEls().forEach(function(cb) { if (l.checks && l.checks[cb.id]) setCheckboxState(cb.id, true); });
+  applyLogementFields(l.fields || {});
+  Object.keys(l.uploads || {}).forEach(function(k) {
+    uploads[k] = l.uploads[k];
+    var st = document.getElementById('us-' + k);
+    if (st) { st.textContent = l.uploads[k]; st.className = 'upload-status ok'; }
+  });
+  updateAll();
+}
+function addLogement() {
+  var n = logements.length + 1;
+  logements.push({ atId: null, nom: 'Logement ' + n, checks: {}, fields: {}, uploads: {} });
+  switchLogement(logements.length - 1);
+}
+function renameLogement(idx, newName) {
+  if (!logements[idx]) return;
+  logements[idx].nom = (newName || '').trim() || ('Logement ' + (idx + 1));
+  renderLogementTabs();
+  scheduleSave();
+}
+function renameLogementPrompt(idx) {
+  var current = logements[idx] ? logements[idx].nom : '';
+  var name = window.prompt('Nom du logement', current);
+  if (name !== null) renameLogement(idx, name);
+}
+function escapeHtml(s) {
+  var d = document.createElement('div');
+  d.textContent = s || '';
+  return d.innerHTML;
+}
+function renderLogementTabs() {
+  var wrap = document.getElementById('logement-tabs');
+  if (!wrap) return;
+  wrap.innerHTML = '';
+  logements.forEach(function(l, idx) {
+    var tab = document.createElement('div');
+    tab.className = 'log-tab' + (idx === activeLogIdx ? ' active' : '');
+    var pct = logementPct(idx);
+    var nameSpan = document.createElement('span');
+    nameSpan.textContent = l.nom;
+    var pctSpan = document.createElement('span');
+    pctSpan.className = 'log-tab-pct';
+    pctSpan.textContent = pct + '%';
+    var editBtn = document.createElement('button');
+    editBtn.className = 'log-tab-edit';
+    editBtn.type = 'button';
+    editBtn.setAttribute('aria-label', 'Renommer');
+    editBtn.textContent = '✎';
+    editBtn.onclick = (function(i) { return function(e) { e.stopPropagation(); renameLogementPrompt(i); }; })(idx);
+    tab.appendChild(nameSpan);
+    tab.appendChild(pctSpan);
+    tab.appendChild(editBtn);
+    tab.onclick = (function(i) { return function() { switchLogement(i); }; })(idx);
+    wrap.appendChild(tab);
+  });
+  var addBtn = document.createElement('button');
+  addBtn.className = 'log-tab-add';
+  addBtn.type = 'button';
+  addBtn.textContent = '+ Logement';
+  addBtn.onclick = function() { addLogement(); };
+  wrap.appendChild(addBtn);
+}
+
+/* ---------- Fin multi-logements ---------- */
+
 function updateAll() {
-  var TOTAL = getTotal();
-  var done = getDone();
+  var clientTotal = 0, clientDone = 0;
+  CLIENT_SECS.forEach(function(s) { clientTotal += secTotal(s); clientDone += getChecked(s); });
+  var nLog = Math.max(logements.length, 1);
+  var logTotal = LOGEMENT_TOTAL * nLog;
+  var logDone = 0;
+  for (var i = 0; i < logements.length; i++) logDone += logementDoneCount(i);
+  var TOTAL = clientTotal + logTotal;
+  var done = clientDone + logDone;
   var pct = TOTAL > 0 ? Math.round(done / TOTAL * 100) : 0;
   document.getElementById('prog-fill').style.width = pct + '%';
   document.getElementById('prog-pct').textContent = pct + ' %';
   document.getElementById('prog-lbl').textContent = done + ' / ' + TOTAL + ' complétés';
-  Object.keys(SECS).forEach(function(sec) {
+  CLIENT_SECS.concat(LOGEMENT_SECS).forEach(function(sec) {
     var d = getChecked(sec);
     var t = secTotal(sec);
     var cls = bc(d, t);
@@ -634,6 +863,7 @@ function updateAll() {
   document.getElementById('cta-btn').disabled = (pct < 100);
   document.getElementById('cta-lock').style.display = pct < 100 ? 'block' : 'none';
   Object.keys(SECS).forEach(function(sec){ autoCloseSec(sec); });
+  renderLogementTabs();
   scheduleSave();
 }
 function saveField(k, v) { fields[k] = v; scheduleSave(); }
@@ -741,7 +971,7 @@ async function generateAdminUrl() {
     result.classList.add('show');
     document.getElementById('admin-copied').style.display = 'none';
   } catch(e) {
-    urlEl.textContent = 'Erreur de génération — vérifiez votre connexion.';
+    urlEl.textContent = 'Erreur de génération, vérifiez votre connexion.';
     result.classList.add('show');
   }
 }
@@ -762,133 +992,150 @@ function fallbackCopy(text, indicator) {
   try { document.execCommand('copy'); if (indicator) { indicator.style.display = 'block'; setTimeout(function(){ indicator.style.display='none'; }, 4000); } } catch(e) {}
   document.body.removeChild(ta);
 }
+
+/* ---------- Persistance locale et migration ---------- */
+
 function saveToLocalStorage() {
+  captureActiveLogement();
   try {
-    localStorage.setItem(lsKey(), JSON.stringify({ checks: serializeChecks(), fields: fields, uploads: uploads, savedAt: new Date().toISOString() }));
+    var clientFieldsOut = {};
+    CLIENT_FIELD_KEYS.forEach(function(k) { if (fields.hasOwnProperty(k)) clientFieldsOut[k] = fields[k]; });
+    var clientChecksOut = {};
+    getClientCheckEls().forEach(function(cb) { clientChecksOut[cb.id] = cb.checked; });
+    localStorage.setItem(lsKey(), JSON.stringify({
+      clientChecks: clientChecksOut,
+      clientFields: clientFieldsOut,
+      logements: logements,
+      activeLogIdx: activeLogIdx,
+      savedAt: new Date().toISOString()
+    }));
   } catch(e) {}
 }
 function loadFromLocalStorage() {
   try { var raw = localStorage.getItem(lsKey()); return raw ? JSON.parse(raw) : null; }
   catch(e) { return null; }
 }
-function serializeChecks() {
-  var checks = {};
-  // Clés par identifiant d'élément (stable), et non par position : insérer ou
-  // retirer une case ne décale plus les autres, donc plus de corruption des dossiers.
-  document.querySelectorAll('[data-sec]').forEach(function(cb) {
-    if (cb.id) checks[cb.id] = cb.checked;
+// Reconstitue un dictionnaire {idCheckbox: bool} à partir de l'ancien format,
+// qu'il soit déjà indexé par id (format récent) ou par position (très ancien format).
+function normalizeLegacyChecks(rawChecks) {
+  var out = {};
+  if (!rawChecks) return out;
+  Object.keys(rawChecks).forEach(function(k) {
+    var box = document.getElementById(k);
+    if (!box) {
+      var parts = k.split('_');
+      var idx = parseInt(parts[parts.length - 1]) - 1;
+      var sec = parts.slice(0, -1).join('_');
+      if (sec === 'acces') { if (idx === 0) return; idx -= 1; }
+      box = document.querySelectorAll('[data-sec="' + sec + '"]')[idx];
+    }
+    if (box && box.id) out[box.id] = rawChecks[k];
   });
-  return checks;
+  return out;
 }
-function restoreState(data) {
-  if (!data) return;
-  if (data.checks) {
-    Object.keys(data.checks).forEach(function(k) {
-      // Nouveau format : la clé est l'id de la case.
-      var box = document.getElementById(k);
-      // Ancien format positionnel "section_index" : aucun élément ne porte cet id,
-      // on retombe sur la position. Tant que l'ordre du DOM existant n'a pas bougé,
-      // les dossiers déjà enregistrés se relisent correctement.
-      if (!box) {
-        var parts = k.split('_');
-        var idx = parseInt(parts[parts.length - 1]) - 1;
-        var sec = parts.slice(0, -1).join('_');
-        // Compat dossiers anciens (format positionnel) : la 1re case de "acces"
-        // (uc-btk-pose) a été retirée, on réaligne pour ne pas décaler le reste.
-        // À supprimer une fois tous les dossiers en cours migrés en clés par id.
-        if (sec === 'acces') {
-          if (idx === 0) return;
-          idx -= 1;
-        }
-        box = document.querySelectorAll('[data-sec="' + sec + '"]')[idx];
-      }
-      if (box && box.hasAttribute('data-sec')) {
-        box.checked = data.checks[k];
-        var wrap = box.closest('.check-item');
-        if (wrap) {
-          var lbl = wrap.querySelector('.check-label');
-          if (data.checks[k]) { wrap.classList.add('is-done'); if (lbl) lbl.classList.add('done'); }
-          else { wrap.classList.remove('is-done'); if (lbl) lbl.classList.remove('done'); }
-        }
-      }
-    });
-  }
-  if (data.fields) {
-    Object.keys(data.fields).forEach(function(k) {
-      fields[k] = data.fields[k];
-      var el = document.getElementById('f-' + k);
-      if (el) el.value = data.fields[k];
-      // Restaurer checkboxes équipements et autres sans data-sec
-      if (k.startsWith('check_')) {
-        var cbId = k.replace('check_', '').replace(/_/g, '-');
-        var cbEl = document.getElementById(cbId);
-        if (cbEl) {
-          var on = data.fields[k] === '1';
-          cbEl.checked = on;
-          var wrap = cbEl.closest('.check-item');
-          if (wrap) {
-            var lbl = wrap.querySelector('.check-label');
-            if (on) { wrap.classList.add('is-done'); if (lbl) lbl.classList.add('done'); }
-            else { wrap.classList.remove('is-done'); if (lbl) lbl.classList.remove('done'); }
-          }
-        }
-      }
-      // Restaurer le stationnement multi-options.
-      // Nouveau format : codes stables séparés par virgule (ex "prive, rue-gratuit").
-      // Ancien format : libellés (qui peuvent contenir des virgules), retrouvés en sous-chaîne.
-      if (k === 'parking_yn' && data.fields[k]) {
-        var raw = data.fields[k];
-        var codes = raw.split(',').map(function(s){ return s.trim(); });
-        var anyActive = false;
-        document.querySelectorAll('#parking-options .yn-btn').forEach(function(btn){
-          var pval = btn.getAttribute('data-pval');
-          var on = (pval && codes.indexOf(pval) !== -1) || raw.indexOf(btn.textContent.trim()) !== -1;
-          btn.classList.toggle('active', on);
-          if (on) anyActive = true;
-        });
-        var detail = document.getElementById('parking-detail');
-        if (detail && anyActive) detail.style.display = 'block';
-        var cb = document.getElementById('uc-parking');
-        if (cb) cb.checked = anyActive;
-      }
-      // Restaurer les boutons Oui/Non
-      if (k.startsWith('yn_')) {
-        var ynId = k.replace('yn_', '');
-        var ynVal = data.fields[k];
-        // Boutons Oui/Non standard (parking_yn géré séparément via parking_yn clé directe)
-        if (ynId !== 'parking_yn') {
-          var container = document.getElementById('uc-' + ynId);
-          if (container) {
-            var ynWrap = container.closest('.check-item') || container.parentElement;
-            if (ynWrap) {
-              ynWrap.querySelectorAll('.yn-btn').forEach(function(btn){
-                btn.classList.remove('active');
-                if ((ynVal === 'oui' && btn.classList.contains('yn-yes')) ||
-                    (ynVal === 'non' && btn.classList.contains('yn-no'))) {
-                  btn.classList.add('active');
-                }
-              });
-            }
-          }
-        }
-      }
-    });
-  }
-  if (data.uploads) {
-    Object.keys(data.uploads).forEach(function(k) {
-      uploads[k] = data.uploads[k];
-      var st = document.getElementById('us-' + k);
-      if (st) { st.textContent = data.uploads[k]; st.className = 'upload-status ok'; }
-    });
-  }
-  if (data.fields && data.fields.statut_proprio) applyStatut(data.fields.statut_proprio);
+// Convertit un ancien dossier à un seul logement (format plat, sans distinction
+// propriétaire/logement) vers le nouveau format avec un tableau de logements.
+function migrateLegacyPayload(data) {
+  if (!data) return null;
+  if (data.logements) return data;
+  if (!data.checks && !data.fields) return null;
+  var normalizedChecks = normalizeLegacyChecks(data.checks);
+  var clientChecksOut = {}, logChecksOut = {};
+  Object.keys(normalizedChecks).forEach(function(id) {
+    var el = document.getElementById(id);
+    var sec = el ? el.getAttribute('data-sec') : null;
+    if (sec && CLIENT_SECS.indexOf(sec) !== -1) clientChecksOut[id] = normalizedChecks[id];
+    else logChecksOut[id] = normalizedChecks[id];
+  });
+  var clientFieldsOut = {}, logFieldsOut = {};
+  Object.keys(data.fields || {}).forEach(function(k) {
+    if (CLIENT_FIELD_KEYS.indexOf(k) !== -1) clientFieldsOut[k] = data.fields[k];
+    else logFieldsOut[k] = data.fields[k];
+  });
+  return {
+    clientChecks: clientChecksOut,
+    clientFields: clientFieldsOut,
+    logements: [{ atId: null, nom: 'Logement 1', checks: logChecksOut, fields: logFieldsOut, uploads: data.uploads || {} }],
+    activeLogIdx: 0,
+    savedAt: data.savedAt
+  };
 }
-function buildRecord() {
-  var checks = serializeChecks();
-  var TOTAL = getTotal();
-  var done = getDone();
-  var pct = TOTAL > 0 ? Math.round(done / TOTAL * 100) : 0;
-  return { 'Client ID': clientId, 'Prénom': document.getElementById('client-name').textContent, 'Type': 'lancement', 'Drive': driveUrl, 'Progression %': pct, 'Points complétés': done, 'Statut': fields['_transmis'] === '1' ? 'Transmis' : (pct > 0 ? 'En cours' : 'Nouveau'), 'Checks': JSON.stringify(checks), 'Réponses': JSON.stringify(fields), 'Fichiers': JSON.stringify(Object.keys(uploads)), 'Dernière mise à jour': new Date().toISOString() };
+function applyClientExtraChecks(fobj) {
+  setCheckboxState('doc-copro', fobj['check_doc_copro'] === '1');
+}
+function restoreAll(payload) {
+  if (!payload) return;
+  var clientFieldsIn = payload.clientFields || {};
+  Object.keys(clientFieldsIn).forEach(function(k) {
+    fields[k] = clientFieldsIn[k];
+    if (k === 'statut_proprio') { applyStatut(clientFieldsIn[k]); return; }
+    var el = document.getElementById('f-' + k);
+    if (el) el.value = clientFieldsIn[k];
+  });
+  applyClientExtraChecks(clientFieldsIn);
+  var clientChecksIn = payload.clientChecks || {};
+  Object.keys(clientChecksIn).forEach(function(id) { setCheckboxState(id, clientChecksIn[id]); });
+  logements = (payload.logements || []).map(function(l) {
+    return { atId: l.atId || null, nom: l.nom || 'Logement 1', checks: l.checks || {}, fields: l.fields || {}, uploads: l.uploads || {} };
+  });
+  if (logements.length === 0) logements = [{ atId: null, nom: 'Logement 1', checks: {}, fields: {}, uploads: {} }];
+  activeLogIdx = 0;
+  clearLogementDOM();
+  var l0 = logements[0];
+  getLogementCheckEls().forEach(function(cb) { if (l0.checks[cb.id]) setCheckboxState(cb.id, true); });
+  applyLogementFields(l0.fields);
+  Object.keys(l0.uploads || {}).forEach(function(k) {
+    uploads[k] = l0.uploads[k];
+    var st = document.getElementById('us-' + k);
+    if (st) { st.textContent = l0.uploads[k]; st.className = 'upload-status ok'; }
+  });
+  renderLogementTabs();
+}
+
+/* ---------- Sauvegarde Airtable (deux tables : Dossiers et Logements) ---------- */
+
+function buildClientRecord() {
+  var checks = {};
+  getClientCheckEls().forEach(function(cb) { checks[cb.id] = cb.checked; });
+  var clientFieldsOut = {};
+  CLIENT_FIELD_KEYS.forEach(function(k) { if (fields.hasOwnProperty(k)) clientFieldsOut[k] = fields[k]; });
+  var clientTotal = 0, clientDone = 0;
+  CLIENT_SECS.forEach(function(s) { clientTotal += secTotal(s); clientDone += getChecked(s); });
+  var nLog = Math.max(logements.length, 1);
+  var logTotal = LOGEMENT_TOTAL * nLog;
+  var logDone = 0;
+  for (var i = 0; i < logements.length; i++) logDone += logementDoneCount(i);
+  var globalTotal = clientTotal + logTotal;
+  var globalDone = clientDone + logDone;
+  var globalPct = globalTotal > 0 ? Math.round(globalDone / globalTotal * 100) : 0;
+  return {
+    'Client ID': clientId,
+    'Prénom': document.getElementById('client-name').textContent,
+    'Type': 'lancement',
+    'Drive': driveUrl,
+    'Progression %': globalPct,
+    'Points complétés': globalDone,
+    'Nb logements': logements.length,
+    'Statut': fields['_transmis'] === '1' ? 'Transmis' : (globalPct > 0 ? 'En cours' : 'Nouveau'),
+    'Checks': JSON.stringify(checks),
+    'Réponses': JSON.stringify(clientFieldsOut),
+    'Fichiers': JSON.stringify([]),
+    'Dernière mise à jour': new Date().toISOString()
+  };
+}
+function buildLogementRecord(idx) {
+  var l = logements[idx];
+  var pct = logementPct(idx);
+  return {
+    'Client ID': clientId,
+    'Nom logement': l.nom,
+    'Ordre': idx,
+    'Progression %': pct,
+    'Checks': JSON.stringify(l.checks || {}),
+    'Réponses': JSON.stringify(l.fields || {}),
+    'Fichiers': JSON.stringify(Object.keys(l.uploads || {})),
+    'Dernière mise à jour': new Date().toISOString()
+  };
 }
 function scheduleSave() {
   if (isFileProtocol()) return;
@@ -906,23 +1153,43 @@ async function findRecord() {
     return (data.records && data.records.length > 0) ? data.records[0].id : null;
   } catch(e) { return null; }
 }
+async function findLogementRecords() {
+  try {
+    var filter = encodeURIComponent('{Client ID}="' + clientId + '"');
+    var atUrl = 'https://api.airtable.com/v0/' + AT_BASE + '/' + encodeURIComponent(AT_TABLE_LOGEMENTS) + '?filterByFormula=' + filter + '&sort[0][field]=Ordre&sort[0][direction]=asc';
+    var r = await fetch(proxyUrl(atUrl));
+    if (!r.ok) return [];
+    var data = await r.json();
+    return data.records || [];
+  } catch(e) { return []; }
+}
+async function saveLogementToAirtable(idx) {
+  var l = logements[idx];
+  var atUrl = 'https://api.airtable.com/v0/' + AT_BASE + '/' + encodeURIComponent(AT_TABLE_LOGEMENTS) + (l.atId ? '/' + l.atId : '');
+  var r = await fetch(proxyUrl(atUrl), { method: l.atId ? 'PATCH' : 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ fields: buildLogementRecord(idx) }) });
+  if (!r.ok) throw new Error('HTTP ' + r.status + ' (logement)');
+  var data = await r.json();
+  if (data.id && !l.atId) l.atId = data.id;
+}
 async function saveToAirtable() {
   if (isSaving) return;
   isSaving = true;
   setSaveStatus('Sauvegarde...');
+  captureActiveLogement();
   saveToLocalStorage();
   try {
     if (!atRecordId) { var found = await findRecord(); if (found) atRecordId = found; }
     var atUrl = 'https://api.airtable.com/v0/' + AT_BASE + '/' + encodeURIComponent(AT_TABLE) + (atRecordId ? '/' + atRecordId : '');
-    var r = await fetch(proxyUrl(atUrl), { method: atRecordId ? 'PATCH' : 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ fields: buildRecord() }) });
-    if (!r.ok) throw new Error('HTTP ' + r.status);
+    var r = await fetch(proxyUrl(atUrl), { method: atRecordId ? 'PATCH' : 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ fields: buildClientRecord() }) });
+    if (!r.ok) throw new Error('HTTP ' + r.status + ' (dossier)');
     var data = await r.json();
     if (data.id && !atRecordId) atRecordId = data.id;
+    for (var i = 0; i < logements.length; i++) { await saveLogementToAirtable(i); }
     hideAtError();
     setSaveStatus('✓ Sauvegardé');
   } catch(e) {
     setSaveStatus('✓ Local / ⚠ Airtable');
-    showAtError('Erreur de sauvegarde Airtable — données conservées en local.');
+    showAtError('Erreur de sauvegarde Airtable, données conservées en local.');
   } finally { isSaving = false; }
 }
 function closeCompletedSecs() {
@@ -942,8 +1209,8 @@ async function loadFromAirtable(noteFromUrl) {
   // Base locale : on restaure d'abord le localStorage. Si Airtable répond,
   // ses données écrasent ce qui existe ; sinon (file://, hors-ligne, sync échouée,
   // nouveau dossier) la saisie locale, dont la note, n'est pas perdue.
-  var localData = loadFromLocalStorage();
-  if (localData) restoreState(localData);
+  var localData = migrateLegacyPayload(loadFromLocalStorage());
+  if (localData) restoreAll(localData);
   if (isFileProtocol()) {
     buildNote(noteFromUrl);
     updateAll();
@@ -964,8 +1231,30 @@ async function loadFromAirtable(noteFromUrl) {
       atRecordId = rec.id;
       if (rec.fields['Drive'] && !driveUrl) { driveUrl = rec.fields['Drive']; initDriveLinks(); }
       var noteConciergerie = rec.fields['Note conciergerie'] || noteFromUrl;
-      var payload = { checks: rec.fields['Checks'] ? JSON.parse(rec.fields['Checks']) : null, fields: rec.fields['Réponses'] ? JSON.parse(rec.fields['Réponses']) : null, uploads: rec.fields['Fichiers'] ? JSON.parse(rec.fields['Fichiers']).reduce(function(a, f) { a[f] = f; return a; }, {}) : null };
-      restoreState(payload);
+      var clientChecksIn = rec.fields['Checks'] ? JSON.parse(rec.fields['Checks']) : {};
+      var clientFieldsIn = rec.fields['Réponses'] ? JSON.parse(rec.fields['Réponses']) : {};
+      var logRecords = await findLogementRecords();
+      var logementsIn;
+      if (logRecords.length > 0) {
+        logementsIn = logRecords.map(function(rr) {
+          return {
+            atId: rr.id,
+            nom: rr.fields['Nom logement'] || 'Logement',
+            checks: rr.fields['Checks'] ? JSON.parse(rr.fields['Checks']) : {},
+            fields: rr.fields['Réponses'] ? JSON.parse(rr.fields['Réponses']) : {},
+            uploads: rr.fields['Fichiers'] ? JSON.parse(rr.fields['Fichiers']).reduce(function(a, f) { a[f] = f; return a; }, {}) : {}
+          };
+        });
+      } else {
+        // Ancien dossier, encore au format plat sur une seule table : on migre vers un premier logement.
+        var legacyUploads = rec.fields['Fichiers'] ? JSON.parse(rec.fields['Fichiers']).reduce(function(a, f) { a[f] = f; return a; }, {}) : {};
+        var legacy = migrateLegacyPayload({ checks: clientChecksIn, fields: clientFieldsIn, uploads: legacyUploads });
+        logementsIn = legacy ? legacy.logements : [{ atId: null, nom: 'Logement 1', checks: {}, fields: {}, uploads: {} }];
+        clientChecksIn = legacy ? legacy.clientChecks : clientChecksIn;
+        clientFieldsIn = legacy ? legacy.clientFields : clientFieldsIn;
+      }
+      restoreAll({ clientChecks: clientChecksIn, clientFields: clientFieldsIn, logements: logementsIn });
+      if (!noteConciergerie && clientFieldsIn.note_conciergerie) noteConciergerie = clientFieldsIn.note_conciergerie;
       buildNote(noteConciergerie);
       saveToLocalStorage();
       setSaveStatus('✓ Chargé');
@@ -984,7 +1273,7 @@ async function loadFromAirtable(noteFromUrl) {
     // Airtable inaccessible : bloquer l'interface
     isLoading = false;
     setSaveStatus('⚠ Connexion requise');
-    showAtError('Connexion à Airtable impossible — veuillez vérifier votre connexion et réessayer.');
+    showAtError('Connexion à Airtable impossible, veuillez vérifier votre connexion et réessayer.');
     buildNote(noteFromUrl);
     updateAll();
     closeCompletedSecs();
@@ -995,9 +1284,7 @@ async function submitForm() {
   btn.disabled = true;
   btn.textContent = 'Envoi...';
   fields['_transmis'] = '1';
-  // Annuler tout save planifié
   clearTimeout(saveTimer);
-  // Attendre la fin d'un éventuel save en cours avant de lancer le save final
   var waitCount = 0;
   while (isSaving && waitCount < 20) { await new Promise(function(r){ setTimeout(r, 150); }); waitCount++; }
   isSaving = false;
@@ -1014,6 +1301,8 @@ async function submitForm() {
   }
   document.getElementById('main-content').style.display = 'block';
   buildSecTotals();
+  LOGEMENT_TOTAL = LOGEMENT_SECS.reduce(function(a, s) { return a + secTotal(s); }, 0);
+  renderLogementTabs();
   var cn = params.get('client') || '';
   var prenom = cn ? cn.charAt(0).toUpperCase() + cn.slice(1).toLowerCase() : 'Propriétaire';
   document.getElementById('client-name').textContent = prenom;
@@ -1022,7 +1311,6 @@ async function submitForm() {
   clientToken = params.get('token') || '';
   var noteFromUrl = params.get('note') || '';
   initDriveLinks();
-  // updateAll() et buildNote() appelés APRES loadFromAirtable pour ne pas écraser les données distantes
   loadFromAirtable(noteFromUrl).then(function(){ closeCompletedSecs(); });
 })();
 
