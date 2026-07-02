@@ -142,6 +142,9 @@ input[type=file]{display:none}
 .log-tab-add:hover{border-color:var(--y);color:var(--ink)}
 .log-tab.active{animation:logPulse .6s ease}
 @keyframes logPulse{0%{box-shadow:0 0 0 5px rgba(234,199,45,.55)}100%{box-shadow:0 0 0 0 rgba(234,199,45,0)}}
+.logement-scope-wrap{border:2px solid var(--y);border-radius:8px;padding:18px 16px 4px;margin-top:4px;background:#FFFDF3}
+.logement-scope-header{display:flex;align-items:center;gap:9px;font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--ink);margin:0 4px 16px;padding-bottom:12px;border-bottom:2px dashed var(--y)}
+.logement-scope-header .dot{width:9px;height:9px;border-radius:50%;background:var(--y);flex-shrink:0}
 </style>
 </head>
 <body>
@@ -258,7 +261,10 @@ input[type=file]{display:none}
   <div class="log-tabs" id="logement-tabs"></div>
 </div>
 
-<!-- 02 MAIRIE -->
+<div class="logement-scope-wrap">
+<div class="logement-scope-header"><span class="dot"></span><span id="logement-scope-header">Vous modifiez : Logement 1</span></div>
+
+<!-- 03 MAIRIE -->
 <div class="sec">
 <div class="sec-head" onclick="toggleSec('mairie')">
   <span class="sec-num">03</span><span class="sec-name">Déclaration en mairie</span>
@@ -479,6 +485,7 @@ input[type=file]{display:none}
   </div>
 </div></div>
 
+</div>
 
 </div>
 </div>
@@ -822,6 +829,12 @@ function escapeHtml(s) {
   d.textContent = s || '';
   return d.innerHTML;
 }
+function updateLogementScopeHeader() {
+  var el = document.getElementById('logement-scope-header');
+  if (!el) return;
+  var l = logements[activeLogIdx];
+  el.textContent = 'Vous modifiez : ' + (l ? l.nom : '');
+}
 function renderLogementTabs() {
   var wrap = document.getElementById('logement-tabs');
   if (!wrap) return;
@@ -853,6 +866,7 @@ function renderLogementTabs() {
   addBtn.textContent = '+ Logement';
   addBtn.onclick = function() { addLogement(); };
   wrap.appendChild(addBtn);
+  updateLogementScopeHeader();
 }
 
 /* ---------- Fin multi-logements ---------- */
